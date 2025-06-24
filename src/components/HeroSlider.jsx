@@ -144,7 +144,7 @@ export default function HeroSlider() {
             <div className="slide-background">
               <div
                 className="slide-gradient"
-                style={{ background: currentSlide.gradient }}
+                // style={{ background: currentSlide.gradient }}
               />
               <img
                 src={currentSlide.image}
@@ -191,7 +191,7 @@ export default function HeroSlider() {
                   <a
                     href={currentSlide.buttonLink}
                     className="cta-button"
-                    style={{ background: currentSlide.gradient }}
+                    // style={{ background: currentSlide.gradient }}
                   >
                     {currentSlide.buttonText}
                     <ArrowRight size={20} />
@@ -219,7 +219,7 @@ export default function HeroSlider() {
         <div className="progress-bar">
           <motion.div
             className="progress-fill"
-            style={{ background: currentSlide.gradient }}
+            // style={{ background: currentSlide.gradient }}
             initial={{ width: '0%' }}
             animate={{ width: '100%' }}
             transition={{ duration: 5, ease: 'linear' }}
