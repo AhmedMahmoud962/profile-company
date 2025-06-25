@@ -1,0 +1,251 @@
+/* Light Mode */
+.clients-section.light {
+  padding: 64px 0;
+  background:#F8F9FA;
+}
+
+.clients-section.light .client-card {
+  background: #FFFFFF;
+  color: #333;
+}
+
+.clients-section.light .client-name {
+  color: #333;
+}
+
+.clients-section.light .client-description {
+  color: #666;
+}
+
+.clients-section.light .clients-subtitle {
+  color: #8F6DFF;
+}
+
+/* Dark Mode */
+.clients-section.dark {
+  padding: 64px 0;
+  background: #121212;
+}
+
+.clients-section.dark .client-card {
+  background: #1E1E1E;
+  color: #fff;
+}
+
+.clients-section.dark .client-name {
+  color: #fff;
+}
+
+.clients-section.dark .client-description {
+  color: #ccc;
+}
+
+.clients-section.dark .clients-subtitle {
+  color: #B299FF;
+}
+
+/* Common Styles */
+.clients-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.clients-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.clients-subtitle {
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1rem;
+  margin: 0 0 16px 0;
+}
+
+.clients-title {
+  font-weight: bold;
+  margin-bottom: 48px;
+  background: linear-gradient(45deg, #8F6DFF, #FF6B9D);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3rem;
+  margin: 0;
+}
+
+/* Swiper Container */
+.clients-swiper-container {
+  position: relative;
+}
+
+.clients-swiper {
+  padding-bottom: 50px !important;
+}
+
+.client-card {
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  height: 100%;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.client-card:hover {
+  box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+}
+
+.client-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto 24px;
+  border: 4px solid #8F6DFF;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.client-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.client-card:hover .client-avatar img {
+  transform: scale(1.1);
+}
+
+.client-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+
+.client-description {
+  line-height: 1.6;
+  margin: 0;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* Swiper Pagination Customization */
+.clients-swiper .swiper-pagination {
+  bottom: 10px !important;
+}
+
+.clients-swiper .swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  background: #ccc !important;
+  opacity: 0.5 !important;
+  margin: 0 6px !important;
+  transition: all 0.3s ease !important;
+}
+
+.clients-swiper .swiper-pagination-bullet-active {
+  background: linear-gradient(45deg, #8F6DFF, #FF6B9D) !important;
+  opacity: 1 !important;
+  transform: scale(1.2) !important;
+}
+
+/* Dark Mode Specific Styles */
+.clients-section.dark .client-card {
+  box-shadow: 0 8px 32px rgba(255,255,255,0.05);
+}
+
+.clients-section.dark .client-card:hover {
+  box-shadow: 0 16px 48px rgba(255,255,255,0.1);
+}
+
+.clients-section.dark .swiper-pagination-bullet {
+  background: #555 !important;
+}
+
+.clients-section.dark .client-avatar {
+  border-color: #B299FF;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .clients-title {
+    font-size: 2rem;
+  }
+  
+  .clients-section.light,
+  .clients-section.dark {
+    padding: 48px 0;
+  }
+  
+  .clients-container {
+    padding: 0 16px;
+  }
+  
+  .client-card {
+    min-height: 280px;
+    padding: 20px;
+  }
+  
+  .client-avatar {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .clients-title {
+    font-size: 1.8rem;
+  }
+  
+  .clients-swiper {
+    padding-bottom: 60px !important;
+  }
+  
+  .client-name {
+    font-size: 1.2rem;
+  }
+  
+  .client-description {
+    font-size: 0.9rem;
+  }
+  
+  .client-card {
+    min-height: 260px;
+    padding: 16px;
+  }
+  
+  .client-avatar {
+    width: 70px;
+    height: 70px;
+    border-width: 3px;
+  }
+}
+
+/* Animation Effects */
+.client-card:hover .client-avatar {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.client-card:hover .client-name {
+  color: #8F6DFF;
+  transition: color 0.3s ease;
+}
+
+.clients-section.dark .client-card:hover .client-name {
+  color: #B299FF;
+}

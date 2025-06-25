@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Container, Typography, Button, useTheme } from '@mui/material'
+import { Box, Container, Typography, Button } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination, Navigation } from 'swiper/modules'
 import { motion } from 'framer-motion'
@@ -7,9 +7,38 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
-const HeroSlider = () => {
-  const theme = useTheme()
+// Custom styles for enhanced pagination bullets
+const customStyles = `
+  .custom-bullet {
+    background: rgba(255, 255, 255, 0.5) !important;
+    border: 2px solid transparent !important;
+    transition: all 0.3s ease !important;
+    opacity: 0.7 !important;
+  }
+  
+  .custom-bullet-active {
+    background: linear-gradient(45deg, #8F6DFF, #FF6B9D) !important;
+    border: 2px solid rgba(255, 255, 255, 0.8) !important;
+    transform: scale(1.2) !important;
+    opacity: 1 !important;
+    box-shadow: 0 4px 15px rgba(143, 109, 255, 0.4) !important;
+  }
+  
+  .custom-bullet:hover {
+    background: rgba(255, 255, 255, 0.8) !important;
+    transform: scale(1.1) !important;
+  }
+`
 
+// Inject styles
+if (typeof document !== 'undefined') {
+  const style = document.createElement('style')
+  style.textContent = customStyles
+  document.head.appendChild(style)
+}
+import { Link } from 'react-router-dom'
+
+const HeroSlider = () => {
   const slides = [
     {
       id: 1,
@@ -18,7 +47,8 @@ const HeroSlider = () => {
       title: 'Innovation at Its Best',
       description:
         'We create cutting-edge software solutions that transform businesses and drive success in the digital age.',
-      buttonText: 'Get Started',
+      buttonText: 'View Portfolio',
+      buttonLink: '/portfolio',
     },
     {
       id: 2,
@@ -28,6 +58,7 @@ const HeroSlider = () => {
       description:
         'Our skilled developers leverage the latest technologies to build robust, scalable applications.',
       buttonText: 'View Projects',
+      buttonLink: '/portfolio',
     },
     {
       id: 3,
@@ -36,12 +67,13 @@ const HeroSlider = () => {
       title: 'Your Success, Our Mission',
       description:
         'Partner with us to turn your ideas into powerful software solutions that exceed expectations.',
-      buttonText: 'Contact Us',
+      buttonText: 'Contact Now',
+      buttonLink: '/contact',
     },
   ]
 
   return (
-    <Box sx={{ position: 'relative', overflow: 'hidden', mt: 8 }}>
+    <Box sx={{ position: 'relative', height: { xs: '60vh', md: '100vh' } }}>
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         spaceBetween={0}
@@ -52,17 +84,28 @@ const HeroSlider = () => {
         }}
         pagination={{
           clickable: true,
+          bulletClass: 'swiper-pagination-bullet custom-bullet',
+          bulletActiveClass:
+            'swiper-pagination-bullet-active custom-bullet-active',
         }}
-        navigation={true}
+        navigation={false}
         loop={true}
-        style={{ height: '100vh' }}
+        style={{
+          height: '100%',
+          '--swiper-pagination-color': '#8F6DFF',
+          '--swiper-pagination-bullet-inactive-color':
+            'rgba(255, 255, 255, 0.5)',
+          '--swiper-pagination-bullet-inactive-opacity': '0.5',
+          '--swiper-pagination-bullet-size': '12px',
+          '--swiper-pagination-bullet-horizontal-gap': '6px',
+        }}
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={slide.id}>
             <Box
               sx={{
                 position: 'relative',
-                height: '100vh',
+                height: { xs: '60vh', md: '100vh' }, // responsive height
                 backgroundImage: `url(${slide.image})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
@@ -75,7 +118,7 @@ const HeroSlider = () => {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  background: `linear-gradient(45deg, ${theme.palette.primary.main}80, ${theme.palette.secondary.main}60)`,
+                  background: 'rgba(0, 0, 0, 0.5)',
                   zIndex: 1,
                 },
               }}
@@ -110,10 +153,7 @@ const HeroSlider = () => {
                   >
                     {slide.description}
                   </Typography>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
+                  <motion.div whileTap={{ scale: 0.95 }}>
                     <Button
                       variant="contained"
                       size="large"
@@ -128,6 +168,8 @@ const HeroSlider = () => {
                           boxShadow: '0 12px 40px rgba(143, 109, 255, 0.4)',
                         },
                       }}
+                      component={Link}
+                      to={slide.buttonLink}
                     >
                       {slide.buttonText}
                     </Button>

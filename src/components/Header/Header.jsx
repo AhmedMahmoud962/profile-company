@@ -1,51 +1,14 @@
-import React, { useState } from 'react'
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-  Box,
-  useTheme,
-  useScrollTrigger,
-  Slide,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  useMediaQuery,
-} from '@mui/material'
-import {
-  Menu as MenuIcon,
-  Close as CloseIcon,
-  LightMode,
-  DarkMode,
-  Facebook,
-  Twitter,
-  LinkedIn,
-  Instagram,
-} from '@mui/icons-material'
+import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { useThemeContext } from '../../context/ThemeContext'
 import { motion } from 'framer-motion'
-
-function HideOnScroll(props) {
-  const { children } = props
-  const trigger = useScrollTrigger()
-
-  return (
-    <Slide appear={false} direction="down" in={!trigger}>
-      {children}
-    </Slide>
-  )
-}
+import { useThemeContext } from '../../context/ThemeContext'
+import './Header.css'
 
 const Header = () => {
-  const theme = useTheme()
   const { darkMode, toggleDarkMode } = useThemeContext()
   const location = useLocation()
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   const navigationItems = [
     { name: 'Home', path: '/' },
@@ -54,178 +17,118 @@ const Header = () => {
     { name: 'Contact Us', path: '/contact' },
   ]
 
+  
+
+  // Handle scroll for hide/show header
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 50
+      setScrolled(isScrolled)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
 
-  const drawer = (
-    <Box onClick={handleDrawerToggle} className="header-software" sx={{ textAlign: 'center' }}>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          p: 2,
-        }}
-      >
-        <Typography
-          variant="h6"
-          sx={{ color: 'primary.main', fontWeight: 'bold' }}
-        >
-          Polygon Software
-        </Typography>
-        <IconButton>
-          <CloseIcon />
-        </IconButton>
-      </Box>
-      <List>
-        {navigationItems.map((item) => (
-          <ListItem key={item.name} disablePadding>
-            <ListItemText>
-              <Button
-                component={Link}
-                to={item.path}
-                fullWidth
-                sx={{
-                  color:
-                    location.pathname === item.path
-                      ? 'primary.main'
-                      : 'text.primary',
-                  fontWeight:
-                    location.pathname === item.path ? 'bold' : 'normal',
-                }}
-              >
-                {item.name}
-              </Button>
-            </ListItemText>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  )
+  const handleLinkClick = () => {
+    setMobileOpen(false)
+  }
 
   return (
     <>
-      <HideOnScroll>
-        <AppBar
-          position="relative"
-          sx={{
-            backgroundColor: darkMode
-              ? 'rgba(18, 18, 18, 0.95)'
-              : 'rgba(255, 255, 255, 0.95)',
-            backdropFilter: 'blur(10px)',
-            borderBottom: `1px solid ${theme.palette.divider}`,
+      <header className={`header ${darkMode ? 'dark' : 'light'} ${scrolled ? 'scrolled' : ''}`}>
+        <div className="header-container">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="header-logo"
+          >
+            <Link to="/" className="logo-link">
+              Polygon Software
+            </Link>
+          </motion.div>
 
-          }}
-        
-        >
-          <Toolbar sx={{ justifyContent: 'space-between' }}>
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Typography
-                variant="h5"
-                component={Link}
-                to="/"
-                sx={{
-                  color: 'primary.main',
-                  textDecoration: 'none',
-                  fontWeight: 'bold',
-                  background: 'linear-gradient(45deg, #8F6DFF, #FF6B9D)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
+          {/* Desktop Navigation */}
+          <nav className="header-nav desktop-nav">
+            {navigationItems.map((item, index) => (
+              <motion.div
+                key={item.name}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                Polygon Software
-              </Typography>
-            </motion.div>
-
-            {!isMobile && (
-              <Box sx={{ display: 'flex', gap: 1 }}>
-                {navigationItems.map((item, index) => (
-                  <motion.div
-                    key={item.name}
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <Button
-                      component={Link}
-                      to={item.path}
-                      sx={{
-                        color:
-                          location.pathname === item.path
-                            ? 'primary.main'
-                            : 'text.primary',
-                        fontWeight:
-                          location.pathname === item.path ? 'bold' : 'normal',
-                        position: 'relative',
-                        '&::after': {
-                          content: '""',
-                          position: 'absolute',
-                          width:
-                            location.pathname === item.path ? '100%' : '0%',
-                          height: '2px',
-                          bottom: 0,
-                          left: 0,
-                          backgroundColor: 'primary.main',
-                          transition: 'width 0.3s ease-in-out',
-                        },
-                        '&:hover::after': {
-                          width: '100%',
-                        },
-                      }}
-                    >
-                      {item.name}
-                    </Button>
-                  </motion.div>
-                ))}
-              </Box>
-            )}
-
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                <IconButton
-                  onClick={toggleDarkMode}
-                  sx={{ color: 'primary.main' }}
+                <Link
+                  to={item.path}
+                  className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
                 >
-                  {darkMode ? <LightMode /> : <DarkMode />}
-                </IconButton>
+                  {item.name}
+                </Link>
               </motion.div>
+            ))}
+          </nav>
 
-              {isMobile && (
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  edge="start"
-                  onClick={handleDrawerToggle}
-                >
-                  <MenuIcon />
-                </IconButton>
-              )}
-            </Box>
-          </Toolbar>
-        </AppBar>
-      </HideOnScroll>
+          {/* Right Section */}
+          <div className="header-actions">
+            {/* Desktop Social Icons */}
+          
 
-      <Drawer
-        variant="temporary"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true,
-        }}
-        sx={{
-          display: { xs: 'block', md: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
-        }}
-      >
-        {drawer}
-      </Drawer>
+            {/* Theme Toggle */}
+            <motion.button
+              className="theme-toggle"
+              onClick={toggleDarkMode}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {darkMode ? '☀️' : '🌙'}
+            </motion.button>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="mobile-menu-btn mobile-only"
+              onClick={handleDrawerToggle}
+              aria-label="Toggle mobile menu"
+            >
+              {mobileOpen ? '✖️' : '☰'}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Navigation Drawer */}
+      <div className={`mobile-drawer ${mobileOpen ? 'open' : ''} ${darkMode ? 'dark' : 'light'}`}>
+        <div className="mobile-drawer-content">
+          <div className="mobile-drawer-header">
+            <h3 className="mobile-logo">Polygon Software</h3>
+            <button className="close-btn" onClick={handleDrawerToggle}>
+              ✖️
+            </button>
+          </div>
+          
+          <nav className="mobile-nav">
+            {navigationItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={`mobile-nav-link ${location.pathname === item.path ? 'active' : ''}`}
+                onClick={handleLinkClick}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
+
+        
+        </div>
+      </div>
+
+      {/* Mobile Drawer Overlay */}
+      {mobileOpen && <div className="mobile-overlay" onClick={handleDrawerToggle}></div>}
     </>
   )
 }

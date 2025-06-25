@@ -1,39 +1,32 @@
-import { Container, Typography, Box, Button } from '@mui/material'
-import { Link } from 'react-router-dom'
-import HeroSlider from '../components/HeroSlider'
+import { Helmet } from 'react-helmet-async'
+
+// Components
+import HeroSlider from '../components/HeroSlider/HeroSlider'
+import SectionAbout from '../components/SectionAbout/SectionAbout'
+import ServicesSection from '../components/SectionServices/SectionServices'
+import CounterSection from '../components/SectionCounter/SectionCounter'
+import ProjectsSection from '../components/ProjectsSection/ProjectsSection'
+import ClientsSection from '../components/SectionClients/SectionClients'
 
 export default function Home() {
   return (
     <>
+      <Helmet>
+        <title>Home | Polygon Software</title>
+        <meta
+          name="description"
+          content="Welcome to the homepage of Polygon Software – providing professional software solutions to our clients."
+        />
+        <meta name="keywords" content="Polygon Software, software development, web applications, IT services" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+
       <HeroSlider />
-      <Container maxWidth="lg" sx={{ py: 8 }}>
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h2" component="h1" gutterBottom>
-            Welcome to Polygon Software
-          </Typography>
-          <Typography variant="h5" color="text.secondary" sx={{ mb: 4 }}>
-            Building innovative solutions for the digital world
-          </Typography>
-          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
-            <Button
-              component={Link}
-              to="/portfolio"
-              variant="contained"
-              size="large"
-            >
-              View Our Work
-            </Button>
-            <Button
-              component={Link}
-              to="/contact"
-              variant="outlined"
-              size="large"
-            >
-              Get In Touch
-            </Button>
-          </Box>
-        </Box>
-      </Container>
+      <SectionAbout />
+      <ServicesSection />
+      <CounterSection />
+      <ProjectsSection />
+      <ClientsSection />
     </>
   )
 }
