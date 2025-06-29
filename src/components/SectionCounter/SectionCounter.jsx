@@ -10,7 +10,7 @@ const CounterSection = () => {
   const counters = [
     {
       icon: '👥',
-      number: 150,
+      number: 650,
       title: 'Happy Clients',
       description: 'Satisfied customers worldwide',
     },

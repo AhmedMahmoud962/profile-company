@@ -5,10 +5,12 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Portfolio from './pages/Portfolio'
 import Contact from './pages/Contact'
+import ScrollToTop from './components/ScrollToTop/ScrollToTop'
 
 export default function App() {
   return (
     <>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
