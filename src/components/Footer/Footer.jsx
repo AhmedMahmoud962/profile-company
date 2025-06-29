@@ -40,8 +40,8 @@ const Footer = () => {
     },
     { 
       icon: <Phone />, 
-      text: '+10 339 32 02',
-      link: 'tel:+10339320',
+      text: '+20 103 399 32 02',
+      link: 'tel:+201033993202',
       type: 'phone'
     },
     { 
