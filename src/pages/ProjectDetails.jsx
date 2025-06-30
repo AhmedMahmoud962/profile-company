@@ -1,3 +1,16 @@
+import React from 'react' 
+import HeroPage from '../components/HeroSection/Heropage'
+import './css/ProjectDetails.css'
+
+const ProjectDetails = () => {
+  return (
+    <div>
+      <HeroPage title="مشروع" breadcrumbs={[{ label: 'الرئيسية', to: '/' }, { label: 'مشروعات', to: '/projects' }, { label: 'مشروع', to: '/project/1' }]}  />
+    </div>
+  )
+}
+
+export default ProjectDetails
 // import React, { useState } from 'react'
 // import { useParams, Link, Navigate } from 'react-router-dom'
 // import { motion } from 'framer-motion'

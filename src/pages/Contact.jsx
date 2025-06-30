@@ -1,16 +1,16 @@
-import { Container, Typography, Box } from '@mui/material'
+import { Helmet } from 'react-helmet-async'
+import HeroPage from '../components/HeroSection/Heropage'
 
 export default function Contact() {
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Box sx={{ textAlign: 'center' }}>
-        <Typography variant="h3" component="h1" gutterBottom>
-          Contact Us
-        </Typography>
-        <Typography variant="h6" color="text.secondary">
-          Get in touch with us!
-        </Typography>
-      </Box>
-    </Container>
+    <>
+    <Helmet>
+        <title>Contact | Polygon Software</title>
+        <meta name="description" content="Get in touch with Polygon Software, our team, and learn how we can help you with your projects." />
+        <meta name="keywords" content="contact, polygon software, team, projects" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+      <HeroPage title="Contact" breadcrumbs={['Contact']}  />
+    </>
   )
 }

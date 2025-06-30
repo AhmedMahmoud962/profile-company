@@ -1,18 +1,16 @@
 import React from 'react'
-import { Container, Typography, Box } from '@mui/material'
+import HeroPage from '../components/HeroSection/Heropage'
+import { Helmet } from 'react-helmet-async'
 function About() {
   return (
-    <div>
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h3" component="h1" gutterBottom>
-            About Us
-          </Typography>
-          <Typography variant="h6" color="text.secondary">
-            Learn more about us!
-          </Typography>
-        </Box>
-      </Container>
+    <div> 
+      <Helmet>  
+        <title>About | Polygon Software</title>
+        <meta name="description" content="Learn more about Polygon Software, our mission, and the team behind it." />
+        <meta name="keywords" content="about, polygon software, team, mission" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+      <HeroPage title="About" breadcrumbs={['About']}  />
     </div>
   )
 }

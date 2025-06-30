@@ -1,23 +1,31 @@
-import { Container, Typography, Box } from '@mui/material'
+import HeroPage from '../components/HeroSection/Heropage'
+import { Helmet } from 'react-helmet-async'
 
 export default function Portfolio() {
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Box sx={{ textAlign: 'center' }}>
-        <Typography variant="h3" component="h1" gutterBottom>
-          Our Portfolio
-        </Typography>
-        <Typography variant="h6" color="text.secondary">
-          Coming Soon...
-        </Typography>
-      </Box>
-    </Container>
+    <>
+      <Helmet>
+        <title>Portfolio | Polygon Software</title>
+        <meta
+          name="description"
+          content="Explore our comprehensive portfolio of web development, mobile apps, AI solutions, and software projects delivered to satisfied clients."
+        />
+        <meta
+          name="keywords"
+          content="portfolio, projects, web development, mobile apps, software solutions, Polygon Software"
+        />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+
+      {/* Hero Section */}
+      <HeroPage
+        title="OUR PORTFOLIO"
+        breadcrumbs={['Portfolio']}
+        backgroundImage="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80"
+      />
+    </>
   )
 }
-
-
-
-
 
 // import React, { useState } from 'react'
 // import { Link } from 'react-router-dom'
@@ -30,11 +38,11 @@ export default function Portfolio() {
 // const Portfolio = () => {
 //   const { darkMode } = useThemeContext()
 //   const [filter, setFilter] = useState('All')
-  
+
 //   const categories = ['All', ...new Set(projectsData.map(project => project.category))]
-  
-//   const filteredProjects = filter === 'All' 
-//     ? projectsData 
+
+//   const filteredProjects = filter === 'All'
+//     ? projectsData
 //     : projectsData.filter(project => project.category === filter)
 
 //   const getStatusColor = (status) => {
@@ -101,7 +109,7 @@ export default function Portfolio() {
 //             >
 //               <div className="project-image-container">
 //                 <img src={project.mainImage} alt={project.title} />
-//                 <div 
+//                 <div
 //                   className="project-status"
 //                   style={{ backgroundColor: getStatusColor(project.status) }}
 //                 >
@@ -109,15 +117,15 @@ export default function Portfolio() {
 //                 </div>
 //                 <div className="project-overlay">
 //                   <div className="project-links">
-//                     <Link 
-//                       to={`/project/${project.id}`} 
+//                     <Link
+//                       to={`/project/${project.id}`}
 //                       className="project-link view"
 //                     >
 //                       👁 عرض التفاصيل
 //                     </Link>
 //                     {project.demoLink !== '#' && (
-//                       <a 
-//                         href={project.demoLink} 
+//                       <a
+//                         href={project.demoLink}
 //                         className="project-link demo"
 //                         target="_blank"
 //                         rel="noopener noreferrer"
@@ -126,8 +134,8 @@ export default function Portfolio() {
 //                       </a>
 //                     )}
 //                     {project.githubLink !== '#' && (
-//                       <a 
-//                         href={project.githubLink} 
+//                       <a
+//                         href={project.githubLink}
 //                         className="project-link github"
 //                         target="_blank"
 //                         rel="noopener noreferrer"
@@ -143,7 +151,7 @@ export default function Portfolio() {
 //                 <div className="project-category">{project.category}</div>
 //                 <h3 className="project-title">{project.title}</h3>
 //                 <p className="project-description">{project.shortDescription}</p>
-                
+
 //                 <div className="project-technologies">
 //                   {project.technologies.slice(0, 3).map((tech, techIndex) => (
 //                     <span key={techIndex} className="project-tech">
@@ -157,8 +165,8 @@ export default function Portfolio() {
 //                   )}
 //                 </div>
 
-//                 <Link 
-//                   to={`/project/${project.id}`} 
+//                 <Link
+//                   to={`/project/${project.id}`}
 //                   className="view-details-btn"
 //                 >
 //                   عرض التفاصيل الكاملة
