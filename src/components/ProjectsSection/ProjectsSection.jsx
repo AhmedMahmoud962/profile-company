@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination, Autoplay } from 'swiper/modules'
 import { useThemeContext } from '../../context/ThemeContext'
 import './ProjectsSection.css'
+import { Link } from 'react-router-dom'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -26,11 +27,11 @@ const ProjectsSection = () => {
     },
     {
       id: 2,
-      title: 'Mobile Banking App',
+      title: 'Web Application',
       description: 'Secure mobile banking application with biometric authentication for your bank.',
       image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=500&q=80',
       technologies: ['React Native', 'Firebase', 'Redux'],
-      category: 'Mobile Development',
+      category: 'Web Development',
       status: 'In Progress',
       demoLink: '#',
       githubLink: '#',
@@ -160,12 +161,13 @@ const ProjectsSection = () => {
                     </div>
                     <div className="project-overlay">
                       <div className="project-links">
+                          <Link to={`/project/${project.id}`}  className="project-link view">
+                            👁 View Details
+                        </Link>
                         <a href={project.demoLink} className="project-link demo">
                           🔗 Demo
                         </a>
-                        <a href={project.githubLink} className="project-link github">
-                          📁 Code
-                        </a>
+                      
                       </div>
                     </div>
                   </div>

@@ -10,7 +10,7 @@ function About() {
         <meta name="keywords" content="about, polygon software, team, mission" />
         <meta name="robots" content="index, follow" />
       </Helmet>
-      <HeroPage title="About" breadcrumbs={['About']}  />
+      <HeroPage title="About" breadcrumbs={['About']} backgroundImage="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80" />
     </div>
   )
 }

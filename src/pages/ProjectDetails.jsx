@@ -1,12 +1,19 @@
 import React from 'react' 
 import HeroPage from '../components/HeroSection/Heropage'
 import './css/ProjectDetails.css'
+import { Helmet } from 'react-helmet-async'
 
 const ProjectDetails = () => {
   return (
-    <div>
-      <HeroPage title="مشروع" breadcrumbs={[{ label: 'الرئيسية', to: '/' }, { label: 'مشروعات', to: '/projects' }, { label: 'مشروع', to: '/project/1' }]}  />
-    </div>
+    <>
+    <Helmet>
+        <title>Project Details | Polygon Software</title>
+        <meta name="description" content="Explore detailed information about our projects, including features, technologies, and client testimonials." />
+        <meta name="keywords" content="project details, portfolio, projects, web development, mobile apps, software solutions" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+      <HeroPage title="Project Details" breadcrumbs={['Project Details']} backgroundImage="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80" />
+    </>
   )
 }
 
