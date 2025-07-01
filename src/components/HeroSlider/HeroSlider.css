@@ -1,0 +1,221 @@
+/* Modern Hero Slider Styles - مشابه للصورة */
+.modern-hero-container {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.modern-hero-slide {
+  position: relative;
+  height: 100vh;
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #2d3561 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Background Pattern Overlay */
+.modern-hero-slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 107, 157, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(143, 109, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.modern-hero-content {
+  max-width: 900px;
+  padding: 0 20px;
+  z-index: 2;
+  position: relative;
+}
+
+/* Main Title */
+.modern-hero-title {
+  font-size: clamp(2.5rem, 8vw, 4.5rem) !important;
+  font-weight: 800 !important;
+  background: linear-gradient(135deg, #ffffff 0%, #e3e3e3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1 !important;
+  margin-bottom: 2rem !important;
+  letter-spacing: -0.02em;
+}
+
+/* Subtitle */
+.modern-hero-subtitle {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  line-height: 1.6 !important;
+  margin-bottom: 2.5rem !important;
+  font-weight: 400 !important;
+}
+
+/* Feature Point */
+.modern-hero-feature {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 3rem;
+}
+
+.modern-hero-feature-icon {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+}
+
+.modern-hero-feature-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Buttons Container */
+.modern-hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Primary Button */
+.modern-hero-btn-primary {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+  color: white !important;
+  padding: 16px 32px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border-radius: 50px !important;
+  border: none !important;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3) !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modern-hero-btn-primary:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af) !important;
+  box-shadow: 0 15px 40px rgba(37, 99, 235, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Secondary Button */
+.modern-hero-btn-secondary {
+  background: transparent !important;
+  color: white !important;
+  padding: 16px 32px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border-radius: 50px !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modern-hero-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Custom Pagination */
+.modern-pagination {
+  position: absolute !important;
+  bottom: 30px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 10 !important;
+}
+
+.modern-pagination .swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  background: rgba(255, 255, 255, 0.3) !important;
+  border: 2px solid transparent !important;
+  transition: all 0.3s ease !important;
+  margin: 0 6px !important;
+}
+
+.modern-pagination .swiper-pagination-bullet-active {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  transform: scale(1.2) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modern-hero-slide {
+    height: 70vh;
+    padding: 0 15px;
+  }
+  
+  .modern-hero-content {
+    max-width: 100%;
+  }
+  
+  .modern-hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .modern-hero-btn-primary,
+  .modern-hero-btn-secondary {
+    width: 250px;
+    justify-content: center;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modern-hero-title {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.modern-hero-subtitle {
+  animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+.modern-hero-feature {
+  animation: fadeInUp 0.8s ease-out 0.4s backwards;
+}
+
+.modern-hero-buttons {
+  animation: fadeInUp 0.8s ease-out 0.6s backwards;
+}
