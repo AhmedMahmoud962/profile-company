@@ -36,7 +36,7 @@ const HeroSlider = () => {
 
   if (loading) return <Spinner message="Loading hero slider..." />
 
-  if (slides.length === 0) return <div>No slides found</div>
+  if (slides.length === 0) return <div className='text-center text-2xl font-bold'>No slides found</div>
 
   return (
     <div className="hero-slider-container">
