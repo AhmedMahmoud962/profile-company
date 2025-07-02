@@ -1,4 +1,4 @@
-/* AboutSection.css */
+/* AboutSection.css - Counter-style Animation */
 
 .about-container {
   max-width: 1400px;
@@ -19,16 +19,26 @@
   gap: 30px;
 }
 
-/* Image Animation */
+/* Counter-style Animation - Initial State */
 .image-container {
   opacity: 0;
-  transform: translateX(-50px);
-  transition: all 0.8s ease-out;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+  transition-delay: var(--delay, 0s);
 }
 
-.image-container.visible {
+.content-container {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+  transition-delay: var(--delay, 0s);
+}
+
+/* Counter-style Animation - Animate State */
+.about-grid.animate .image-container,
+.about-grid.animate .content-container {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateY(0);
 }
 
 .about-image {
@@ -37,21 +47,23 @@
   object-fit: cover;
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-}
-
-/* Content Animation */
-.content-container {
   opacity: 0;
-  transform: translateX(50px);
-  transition: all 0.8s ease-out;
+  transform: scale(0.95);
+  transition: all 0.5s ease;
+  transition-delay: calc(var(--delay, 0s) + 0.1s);
 }
 
-.content-container.visible {
+.about-grid.animate .about-image {
   opacity: 1;
-  transform: translateX(0);
+  transform: scale(1);
 }
 
-/* Typography */
+.about-image:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s ease;
+}
+
+/* Typography with Counter-style delays */
 .section-label {
   color: #8f6dff;
   font-weight: 600;
@@ -59,6 +71,15 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 16px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+  transition-delay: var(--delay, 0s);
+}
+
+.about-grid.animate .section-label {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .main-title {
@@ -70,6 +91,15 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1.2;
+  opacity: 0;
+  transform: translateY(25px);
+  transition: all 0.6s ease;
+  transition-delay: var(--delay, 0s);
+}
+
+.about-grid.animate .main-title {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .main-title.mobile {
@@ -81,9 +111,18 @@
   margin-bottom: 32px;
   line-height: 1.8;
   font-size: 1.1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+  transition-delay: var(--delay, 0s);
 }
 
-/* Button */
+.about-grid.animate .description {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Button Animation with Counter-style delay */
 .cta-button {
   background: linear-gradient(45deg, #8f6dff, #ff6b9d);
   color: white;
@@ -94,17 +133,25 @@
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 8px 32px rgba(143, 109, 255, 0.3);
-  transition: all 0.3s ease;
-  transform: scale(1);
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.6s ease;
+  transition-delay: var(--delay, 0s);
+}
+
+.about-grid.animate .cta-button {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .cta-button:hover {
   box-shadow: 0 12px 40px rgba(143, 109, 255, 0.4);
-  transform: scale(1.05);
+  transform: translateY(-2px) scale(1.02);
+  transition: all 0.2s ease;
 }
 
 .cta-button:active {
-  transform: scale(0.95);
+  transform: translateY(0) scale(0.98);
 }
 
 /* Responsive Design */
@@ -126,6 +173,10 @@
     height: 300px;
   }
   
+  .about-image:hover {
+    transform: scale(1);
+  }
+  
   .description {
     font-size: 1rem;
   }
@@ -133,6 +184,21 @@
   .cta-button {
     padding: 14px 28px;
     font-size: 15px;
+  }
+  
+  .cta-button:hover {
+    transform: translateY(0) scale(1);
+  }
+  
+  /* Faster animations on mobile */
+  .image-container,
+  .content-container,
+  .about-image,
+  .section-label,
+  .main-title,
+  .description,
+  .cta-button {
+    transition-duration: 0.4s;
   }
 }
 
@@ -147,5 +213,33 @@
   
   .about-image {
     height: 250px;
+  }
+}
+
+/* Performance Optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .image-container,
+  .content-container,
+  .about-image,
+  .section-label,
+  .main-title,
+  .description,
+  .cta-button {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Fallback for older browsers */
+@supports not (transform: translateY(0)) {
+  .image-container,
+  .content-container,
+  .about-image,
+  .section-label,
+  .main-title,
+  .description,
+  .cta-button {
+    opacity: 1;
   }
 }
