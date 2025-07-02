@@ -1,47 +1,17 @@
 import React from 'react'
-import { Box, Container, Typography, Button } from '@mui/material'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Pagination, Navigation } from 'swiper/modules'
+import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules'
 import { motion } from 'framer-motion'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
+import 'swiper/css/effect-fade'
 import { Link } from 'react-router-dom'
 import { getSlider } from '../API/sliderService'
 import { useState, useEffect } from 'react'
 import Spinner from '../Spinner/Spinner'
 import { getImageUrl } from '../utils/constants'
-// import './HeroSlider.css'
-
-// Custom styles for enhanced pagination bullets
-const customStyles = `
-  .custom-bullet {
-    background: rgba(255, 255, 255, 0.5) !important;
-    border: 2px solid transparent !important;
-    transition: all 0.3s ease !important;
-    opacity: 0.7 !important;
-  }
-  
-  .custom-bullet-active {
-    background: linear-gradient(45deg, #8F6DFF, #FF6B9D) !important;
-    border: 2px solid rgba(255, 255, 255, 0.8) !important;
-    transform: scale(1.2) !important;
-    opacity: 1 !important;
-    box-shadow: 0 4px 15px rgba(143, 109, 255, 0.4) !important;
-  }
-  
-  .custom-bullet:hover {
-    background: rgba(255, 255, 255, 0.8) !important;
-    transform: scale(1.1) !important;
-  }
-`
-
-// Inject styles
-if (typeof document !== 'undefined') {
-  const style = document.createElement('style')
-  style.textContent = customStyles
-  document.head.appendChild(style)
-}
+import './HeroSlider.css'
 
 const HeroSlider = () => {
   const [slides, setSlides] = useState([])
@@ -69,448 +39,143 @@ const HeroSlider = () => {
   if (slides.length === 0) return <div>No slides found</div>
 
   return (
-    <Box sx={{ position: 'relative', height: { xs: '60vh', md: '100vh' } }}>
+    <div className="hero-slider-container">
+      {/* Background Pattern */}
+      <div className="hero-bg-pattern"></div>
+
       <Swiper
-        modules={[Autoplay, Pagination, Navigation]}
+        modules={[Autoplay, Pagination, Navigation, EffectFade]}
         spaceBetween={0}
         slidesPerView={1}
+        effect="fade"
+        fadeEffect={{
+          crossFade: true,
+        }}
         autoplay={{
-          delay: 5000,
+          delay: 6000,
           disableOnInteraction: false,
         }}
         pagination={{
           clickable: true,
-          bulletClass: 'swiper-pagination-bullet custom-bullet',
-          bulletActiveClass:
-            'swiper-pagination-bullet-active custom-bullet-active',
+          el: '.hero-pagination',
+          bulletClass: 'hero-pagination-bullet',
+          bulletActiveClass: 'hero-pagination-bullet-active',
+          renderBullet: function (index, className) {
+            return `<span class="${className}">
+                      <span class="bullet-inner"></span>
+                      <span class="bullet-progress"></span>
+                    </span>`
+          },
         }}
         navigation={false}
         loop={true}
-        style={{
-          height: '100%',
-          '--swiper-pagination-color': '#8F6DFF',
-          '--swiper-pagination-bullet-inactive-color':
-            'rgba(255, 255, 255, 0.5)',
-          '--swiper-pagination-bullet-inactive-opacity': '0.5',
-          '--swiper-pagination-bullet-size': '12px',
-          '--swiper-pagination-bullet-horizontal-gap': '6px',
-        }}
+        className="hero-swiper"
       >
-        {slides.map((slide, index) => (
+        {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <Box
-              sx={{
-                position: 'relative',
-                height: { xs: '60vh', md: '100vh' }, // responsive height
-                backgroundImage: `url(${getImageUrl(slide.image)})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                display: 'flex',
-                alignItems: 'center',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: 'rgba(0, 0, 0, 0.5)',
-                  zIndex: 1,
-                },
-              }}
-            >
-              <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1, delay: index * 0.2 }}
-                >
-                  <Typography
-                    variant="h1"
-                    sx={{
-                      color: 'white',
-                      fontWeight: 'bold',
-                      mb: 3,
-                      fontSize: { xs: '2.5rem', md: '4rem' },
-                      textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-                    }}
+            <div className="hero-slide">
+              {/* Background Image */}
+              <div
+                className="hero-bg-image"
+                style={{
+                  backgroundImage: `url(${getImageUrl(slide.image)})`,
+                }}
+              ></div>
+
+              {/* Enhanced Overlay Layers */}
+              <div className="hero-overlay-primary"></div>
+              <div className="hero-overlay-gradient"></div>
+              <div className="hero-overlay-texture"></div>
+
+              {/* Floating Elements */}
+              <div className="hero-floating-elements">
+                <div className="floating-shape shape-1"></div>
+                <div className="floating-shape shape-2"></div>
+                <div className="floating-shape shape-3"></div>
+                <div className="floating-shape shape-4"></div>
+                <div className="floating-line line-1"></div>
+                <div className="floating-line line-2"></div>
+              </div>
+
+              {/* Content */}
+              <div className="hero-content">
+                <div className="hero-content-inner">
+                  {/* Title */}
+                  <motion.h1
+                    className="hero-title"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
                   >
-                    {slide.name}
-                  </Typography>
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      color: 'white',
-                      mb: 4,
-                      maxWidth: 600,
-                      fontSize: { xs: '1.2rem', md: '1.5rem' },
-                      textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
-                    }}
+                    <span className="title-main">{slide.name}</span>
+                  </motion.h1>
+
+                  {/* Description */}
+                  <motion.p
+                    className="hero-description"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
                   >
                     {slide.description}
-                  </Typography>
-                  <motion.div whileTap={{ scale: 0.95 }}>
-                    <Button
-                      variant="contained"
-                      size="large"
-                      sx={{
-                        background: 'linear-gradient(45deg, #8F6DFF, #FF6B9D)',
-                        color: 'white',
-                        px: 4,
-                        py: 2,
-                        fontSize: '1.1rem',
-                        boxShadow: '0 8px 32px rgba(143, 109, 255, 0.3)',
-                        '&:hover': {
-                          boxShadow: '0 12px 40px rgba(143, 109, 255, 0.4)',
-                        },
-                      }}
-                      component={Link}
-                      to={slide.link}
-                    >
-                      Contact Us
-                    </Button>
+                  </motion.p>
+
+                  {/* Features Grid */}
+                  <motion.div
+                    className="hero-features"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.8 }}
+                  >
+                    <div className="feature-item">
+                      <div className="feature-icon">⚡</div>
+                      <span>Lightning Fast</span>
+                    </div>
+                    <div className="feature-item">
+                      <div className="feature-icon">🔒</div>
+                      <span>100% Secure</span>
+                    </div>
+                    <div className="feature-item">
+                      <div className="feature-icon">💎</div>
+                      <span>Premium Quality</span>
+                    </div>
                   </motion.div>
-                </motion.div>
-              </Container>
-            </Box>
+
+                  {/* Action Links */}
+                  <motion.div
+                    className="hero-actions"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 1.0 }}
+                  >
+                    <Link to="/contact" className="hero-link primary">
+                      <span className="link-content">
+                        <span className="link-icon">🚀</span>
+                        <span className="link-text">Get Started</span>
+                        <span className="link-arrow">→</span>
+                      </span>
+                      <div className="link-ripple"></div>
+                    </Link>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
-    </Box>
+
+      {/* Enhanced Centered Pagination */}
+      <div className="hero-pagination-wrapper">
+        <div className="hero-pagination"></div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="scroll-indicator">
+        <div className="scroll-text">Scroll</div>
+        <div className="scroll-line"></div>
+      </div>
+    </div>
   )
 }
 
 export default HeroSlider
-
-// import React from 'react'
-// import { Box, Container, Typography, Button } from '@mui/material'
-// import { Swiper, SwiperSlide } from 'swiper/react'
-// import { Autoplay, Pagination, Navigation } from 'swiper/modules'
-// import { motion } from 'framer-motion'
-// import 'swiper/css'
-// import 'swiper/css/pagination'
-// import 'swiper/css/navigation'
-
-// // Custom styles for enhanced pagination bullets
-// const customStyles = `
-//   .custom-bullet {
-//     background: rgba(255, 255, 255, 0.5) !important;
-//     border: 2px solid transparent !important;
-//     transition: all 0.3s ease !important;
-//     opacity: 0.7 !important;
-//   }
-
-//   .custom-bullet-active {
-//     background: linear-gradient(45deg, #8F6DFF, #FF6B9D) !important;
-//     border: 2px solid rgba(255, 255, 255, 0.8) !important;
-//     transform: scale(1.2) !important;
-//     opacity: 1 !important;
-//     box-shadow: 0 4px 15px rgba(143, 109, 255, 0.4) !important;
-//   }
-
-//   .custom-bullet:hover {
-//     background: rgba(255, 255, 255, 0.8) !important;
-//     transform: scale(1.1) !important;
-//   }
-// `
-
-// // Inject styles
-// if (typeof document !== 'undefined') {
-//   const style = document.createElement('style')
-//   style.textContent = customStyles
-//   document.head.appendChild(style)
-// }
-// import { Link } from 'react-router-dom'
-
-// const HeroSlider = () => {
-//   const slides = [
-//     {
-//       id: 1,
-//       image:
-//         'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=1920&q=80',
-//       title: 'Innovation at Its Best',
-//       description:
-//         'We create cutting-edge software solutions that transform businesses and drive success in the digital age.',
-//       buttonText: 'View Portfolio',
-//       buttonLink: '/portfolio',
-//     },
-//     {
-//       id: 2,
-//       image:
-//         'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=1920&q=80',
-//       title: 'Expert Development Team',
-//       description:
-//         'Our skilled developers leverage the latest technologies to build robust, scalable applications.',
-//       buttonText: 'View Projects',
-//       buttonLink: '/portfolio',
-//     },
-//     {
-//       id: 3,
-//       image:
-//         'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80',
-//       title: 'Your Success, Our Mission',
-//       description:
-//         'Partner with us to turn your ideas into powerful software solutions that exceed expectations.',
-//       buttonText: 'Contact Now',
-//       buttonLink: '/contact',
-//     },
-//   ]
-
-//   return (
-//     <Box sx={{ position: 'relative', height: { xs: '60vh', md: '100vh' } }}>
-//       <Swiper
-//         modules={[Autoplay, Pagination, Navigation]}
-//         spaceBetween={0}
-//         slidesPerView={1}
-//         autoplay={{
-//           delay: 5000,
-//           disableOnInteraction: false,
-//         }}
-//         pagination={{
-//           clickable: true,
-//           bulletClass: 'swiper-pagination-bullet custom-bullet',
-//           bulletActiveClass:
-//             'swiper-pagination-bullet-active custom-bullet-active',
-//         }}
-//         navigation={false}
-//         loop={true}
-//         style={{
-//           height: '100%',
-//           '--swiper-pagination-color': '#8F6DFF',
-//           '--swiper-pagination-bullet-inactive-color':
-//             'rgba(255, 255, 255, 0.5)',
-//           '--swiper-pagination-bullet-inactive-opacity': '0.5',
-//           '--swiper-pagination-bullet-size': '12px',
-//           '--swiper-pagination-bullet-horizontal-gap': '6px',
-//         }}
-//       >
-//         {slides.map((slide, index) => (
-//           <SwiperSlide key={slide.id}>
-//             <Box
-//               sx={{
-//                 position: 'relative',
-//                 height: { xs: '60vh', md: '100vh' }, // responsive height
-//                 backgroundImage: `url(${slide.image})`,
-//                 backgroundSize: 'cover',
-//                 backgroundPosition: 'center',
-//                 display: 'flex',
-//                 alignItems: 'center',
-//                 '&::before': {
-//                   content: '""',
-//                   position: 'absolute',
-//                   top: 0,
-//                   left: 0,
-//                   right: 0,
-//                   bottom: 0,
-//                   background: 'rgba(0, 0, 0, 0.5)',
-//                   zIndex: 1,
-//                 },
-//               }}
-//             >
-//               <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
-//                 <motion.div
-//                   initial={{ opacity: 0, y: 50 }}
-//                   animate={{ opacity: 1, y: 0 }}
-//                   transition={{ duration: 1, delay: index * 0.2 }}
-//                 >
-//                   <Typography
-//                     variant="h1"
-//                     sx={{
-//                       color: 'white',
-//                       fontWeight: 'bold',
-//                       mb: 3,
-//                       fontSize: { xs: '2.5rem', md: '4rem' },
-//                       textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-//                     }}
-//                   >
-//                     {slide.title}
-//                   </Typography>
-//                   <Typography
-//                     variant="h5"
-//                     sx={{
-//                       color: 'white',
-//                       mb: 4,
-//                       maxWidth: 600,
-//                       fontSize: { xs: '1.2rem', md: '1.5rem' },
-//                       textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
-//                     }}
-//                   >
-//                     {slide.description}
-//                   </Typography>
-//                   <motion.div whileTap={{ scale: 0.95 }}>
-//                     <Button
-//                       variant="contained"
-//                       size="large"
-//                       sx={{
-//                         background: 'linear-gradient(45deg, #8F6DFF, #FF6B9D)',
-//                         color: 'white',
-//                         px: 4,
-//                         py: 2,
-//                         fontSize: '1.1rem',
-//                         boxShadow: '0 8px 32px rgba(143, 109, 255, 0.3)',
-//                         '&:hover': {
-//                           boxShadow: '0 12px 40px rgba(143, 109, 255, 0.4)',
-//                         },
-//                       }}
-//                       component={Link}
-//                       to={slide.buttonLink}
-//                     >
-//                       {slide.buttonText}
-//                     </Button>
-//                   </motion.div>
-//                 </motion.div>
-//               </Container>
-//             </Box>
-//           </SwiperSlide>
-//         ))}
-//       </Swiper>
-//     </Box>
-//   )
-// }
-
-// export default HeroSlider
-
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import { Box, Container, Typography, Button } from '@mui/material';
-// import { Swiper, SwiperSlide } from 'swiper/react';
-// import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-// import { motion } from 'framer-motion';
-// import 'swiper/css';
-// import 'swiper/css/pagination';
-// import 'swiper/css/navigation';
-// import { Link } from 'react-router-dom';
-
-// const baseURL = 'https://api.myaios.ai/';
-
-// const HeroSlider = () => {
-//   const [slides, setSlides] = useState([]);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     fetchSlides();
-//   }, []);
-
-//   const fetchSlides = async () => {
-//     try {
-//       const response = await axios.get(`${baseURL}api/sliders`);
-//       if (response.data.status === 200) {
-//         setSlides(response.data.data);
-//       } else {
-//         console.error('Unexpected response:', response);
-//       }
-//     } catch (err) {
-//       console.error('Failed to fetch slides:', err);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   if (loading) return <div>Loading hero slider...</div>;
-
-//   return (
-//     <Box sx={{ position: 'relative', height: { xs: '60vh', md: '100vh' } }}>
-//       <Swiper
-//         modules={[Autoplay, Pagination, Navigation]}
-//         spaceBetween={0}
-//         slidesPerView={1}
-//         autoplay={{ delay: 5000, disableOnInteraction: false }}
-//         pagination={{
-//           clickable: true,
-//           bulletClass: 'swiper-pagination-bullet custom-bullet',
-//           bulletActiveClass: 'swiper-pagination-bullet-active custom-bullet-active',
-//         }}
-//         navigation={false}
-//         loop
-//         style={{
-//           height: '100%',
-//           '--swiper-pagination-color': '#8F6DFF',
-//           '--swiper-pagination-bullet-inactive-color': 'rgba(255, 255, 255, 0.5)',
-//           '--swiper-pagination-bullet-size': '12px',
-//         }}
-//       >
-//         {slides.map((slide, index) => (
-//           <SwiperSlide key={slide.id}>
-//             <Box
-//               sx={{
-//                 position: 'relative',
-//                 height: { xs: '60vh', md: '100vh' },
-//                 backgroundImage: `url(${baseURL}${slide.image})`,
-//                 backgroundSize: 'cover',
-//                 backgroundPosition: 'center',
-//                 display: 'flex',
-//                 alignItems: 'center',
-//                 '&::before': {
-//                   content: '""',
-//                   position: 'absolute',
-//                   top: 0,
-//                   left: 0,
-//                   right: 0,
-//                   bottom: 0,
-//                   background: 'rgba(0, 0, 0, 0.5)',
-//                   zIndex: 1,
-//                 },
-//               }}
-//             >
-//               <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
-//                 <motion.div
-//                   initial={{ opacity: 0, y: 50 }}
-//                   animate={{ opacity: 1, y: 0 }}
-//                   transition={{ duration: 1, delay: index * 0.2 }}
-//                 >
-//                   <Typography
-//                     variant="h1"
-//                     sx={{
-//                       color: 'white',
-//                       fontWeight: 'bold',
-//                       mb: 3,
-//                       fontSize: { xs: '2.5rem', md: '4rem' },
-//                       textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-//                     }}
-//                   >
-//                     {slide.name}
-//                   </Typography>
-//                   <Typography
-//                     variant="h5"
-//                     sx={{
-//                       color: 'white',
-//                       mb: 4,
-//                       maxWidth: 600,
-//                       fontSize: { xs: '1.2rem', md: '1.5rem' },
-//                       textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
-//                     }}
-//                   >
-//                     {slide.description}
-//                   </Typography>
-//                   <motion.div whileTap={{ scale: 0.95 }}>
-//                     <Button
-//                       variant="contained"
-//                       size="large"
-//                       sx={{
-//                         background: 'linear-gradient(45deg, #8F6DFF, #FF6B9D)',
-//                         color: 'white',
-//                         px: 4,
-//                         py: 2,
-//                         fontSize: '1.1rem',
-//                         boxShadow: '0 8px 32px rgba(143, 109, 255, 0.3)',
-//                         '&:hover': {
-//                           boxShadow: '0 12px 40px rgba(143, 109, 255, 0.4)',
-//                         },
-//                       }}
-//                       href={slide.link} // رابط خارجي
-//                       target="_blank"
-//                     >
-//                       Visit Link
-//                     </Button>
-//                   </motion.div>
-//                 </motion.div>
-//               </Container>
-//             </Box>
-//           </SwiperSlide>
-//         ))}
-//       </Swiper>
-//     </Box>
-//   );
-// };
-
-// export default HeroSlider;

@@ -17,9 +17,6 @@ const Header = () => {
     { name: 'Contact Us', path: '/contact' },
   ]
 
-  
-
-  // Handle scroll for hide/show header
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 50
@@ -53,7 +50,6 @@ const Header = () => {
             </Link>
           </motion.div>
 
-          {/* Desktop Navigation */}
           <nav className="header-nav desktop-nav">
             {navigationItems.map((item, index) => (
               <motion.div
@@ -72,12 +68,7 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Right Section */}
           <div className="header-actions">
-            {/* Desktop Social Icons */}
-          
-
-            {/* Theme Toggle */}
             <motion.button
               className="theme-toggle"
               onClick={toggleDarkMode}
@@ -88,19 +79,21 @@ const Header = () => {
               {darkMode ? '☀️' : '🌙'}
             </motion.button>
 
-            {/* Mobile Menu Button */}
             <button
               className="mobile-menu-btn mobile-only"
               onClick={handleDrawerToggle}
               aria-label="Toggle mobile menu"
             >
-              {mobileOpen ? '✖️' : '☰'}
+              <span className={`hamburger ${mobileOpen ? 'active' : ''}`}>
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Navigation Drawer */}
       <div className={`mobile-drawer ${mobileOpen ? 'open' : ''} ${darkMode ? 'dark' : 'light'}`}>
         <div className="mobile-drawer-content">
           <div className="mobile-drawer-header">
@@ -122,12 +115,9 @@ const Header = () => {
               </Link>
             ))}
           </nav>
-
-        
         </div>
       </div>
 
-      {/* Mobile Drawer Overlay */}
       {mobileOpen && <div className="mobile-overlay" onClick={handleDrawerToggle}></div>}
     </>
   )
