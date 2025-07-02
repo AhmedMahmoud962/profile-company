@@ -633,7 +633,7 @@
 
 @media (max-width: 768px) {
   .hero-slide, .hero-slider-container {
-    height: 75vh;
+    height: 85vh;
   }
   
   .hero-content {
@@ -699,9 +699,9 @@
 }
 
 @media (max-width: 480px) {
-  /* .hero-slide, .hero-slider-container {
-    height: 80vh;
-  } */
+  .hero-slide, .hero-slider-container {
+    height: 85vh;
+  }
   
   .hero-content {
     padding: 0 10px;
