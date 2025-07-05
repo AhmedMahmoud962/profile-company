@@ -61,7 +61,7 @@ const ServicesSection = () => {
               whileHover={{ y: -10 }}
               className="service-card"
             >
-              <div className="service-icon">🔒</div>
+              <div className="service-icon">{service.icon}</div>
               <h3 className="service-title">{service.name}</h3>
               <p className="service-description">{service.description}</p>
             </motion.div>
@@ -113,6 +113,7 @@ export default ServicesSection
 //       title: '24/7 Support',
 //       description: 'Continuous support and maintenance to keep your applications running smoothly.',
 //     },
+      
 //   ]
 
 //   return (

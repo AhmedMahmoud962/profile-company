@@ -48,7 +48,7 @@ const CounterSection = () => {
               transition={{ duration: 0.8, delay: counter.id * 0.2 }}
               className="counter-item"
             >
-              <div className="counter-icon">💻</div>
+              <div className="counter-icon">{counter.icon}</div>
               <h3 className="counter-number">{counter.count}+</h3>
               <h4 className="counter-title">{counter.name}</h4>
               {/* <p className="counter-description">{counter.description}</p> */}
