@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async'
 import SectionAbout from '../components/SectionAbout/SectionAbout'
 import SectionClients from '../components/SectionClients/SectionClients'
 import SectionTeam from '../components/SectionTeam/SectionTeam'
+// import SectionPartners from '../components/SectionPartners/SectionPartners'
 
 function About() {
   return (
@@ -28,6 +29,7 @@ function About() {
       <SectionAbout />
       <SectionTeam />
       <SectionClients />
+      {/* <SectionPartners /> */}
 
     </>
   )
