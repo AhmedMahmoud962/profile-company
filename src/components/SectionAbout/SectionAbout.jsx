@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './AboutSection.css';
+import { Link } from 'react-router-dom';
 
 const AboutSection = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -60,13 +61,9 @@ const AboutSection = () => {
             undertake exceeds expectations and delivers exceptional value.
           </p>
           
-          <button
-            className="cta-button"
-            style={{ '--delay': '0.7s' }}
-            onClick={() => console.log('Learn More clicked')}
-          >
-            Learn More
-          </button>
+          <Link to="/about" className="learn-more" style={{ '--delay': '0.7s' }}>
+              Learn More
+          </Link>
         </div>
       </div>
     </div>

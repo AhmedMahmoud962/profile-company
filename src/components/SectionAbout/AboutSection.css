@@ -184,6 +184,10 @@
   .cta-button {
     padding: 14px 28px;
     font-size: 15px;
+    text-decoration: none;
+    color: white;
+    background-color: #8f6dff;
+    
   }
   
   .cta-button:hover {
@@ -243,3 +247,24 @@
     opacity: 1;
   }
 }
+
+.learn-more {
+  padding: 14px 28px;
+  font-size: 15px;
+  text-decoration: none;
+  color: white;
+  background-color: #ff6b9d;
+  box-shadow: 0 8px 32px rgba(143, 109, 255, 0.3);
+  border-radius: 25px;
+  transition: all 0.2s ease;
+  display: inline-block;
+  text-align: center;
+  font-weight: 600;
+}
+
+.learn-more:hover {
+  background-color: white;
+  color: #ff6b9d;
+  transform: translateY(-2px);
+}
+
