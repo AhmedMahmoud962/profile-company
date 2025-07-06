@@ -2,6 +2,7 @@ import React from 'react'
 import HeroPage from '../components/HeroSection/Heropage'
 import './css/ProjectDetails.css'
 import { Helmet } from 'react-helmet-async'
+import ProjectInfo from '../components/ProjectInfo/ProjectInfo'
 
 const ProjectDetails = () => {
   return (
@@ -13,6 +14,7 @@ const ProjectDetails = () => {
         <meta name="robots" content="index, follow" />
       </Helmet>
       <HeroPage title="Project Details" breadcrumbs={['Project Details']} backgroundImage="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80" />
+      <ProjectInfo />
     </>
   )
 }
