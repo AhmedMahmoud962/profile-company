@@ -48,18 +48,18 @@ const ProjectsSection = () => {
   }
 
   // Function to get status color - will be used when status is available in API
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'Completed':
-        return '#4CAF50'
-      case 'In Progress':
-        return '#FF9800'
-      case 'Planning':
-        return '#2196F3'
-      default:
-        return '#757575'
-    }
-  }
+  // const getStatusColor = (status) => {
+  //   switch (status) {
+  //     case 'Completed':
+  //       return '#4CAF50'
+  //     case 'In Progress':
+  //       return '#FF9800'
+  //     case 'Planning':
+  //       return '#2196F3'
+  //     default:
+  //       return '#757575'
+  //   }
+  // }
 
   return (
     <div className={`projects-section ${darkMode ? 'dark' : 'light'}`}>
