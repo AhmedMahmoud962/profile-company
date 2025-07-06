@@ -38,11 +38,13 @@ const ProjectsSection = () => {
     return <Spinner message="Loading projects..." />
   }
   if (projects.length === 0) {
-    return <div className="projects-section">
-      <div className="projects-container">
-        <h2>No projects found</h2>
+    return (
+      <div className="projects-section">
+        <div className="projects-container">
+          <h2>No projects found</h2>
+        </div>
       </div>
-    </div>
+    )
   }
 
   // Function to get status color - will be used when status is available in API
@@ -116,8 +118,11 @@ const ProjectsSection = () => {
                   className="project-card"
                 >
                   <div className="project-image-container">
-                    <img src={getImageUrl(project.image) || '/default-image.jpg' } alt={project.name} />
-                    
+                    <img
+                      src={getImageUrl(project.image) || '/default-image.jpg'}
+                      alt={project.name}
+                    />
+
                     {/* Status will be displayed when available in API */}
                     {/* <div 
                       className="project-status"
@@ -125,13 +130,21 @@ const ProjectsSection = () => {
                     >
                       {project.status}
                     </div> */}
-                    
+
                     <div className="project-overlay">
                       <div className="project-links">
-                        <Link to={`/project/${project.id}`} className="project-link view">
+                        <Link
+                          to={`/project/${project.id}`}
+                          className="project-link view"
+                        >
                           👁 View Details
                         </Link>
-                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link demo">
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="project-link demo"
+                        >
                           🔗 Demo
                         </a>
                       </div>
@@ -139,10 +152,12 @@ const ProjectsSection = () => {
                   </div>
 
                   <div className="project-body">
-                    <div className="project-category">{project.category.name}</div>
+                    <div className="project-category">
+                      {project.category.name}
+                    </div>
                     <h3 className="project-title">{project.name}</h3>
                     <p className="project-description">{project.description}</p>
-                    
+
                     {/* Technologies will be displayed when available in API */}
                     {/* <div className="project-technologies">
                       {project.technologies && project.technologies.map((tech, techIndex) => (
@@ -151,7 +166,7 @@ const ProjectsSection = () => {
                         </span>
                       ))}
                     </div> */}
-                    
+
                     {/* Project dates */}
                     {/* <div className="project-dates">
                       <small className="project-date">Created: {project.created_at}</small>
@@ -172,7 +187,10 @@ const ProjectsSection = () => {
             whileTap={{ scale: 0.95 }}
             className="projects-btn"
           >
-            <Link to="/portfolio" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link
+              to="/portfolio"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
               View All Projects
             </Link>
           </motion.button>
@@ -183,13 +201,6 @@ const ProjectsSection = () => {
 }
 
 export default ProjectsSection
-
-
-
-
-
-
-
 // import React from 'react'
 // import { motion } from 'framer-motion'
 // import { Swiper, SwiperSlide } from 'swiper/react'
@@ -345,7 +356,7 @@ export default ProjectsSection
 //                 >
 //                   <div className="project-image-container">
 //                     <img src={project.image} alt={project.title} />
-//                     <div 
+//                     <div
 //                       className="project-status"
 //                       style={{ backgroundColor: getStatusColor(project.status) }}
 //                     >
@@ -359,7 +370,7 @@ export default ProjectsSection
 //                         <a href={project.demoLink} className="project-link demo">
 //                           🔗 Demo
 //                         </a>
-                      
+
 //                       </div>
 //                     </div>
 //                   </div>
@@ -368,7 +379,7 @@ export default ProjectsSection
 //                     <div className="project-category">{project.category}</div>
 //                     <h3 className="project-title">{project.title}</h3>
 //                     <p className="project-description">{project.description}</p>
-                    
+
 //                     <div className="project-technologies">
 //                       {project.technologies.map((tech, techIndex) => (
 //                         <span key={techIndex} className="project-tech">
@@ -398,5 +409,3 @@ export default ProjectsSection
 // }
 
 // export default ProjectsSection
-
-

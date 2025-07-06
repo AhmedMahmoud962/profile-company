@@ -16,6 +16,7 @@ import './HeroSlider.css'
 const HeroSlider = () => {
   const [slides, setSlides] = useState([])
   const [loading, setLoading] = useState(true)
+  const [imagesLoaded, setImagesLoaded] = useState({})
 
   useEffect(() => {
     const fetchSlides = async () => {
@@ -23,6 +24,14 @@ const HeroSlider = () => {
         const response = await getSlider()
         if (response.status === 200) {
           setSlides(response.data)
+          // Preload images
+          response.data.forEach((slide) => {
+            const img = new Image()
+            img.src = getImageUrl(slide.image)
+            img.onload = () => {
+              setImagesLoaded((prev) => ({ ...prev, [slide.id]: true }))
+            }
+          })
         }
       } catch (err) {
         console.error('Failed to fetch slides:', err)
@@ -36,7 +45,8 @@ const HeroSlider = () => {
 
   if (loading) return <Spinner message="Loading hero slider..." />
 
-  if (slides.length === 0) return <div className='text-center text-2xl font-bold'>No slides found</div>
+  if (slides.length === 0)
+    return <div className="text-center text-2xl font-bold">No slides found</div>
 
   return (
     <div className="hero-slider-container">
@@ -74,13 +84,20 @@ const HeroSlider = () => {
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div className="hero-slide">
-              {/* Background Image */}
-              <div
-                className="hero-bg-image"
-                style={{
-                  backgroundImage: `url(${getImageUrl(slide.image)})`,
-                }}
-              ></div>
+              {/* Fixed Background Image Container */}
+              <div className="hero-bg-container">
+                <img
+                  src={getImageUrl(slide.image)}
+                  alt={slide.name}
+                  className="hero-bg-image"
+                  width="1920"
+                  height="1080"
+                  style={{ opacity: imagesLoaded[slide.id] ? 1 : 0 }}
+                />
+                {!imagesLoaded[slide.id] && (
+                  <div className="hero-bg-skeleton"></div>
+                )}
+              </div>
 
               {/* Enhanced Overlay Layers */}
               <div className="hero-overlay-primary"></div>

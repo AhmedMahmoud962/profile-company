@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 const AboutSection = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -17,7 +18,6 @@ const AboutSection = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Simple animation trigger after component mounts
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
@@ -30,44 +30,39 @@ const AboutSection = () => {
     <div className="about-container">
       <div className={`about-grid ${isMobile ? 'mobile' : ''} ${isVisible ? 'animate' : ''}`}>
         <div className="image-container" style={{ '--delay': '0s' }}>
-          <img
-            src="https://images.unsplash.com/photo-1500673922987-e212871fec22?auto=format&fit=crop&w=800&q=80"
-            alt="About Polygon Software"
-            className="about-image"
-            loading="lazy"
-          />
+          {/* Image placeholder */}
+          <div className="image-placeholder">
+            <img
+              src="https://images.unsplash.com/photo-1500673922987-e212871fec22?auto=format&fit=crop&w=800&q=80"
+              alt="About Polygon Software"
+              className="about-image"
+              width="800"
+              height="400"
+              onLoad={() => setImageLoaded(true)}
+              style={{ opacity: imageLoaded ? 1 : 0 }}
+            />
+            {!imageLoaded && <div className="image-skeleton"></div>}
+          </div>
         </div>
         
         <div className="content-container" style={{ '--delay': '0.2s' }}>
-          <div className="section-label" style={{ '--delay': '0.3s' }}>
-            About Us
-          </div>
-          
-          <h1 className={`main-title ${isMobile ? 'mobile' : ''}`} style={{ '--delay': '0.4s' }}>
-            Building the Future of Software
-          </h1>
-          
-          <p className="description" style={{ '--delay': '0.5s' }}>
-            At Polygon Software, we are passionate about creating innovative
-            software solutions that empower businesses to thrive in the
-            digital landscape. With years of experience and a team of
-            dedicated professionals, we deliver cutting-edge applications that
-            drive growth and success.
+          <h6 className="section-label">About Us</h6>
+          <h2 className={`main-title ${isMobile ? 'mobile' : ''}`}>
+            We Are Polygon Software
+          </h2>
+          <p className="description">
+            At Polygon Software, we specialize in creating innovative digital solutions 
+            that help businesses grow and succeed in today's competitive landscape. 
+            Our team of skilled developers and designers work together to deliver 
+            high-quality software that meets your unique needs.
           </p>
-          
-          <p className="description" style={{ '--delay': '0.6s' }}>
-            Our commitment to excellence, combined with the latest
-            technologies and best practices, ensures that every project we
-            undertake exceeds expectations and delivers exceptional value.
-          </p>
-          
-          <Link to="/about" className="learn-more" style={{ '--delay': '0.7s' }}>
-              Learn More
+          <Link to="/about" className="cta-button learn-more">
+            Learn More About Us
           </Link>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AboutSection;
+export default AboutSection
