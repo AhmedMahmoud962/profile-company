@@ -5,6 +5,10 @@ import { Pagination, Autoplay } from 'swiper/modules'
 import { useThemeContext } from '../../context/ThemeContext'
 import './ProjectsSection.css'
 import { Link } from 'react-router-dom'
+import { getProjects } from '../API/ProjectService'
+import { useState, useEffect } from 'react'
+import Spinner from '../Spinner/Spinner'
+import { getImageUrl } from '../utils/constants'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -12,76 +16,36 @@ import 'swiper/css/pagination'
 
 const ProjectsSection = () => {
   const { darkMode } = useThemeContext()
+  const [projects, setProjects] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  const projects = [
-    {
-      id: 1,
-      title: 'E-Commerce Platform',
-      description: 'Full-stack e-commerce solution with modern UI/UX for your online store.',
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=500&q=80',
-      technologies: ['React', 'Node.js', 'MongoDB'],
-      category: 'Web Development',
-      status: 'Completed',
-      demoLink: '#',
-      githubLink: '#',
-    },
-    {
-      id: 2,
-      title: 'Web Application',
-      description: 'Secure mobile banking application with biometric authentication for your bank.',
-      image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=500&q=80',
-      technologies: ['React Native', 'Firebase', 'Redux'],
-      category: 'Web Development',
-      status: 'In Progress',
-      demoLink: '#',
-      githubLink: '#',
-    },
-    {
-      id: 3,
-      title: 'AI Dashboard',
-      description: 'Analytics dashboard with machine learning insights for your business.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80',
-      technologies: ['Vue.js', 'Python', 'TensorFlow'],
-      category: 'AI/ML',
-      status: 'Completed',
-      demoLink: '#',
-      githubLink: '#',
-    },
-    {
-      id: 4,
-      title: 'Cloud Storage Solution',
-      description: 'Scalable cloud storage with file sharing capabilities for your business.',
-      image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=500&q=80',
-      technologies: ['Angular', 'AWS', 'Docker'],
-      category: 'Cloud Solutions',
-      status: 'Planning',
-      demoLink: '#',
-      githubLink: '#',
-    },
-    {
-      id: 5,
-      title: 'IoT Monitoring System',
-      description: 'Real-time monitoring system for IoT devices for your business.',
-      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=500&q=80',
-      technologies: ['React', 'Express', 'Socket.io'],
-      category: 'IoT',
-      status: 'Completed',
-      demoLink: '#',
-      githubLink: '#',
-    },
-    {
-      id: 6,
-      title: 'Blockchain Wallet',
-      description: 'Secure cryptocurrency wallet with multi-chain support for your business.',
-      image: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&w=500&q=80',
-      technologies: ['React', 'Web3.js', 'Solidity'],
-      category: 'Blockchain',
-      status: 'In Progress',
-      demoLink: '#',
-      githubLink: '#',
-    },
-  ]
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await getProjects()
+        setProjects(response.data)
+        setLoading(false)
+      } catch (error) {
+        console.error('Error fetching projects:', error)
+        setProjects([])
+        setLoading(false)
+      }
+    }
+    fetchProjects()
+  }, [])
 
+  if (loading) {
+    return <Spinner message="Loading projects..." />
+  }
+  if (projects.length === 0) {
+    return <div className="projects-section">
+      <div className="projects-container">
+        <h2>No projects found</h2>
+      </div>
+    </div>
+  }
+
+  // Function to get status color - will be used when status is available in API
   const getStatusColor = (status) => {
     switch (status) {
       case 'Completed':
@@ -152,38 +116,49 @@ const ProjectsSection = () => {
                   className="project-card"
                 >
                   <div className="project-image-container">
-                    <img src={project.image} alt={project.title} />
-                    <div 
+                    <img src={getImageUrl(project.image) || '/default-image.jpg' } alt={project.name} />
+                    
+                    {/* Status will be displayed when available in API */}
+                    {/* <div 
                       className="project-status"
                       style={{ backgroundColor: getStatusColor(project.status) }}
                     >
                       {project.status}
-                    </div>
+                    </div> */}
+                    
                     <div className="project-overlay">
                       <div className="project-links">
-                          <Link to={`/project/${project.id}`}  className="project-link view">
-                            👁 View Details
+                        <Link to={`/project/${project.id}`} className="project-link view">
+                          👁 View Details
                         </Link>
-                        <a href={project.demoLink} className="project-link demo">
+                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link demo">
                           🔗 Demo
                         </a>
-                      
                       </div>
                     </div>
                   </div>
 
                   <div className="project-body">
-                    <div className="project-category">{project.category}</div>
-                    <h3 className="project-title">{project.title}</h3>
+                    <div className="project-category">{project.category.name}</div>
+                    <h3 className="project-title">{project.name}</h3>
                     <p className="project-description">{project.description}</p>
                     
-                    <div className="project-technologies">
-                      {project.technologies.map((tech, techIndex) => (
+                    {/* Technologies will be displayed when available in API */}
+                    {/* <div className="project-technologies">
+                      {project.technologies && project.technologies.map((tech, techIndex) => (
                         <span key={techIndex} className="project-tech">
                           {tech}
                         </span>
                       ))}
-                    </div>
+                    </div> */}
+                    
+                    {/* Project dates */}
+                    {/* <div className="project-dates">
+                      <small className="project-date">Created: {project.created_at}</small>
+                      {project.updated_at !== project.created_at && (
+                        <small className="project-date">Updated: {project.updated_at}</small>
+                      )}
+                    </div> */}
                   </div>
                 </motion.div>
               </SwiperSlide>
@@ -197,7 +172,9 @@ const ProjectsSection = () => {
             whileTap={{ scale: 0.95 }}
             className="projects-btn"
           >
-            View All Projects
+            <Link to="/portfolio" style={{ textDecoration: 'none', color: 'inherit' }}>
+              View All Projects
+            </Link>
           </motion.button>
         </div>
       </div>
@@ -206,6 +183,9 @@ const ProjectsSection = () => {
 }
 
 export default ProjectsSection
+
+
+
 
 
 
@@ -229,10 +209,8 @@ export default ProjectsSection
 //     {
 //       id: 1,
 //       title: 'E-Commerce Platform',
-//       description:
-//         'Full-stack e-commerce solution with modern UI/UX for your online store.',
-//       image:
-//         'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=500&q=80',
+//       description: 'Full-stack e-commerce solution with modern UI/UX for your online store.',
+//       image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=500&q=80',
 //       technologies: ['React', 'Node.js', 'MongoDB'],
 //       category: 'Web Development',
 //       status: 'Completed',
@@ -241,13 +219,11 @@ export default ProjectsSection
 //     },
 //     {
 //       id: 2,
-//       title: 'Mobile Banking App',
-//       description:
-//         'Secure mobile banking application with biometric authentication for your bank.',
-//       image:
-//         'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=500&q=80',
+//       title: 'Web Application',
+//       description: 'Secure mobile banking application with biometric authentication for your bank.',
+//       image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=500&q=80',
 //       technologies: ['React Native', 'Firebase', 'Redux'],
-//       category: 'Mobile Development',
+//       category: 'Web Development',
 //       status: 'In Progress',
 //       demoLink: '#',
 //       githubLink: '#',
@@ -255,10 +231,8 @@ export default ProjectsSection
 //     {
 //       id: 3,
 //       title: 'AI Dashboard',
-//       description:
-//         'Analytics dashboard with machine learning insights for your business.',
-//       image:
-//         'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80',
+//       description: 'Analytics dashboard with machine learning insights for your business.',
+//       image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80',
 //       technologies: ['Vue.js', 'Python', 'TensorFlow'],
 //       category: 'AI/ML',
 //       status: 'Completed',
@@ -268,10 +242,8 @@ export default ProjectsSection
 //     {
 //       id: 4,
 //       title: 'Cloud Storage Solution',
-//       description:
-//         'Scalable cloud storage with file sharing capabilities for your business.',
-//       image:
-//         'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=500&q=80',
+//       description: 'Scalable cloud storage with file sharing capabilities for your business.',
+//       image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=500&q=80',
 //       technologies: ['Angular', 'AWS', 'Docker'],
 //       category: 'Cloud Solutions',
 //       status: 'Planning',
@@ -281,10 +253,8 @@ export default ProjectsSection
 //     {
 //       id: 5,
 //       title: 'IoT Monitoring System',
-//       description:
-//         'Real-time monitoring system for IoT devices for your business.',
-//       image:
-//         'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=500&q=80',
+//       description: 'Real-time monitoring system for IoT devices for your business.',
+//       image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=500&q=80',
 //       technologies: ['React', 'Express', 'Socket.io'],
 //       category: 'IoT',
 //       status: 'Completed',
@@ -294,10 +264,8 @@ export default ProjectsSection
 //     {
 //       id: 6,
 //       title: 'Blockchain Wallet',
-//       description:
-//         'Secure cryptocurrency wallet with multi-chain support for your business.',
-//       image:
-//         'https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&w=500&q=80',
+//       description: 'Secure cryptocurrency wallet with multi-chain support for your business.',
+//       image: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&w=500&q=80',
 //       technologies: ['React', 'Web3.js', 'Solidity'],
 //       category: 'Blockchain',
 //       status: 'In Progress',
@@ -377,47 +345,22 @@ export default ProjectsSection
 //                 >
 //                   <div className="project-image-container">
 //                     <img src={project.image} alt={project.title} />
-//                     <div
+//                     <div 
 //                       className="project-status"
-//                       style={{
-//                         backgroundColor: getStatusColor(project.status),
-//                       }}
+//                       style={{ backgroundColor: getStatusColor(project.status) }}
 //                     >
 //                       {project.status}
 //                     </div>
 //                     <div className="project-overlay">
 //                       <div className="project-links">
-//                         <Link
-//                           to={`/project/${project.id}`}
-//                           className="project-link view"
-//                         >
-//                           👁 عرض التفاصيل
+//                           <Link to={`/project/${project.id}`}  className="project-link view">
+//                             👁 View Details
 //                         </Link>
-//                         <a
-//                           href={project.demoLink}
-//                           className="project-link demo"
-//                         >
+//                         <a href={project.demoLink} className="project-link demo">
 //                           🔗 Demo
 //                         </a>
-//                         <a
-//                           href={project.githubLink}
-//                           className="project-link github"
-//                         >
-//                           📁 Code
-//                         </a>
+                      
 //                       </div>
-//                     </div>
-//                     // ... existing code ...
-//                     <div className="projects-view-all">
-//                       <Link to="/portfolio">
-//                         <motion.button
-//                           whileHover={{ scale: 1.05 }}
-//                           whileTap={{ scale: 0.95 }}
-//                           className="projects-btn"
-//                         >
-//                           View All Projects
-//                         </motion.button>
-//                       </Link>
 //                     </div>
 //                   </div>
 
@@ -425,7 +368,7 @@ export default ProjectsSection
 //                     <div className="project-category">{project.category}</div>
 //                     <h3 className="project-title">{project.title}</h3>
 //                     <p className="project-description">{project.description}</p>
-
+                    
 //                     <div className="project-technologies">
 //                       {project.technologies.map((tech, techIndex) => (
 //                         <span key={techIndex} className="project-tech">
@@ -455,3 +398,5 @@ export default ProjectsSection
 // }
 
 // export default ProjectsSection
+
+

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 import { useThemeContext } from '../../context/ThemeContext'
 import './SectionPartners.css'
@@ -16,38 +16,26 @@ const SectionPartners = () => {
       id: 1,
       name: 'Be Well Store',
       logo: BeWell,
-      website: 'https://bewell.com',
+      link: 'https://be-well.store/',
     },
     {
       id: 2,
       name: 'Polygon Technologies',
       logo: Polygon,
-      website: 'https://polygontech.com',
+      link: 'https://polygontechnologies.tech/',
     },
     {
       id: 3,
       name: 'Nanotation Nord',
       logo: Nanotation,
-      website: 'https://nanotation.com',
+      link: 'https://www.nanotrition.tech/',
     },
     {
       id: 4,
       name: 'Beautics',
       logo: Beautics,
-      website: 'https://bewell.com',
+      link: 'https://beauticslab.tech/',
     },
-    // {
-    //   id: 5,
-    //   name: "TechCorp",
-    //   logo: "/api/placeholder/200/80",
-    //   website: "https://techcorp.com"
-    // },
-    // {
-    //   id: 6,
-    //   name: "InnovateLab",
-    //   logo: "/api/placeholder/200/80",
-    //   website: "https://innovatelab.com"
-    // }
   ]
 
   // Animation variants
@@ -102,28 +90,17 @@ const SectionPartners = () => {
           {partners.map((partner) => (
             <motion.div
               key={partner.id}
-              className="partner-card"
+              className="partner-logo-wrapper"
               variants={itemVariants}
-              whileHover={{ scale: 1.05, y: -5 }}
-              transition={{ duration: 0.3 }}
             >
-              <a
-                href={partner.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="partner-link"
-              >
-                <div className="partner-logo-container">
-                  <img
-                    src={partner.logo}
-                    alt={partner.name}
-                    className="partner-logo"
-                  />
-                </div>
-                <div className="partner-overlay">
-                  <span className="partner-name">{partner.name}</span>
-                </div>
+              <a href={partner.link} target="_blank" rel="noopener noreferrer">
+              <img
+                src={partner.logo}
+                alt={partner.name}
+                className="partner-logo"
+              />
               </a>
+              
             </motion.div>
           ))}
         </motion.div>
