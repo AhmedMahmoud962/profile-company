@@ -1,35 +1,48 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useParams } from 'react-router-dom'
+import { getProjectDetailsById } from '../API/ProjectService'
 import { useThemeContext } from '../../context/ThemeContext'
 import './ProjectInfo.css'
+import { getImageUrl } from '../utils/constants'
+
 
 const ProjectInfo = () => {
   const { darkMode } = useThemeContext()
+  const { id } = useParams()
+  const [projectData, setProjectData] = useState(null)
   const [selectedImage, setSelectedImage] = useState(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
-  // Static data for demo
-  const projectData = {
-    name: 'Polygon Technologies',
-    mainImage:
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80',
-    description:
-      'A pioneer in the health care sectors. Polygon Technologies is committed to offering integrated turn-key healthcare solutions that are uniquely curated, created, developed, and produced by its own organizations and subsidiaries. At Polygon Technologies, we believe that everything we do should have a solid foundation. Commitment, creativity, entrepreneurship, impartiality, the quest for excellence, and responsibility serve as our guiding principles.',
-    duration: '14 days',
-    client: 'Polygon Technologies',
-    category: 'Web Development',
-    technology: 'Laravel',
-    demoLink: 'https://polygon-demo.com',
-    whatsappNumber: '+201234567890',
-    gallery: [
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=80',
-      'https://images.unsplash.com/photo-1515378791036-0648a814c963?auto=format&fit=crop&w=600&q=80',
-    ],
-  }
+  // Fetch project data from API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getProjectDetailsById(id)
+        const data = response.data // ← عشان الريسبونس الكامل فيه msg وstatus وdata
+  
+        const mappedProject = {
+          name: data.name,
+          mainImage: getImageUrl(data.image),
+          description: data.description,
+          duration: 'N/A', // مفيش مدة راجعة من الـ API، ممكن تضيفها لاحقًا
+          client: 'N/A',    // نفس الشيء هنا
+          category: data.category?.name || 'N/A',
+          technology: 'N/A', // لو مفيش بيانات تكنولوجيا
+          demoLink: data.link,
+          whatsappNumber: '+201234567890', // أو استخرجه من الداتا لو موجود
+          gallery: data.project_images.map((img) => getImageUrl(img.image)),
+        }
+  
+        setProjectData(mappedProject)
+      } catch (error) {
+        console.error('Failed to fetch project details', error)
+      }
+    }
+  
+    fetchData()
+  }, [id])
+  
 
   const openImageModal = (index) => {
     setCurrentImageIndex(index)
@@ -59,9 +72,7 @@ const ProjectInfo = () => {
 
   const handleWhatsApp = () => {
     const message = `Hello! I'm interested in the ${projectData.name} project. Can you provide more details?`
-    const url = `https://wa.me/${
-      projectData.whatsappNumber
-    }?text=${encodeURIComponent(message)}`
+    const url = `https://wa.me/${projectData.whatsappNumber}?text=${encodeURIComponent(message)}`
     window.open(url, '_blank')
   }
 
@@ -78,20 +89,8 @@ const ProjectInfo = () => {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [selectedImage, currentImageIndex])
 
-  // Pre-load الصور المهمة
-  useEffect(() => {
-    const preloadImages = [
-      projectData.mainImage,
-      ...projectData.gallery.slice(0, 3), // أول 3 صور فقط
-    ]
-
-    preloadImages.forEach((src) => {
-      const link = document.createElement('link')
-      link.rel = 'prefetch'
-      link.href = src
-      document.head.appendChild(link)
-    })
-  }, [])
+  // لو البيانات لسه محمّلتش
+  if (!projectData) return <p>Loading project details...</p>
 
   return (
     <div
@@ -100,9 +99,8 @@ const ProjectInfo = () => {
       }`}
     >
       <div className="projectinfo-wrapper">
-        {/* Main Content */}
         <div className="projectinfo-main-content">
-          {/* Left Side - Image and Description */}
+          {/* Left */}
           <div className="projectinfo-left-side">
             <motion.div
               className="projectinfo-main-image"
@@ -110,17 +108,17 @@ const ProjectInfo = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="projectinfo-image-wrapper">
+              {/* <div className="projectinfo-image-wrapper"> */}
                 <img
                   src={projectData.mainImage}
                   alt={projectData.name}
                   className="projectinfo-main-img"
                   loading="lazy"
                 />
-                <div className="projectinfo-image-overlay">
+                {/* <div className="projectinfo-image-overlay">
                   <div className="projectinfo-image-gradient"></div>
                 </div>
-              </div>
+              </div> */}
             </motion.div>
 
             <motion.div
@@ -137,7 +135,7 @@ const ProjectInfo = () => {
             </motion.div>
           </div>
 
-          {/* Right Side - Project Info */}
+          {/* Right */}
           <motion.div
             className="projectinfo-right-side"
             initial={{ opacity: 0, x: 30 }}
@@ -205,7 +203,7 @@ const ProjectInfo = () => {
           </motion.div>
         </div>
 
-        {/* Gallery Section */}
+        {/* Gallery */}
         <motion.div
           className="projectinfo-gallery"
           initial={{ opacity: 0, y: 40 }}
@@ -221,7 +219,7 @@ const ProjectInfo = () => {
           </div>
 
           <div className="projectinfo-gallery-grid">
-            {projectData.gallery.map((image, index) => (
+          {projectData.gallery?.map((image, index) => (
               <motion.div
                 key={index}
                 className="projectinfo-gallery-item"
@@ -239,12 +237,7 @@ const ProjectInfo = () => {
                     className="projectinfo-gallery-image"
                     loading="lazy"
                   />
-                  <div className="projectinfo-gallery-overlay">
-                    <span className="projectinfo-gallery-icon">🔍</span>
-                    <span className="projectinfo-gallery-text">
-                      View Full Size
-                    </span>
-                  </div>
+                
                 </div>
               </motion.div>
             ))}
@@ -252,7 +245,7 @@ const ProjectInfo = () => {
         </motion.div>
       </div>
 
-      {/* Enhanced Image Modal */}
+      {/* Modal */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
@@ -322,6 +315,7 @@ const ProjectInfo = () => {
 }
 
 export default ProjectInfo
+
 
 // import React, { useState, useEffect } from 'react'
 // import { motion, AnimatePresence } from 'framer-motion'

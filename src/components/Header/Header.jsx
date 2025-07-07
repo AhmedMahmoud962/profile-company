@@ -97,7 +97,7 @@ const Header = () => {
                 <span className="brand-letter">P</span>
               </div>
               <div className="brand-text-container">
-                <span className="brand-text">olygon</span>
+                <span className="brand-text">Polygon</span>
                 <span className="brand-subtitle">Software</span>
               </div>
             </Link>
