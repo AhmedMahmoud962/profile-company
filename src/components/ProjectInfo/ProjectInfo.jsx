@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useThemeContext } from '../../context/ThemeContext'
 import './ProjectInfo.css'
@@ -7,26 +7,28 @@ const ProjectInfo = () => {
   const { darkMode } = useThemeContext()
   const [selectedImage, setSelectedImage] = useState(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  
+
   // Static data for demo
   const projectData = {
-    name: "Polygon Technologies",
-    mainImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80",
-    description: "A pioneer in the health care sectors. Polygon Technologies is committed to offering integrated turn-key healthcare solutions that are uniquely curated, created, developed, and produced by its own organizations and subsidiaries. At Polygon Technologies, we believe that everything we do should have a solid foundation. Commitment, creativity, entrepreneurship, impartiality, the quest for excellence, and responsibility serve as our guiding principles.",
-    duration: "14 days",
-    client: "Polygon Technologies",
-    category: "Web Development",
-    technology: "Laravel",
-    demoLink: "https://polygon-demo.com",
-    whatsappNumber: "+201234567890",
+    name: 'Polygon Technologies',
+    mainImage:
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80',
+    description:
+      'A pioneer in the health care sectors. Polygon Technologies is committed to offering integrated turn-key healthcare solutions that are uniquely curated, created, developed, and produced by its own organizations and subsidiaries. At Polygon Technologies, we believe that everything we do should have a solid foundation. Commitment, creativity, entrepreneurship, impartiality, the quest for excellence, and responsibility serve as our guiding principles.',
+    duration: '14 days',
+    client: 'Polygon Technologies',
+    category: 'Web Development',
+    technology: 'Laravel',
+    demoLink: 'https://polygon-demo.com',
+    whatsappNumber: '+201234567890',
     gallery: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1515378791036-0648a814c963?auto=format&fit=crop&w=600&q=80"
-    ]
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
+      'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80',
+      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80',
+      'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=600&q=80',
+      'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=80',
+      'https://images.unsplash.com/photo-1515378791036-0648a814c963?auto=format&fit=crop&w=600&q=80',
+    ],
   }
 
   const openImageModal = (index) => {
@@ -47,14 +49,19 @@ const ProjectInfo = () => {
   }
 
   const prevImage = () => {
-    const prevIndex = currentImageIndex === 0 ? projectData.gallery.length - 1 : currentImageIndex - 1
+    const prevIndex =
+      currentImageIndex === 0
+        ? projectData.gallery.length - 1
+        : currentImageIndex - 1
     setCurrentImageIndex(prevIndex)
     setSelectedImage(projectData.gallery[prevIndex])
   }
 
   const handleWhatsApp = () => {
     const message = `Hello! I'm interested in the ${projectData.name} project. Can you provide more details?`
-    const url = `https://wa.me/${projectData.whatsappNumber}?text=${encodeURIComponent(message)}`
+    const url = `https://wa.me/${
+      projectData.whatsappNumber
+    }?text=${encodeURIComponent(message)}`
     window.open(url, '_blank')
   }
 
@@ -66,29 +73,46 @@ const ProjectInfo = () => {
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [selectedImage, currentImageIndex])
 
+  // Pre-load الصور المهمة
+  useEffect(() => {
+    const preloadImages = [
+      projectData.mainImage,
+      ...projectData.gallery.slice(0, 3), // أول 3 صور فقط
+    ]
+
+    preloadImages.forEach((src) => {
+      const link = document.createElement('link')
+      link.rel = 'prefetch'
+      link.href = src
+      document.head.appendChild(link)
+    })
+  }, [])
+
   return (
-    <div className={`projectinfo-container ${darkMode ? 'projectinfo-dark' : 'projectinfo-light'}`}>
+    <div
+      className={`projectinfo-container ${
+        darkMode ? 'projectinfo-dark' : 'projectinfo-light'
+      }`}
+    >
       <div className="projectinfo-wrapper">
-        
         {/* Main Content */}
         <div className="projectinfo-main-content">
-          
           {/* Left Side - Image and Description */}
           <div className="projectinfo-left-side">
-            <motion.div 
+            <motion.div
               className="projectinfo-main-image"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
               <div className="projectinfo-image-wrapper">
-                <img 
-                  src={projectData.mainImage} 
+                <img
+                  src={projectData.mainImage}
                   alt={projectData.name}
                   className="projectinfo-main-img"
                   loading="lazy"
@@ -98,8 +122,8 @@ const ProjectInfo = () => {
                 </div>
               </div>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               className="projectinfo-description"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -107,12 +131,14 @@ const ProjectInfo = () => {
             >
               <h1 className="projectinfo-title">{projectData.name}</h1>
               <div className="projectinfo-title-underline"></div>
-              <p className="projectinfo-description-text">{projectData.description}</p>
+              <p className="projectinfo-description-text">
+                {projectData.description}
+              </p>
             </motion.div>
           </div>
-          
+
           {/* Right Side - Project Info */}
-          <motion.div 
+          <motion.div
             className="projectinfo-right-side"
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -123,31 +149,39 @@ const ProjectInfo = () => {
                 <h3 className="projectinfo-info-title">Project Info</h3>
                 <div className="projectinfo-info-underline"></div>
               </div>
-              
+
               <div className="projectinfo-info-details">
                 <div className="projectinfo-info-item">
                   <span className="projectinfo-info-label">Duration:</span>
-                  <span className="projectinfo-info-value">{projectData.duration}</span>
+                  <span className="projectinfo-info-value">
+                    {projectData.duration}
+                  </span>
                 </div>
-                
+
                 <div className="projectinfo-info-item">
                   <span className="projectinfo-info-label">Client:</span>
-                  <span className="projectinfo-info-value">{projectData.client}</span>
+                  <span className="projectinfo-info-value">
+                    {projectData.client}
+                  </span>
                 </div>
-                
+
                 <div className="projectinfo-info-item">
                   <span className="projectinfo-info-label">Category:</span>
-                  <span className="projectinfo-info-value">{projectData.category}</span>
+                  <span className="projectinfo-info-value">
+                    {projectData.category}
+                  </span>
                 </div>
-                
+
                 <div className="projectinfo-info-item">
                   <span className="projectinfo-info-label">Technology:</span>
-                  <span className="projectinfo-info-value">{projectData.technology}</span>
+                  <span className="projectinfo-info-value">
+                    {projectData.technology}
+                  </span>
                 </div>
               </div>
-              
+
               <div className="projectinfo-action-buttons">
-                <button 
+                <button
                   className="projectinfo-action-btn projectinfo-whatsapp-btn"
                   onClick={handleWhatsApp}
                   aria-label="Contact via WhatsApp"
@@ -155,8 +189,8 @@ const ProjectInfo = () => {
                   <span className="projectinfo-btn-icon">💬</span>
                   <span className="projectinfo-btn-text">WhatsApp</span>
                 </button>
-                
-                <a 
+
+                <a
                   href={projectData.demoLink}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -170,9 +204,9 @@ const ProjectInfo = () => {
             </div>
           </motion.div>
         </div>
-        
+
         {/* Gallery Section */}
-        <motion.div 
+        <motion.div
           className="projectinfo-gallery"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -181,12 +215,14 @@ const ProjectInfo = () => {
           <div className="projectinfo-gallery-header">
             <h3 className="projectinfo-gallery-title">Project Gallery</h3>
             <div className="projectinfo-gallery-underline"></div>
-            <p className="projectinfo-gallery-subtitle">Click on any image to view in fullscreen</p>
+            <p className="projectinfo-gallery-subtitle">
+              Click on any image to view in fullscreen
+            </p>
           </div>
-          
+
           <div className="projectinfo-gallery-grid">
             {projectData.gallery.map((image, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 className="projectinfo-gallery-item"
                 whileHover={{ scale: 1.03 }}
@@ -197,15 +233,17 @@ const ProjectInfo = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <div className="projectinfo-gallery-image-wrapper">
-                  <img 
-                    src={image} 
+                  <img
+                    src={image}
                     alt={`Gallery image ${index + 1}`}
                     className="projectinfo-gallery-image"
                     loading="lazy"
                   />
                   <div className="projectinfo-gallery-overlay">
                     <span className="projectinfo-gallery-icon">🔍</span>
-                    <span className="projectinfo-gallery-text">View Full Size</span>
+                    <span className="projectinfo-gallery-text">
+                      View Full Size
+                    </span>
                   </div>
                 </div>
               </motion.div>
@@ -213,18 +251,18 @@ const ProjectInfo = () => {
           </div>
         </motion.div>
       </div>
-      
+
       {/* Enhanced Image Modal */}
       <AnimatePresence>
         {selectedImage && (
-          <motion.div 
+          <motion.div
             className="projectinfo-image-modal"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeImageModal}
           >
-            <motion.div 
+            <motion.div
               className="projectinfo-modal-content"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -232,45 +270,47 @@ const ProjectInfo = () => {
               transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <button 
+              <button
                 className="projectinfo-modal-close"
                 onClick={closeImageModal}
                 aria-label="Close modal"
               >
                 <span>✕</span>
               </button>
-              
-              <button 
+
+              <button
                 className="projectinfo-modal-nav projectinfo-modal-prev"
                 onClick={prevImage}
                 aria-label="Previous image"
               >
                 <span>‹</span>
               </button>
-              
+
               <div className="projectinfo-modal-image-container">
-                <img 
-                  src={selectedImage} 
+                <img
+                  src={selectedImage}
                   alt="Selected gallery image"
                   className="projectinfo-modal-image"
                   loading="lazy"
                 />
               </div>
-              
-              <button 
+
+              <button
                 className="projectinfo-modal-nav projectinfo-modal-next"
                 onClick={nextImage}
                 aria-label="Next image"
               >
                 <span>›</span>
               </button>
-              
+
               <div className="projectinfo-modal-info">
                 <div className="projectinfo-modal-counter">
                   {currentImageIndex + 1} / {projectData.gallery.length}
                 </div>
                 <div className="projectinfo-modal-controls">
-                  <span className="projectinfo-modal-hint">Use arrow keys to navigate</span>
+                  <span className="projectinfo-modal-hint">
+                    Use arrow keys to navigate
+                  </span>
                 </div>
               </div>
             </motion.div>
@@ -282,10 +322,6 @@ const ProjectInfo = () => {
 }
 
 export default ProjectInfo
-
-
-
-
 
 // import React, { useState, useEffect } from 'react'
 // import { motion, AnimatePresence } from 'framer-motion'
