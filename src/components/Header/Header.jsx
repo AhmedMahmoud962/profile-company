@@ -20,7 +20,7 @@ const Header = () => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 50
       setScrolled(isScrolled)
-      
+
       // تقليل scroll progress calculations للأداء - معطل حالياً
       // if (isScrolled) {
       //   const scrollProgress = Math.min((window.scrollY / 1000) * 100, 100)
@@ -34,12 +34,22 @@ const Header = () => {
       if (!ticking) {
         requestAnimationFrame(handleScroll)
         ticking = true
-        setTimeout(() => { ticking = false }, 16)
+        setTimeout(() => {
+          ticking = false
+        }, 16)
       }
     }
 
-    window.addEventListener('scroll', optimizedScroll, { passive: true })
-    return () => window.removeEventListener('scroll', optimizedScroll)
+    const controller = new AbortController()
+
+    window.addEventListener('scroll', optimizedScroll, {
+      passive: true,
+      signal: controller.signal,
+    })
+
+    return () => {
+      controller.abort()
+    }
   }, [])
 
   const handleDrawerToggle = () => {
@@ -54,21 +64,32 @@ const Header = () => {
 
   // تبسيط escape key handler
   useEffect(() => {
+    const controller = new AbortController()
+
     if (!mobileOpen) return
-    
+
     const handleEscape = (e) => {
       if (e.key === 'Escape') handleLinkClick()
     }
-    
-    document.addEventListener('keydown', handleEscape)
-    return () => document.removeEventListener('keydown', handleEscape)
+
+    document.addEventListener('keydown', handleEscape, {
+      passive: false,
+      signal: controller.signal,
+    })
+
+    return () => {
+      controller.abort()
+    }
   }, [mobileOpen])
 
   return (
     <>
-      <header className={`modern-header ${darkMode ? 'theme-dark' : 'theme-light'} ${scrolled ? 'header-scrolled' : 'header-transparent'}`}>
+      <header
+        className={`modern-header ${darkMode ? 'theme-dark' : 'theme-light'} ${
+          scrolled ? 'header-scrolled' : 'header-transparent'
+        }`}
+      >
         <div className="header-container">
-          
           {/* Logo مبسط - بدون Framer Motion */}
           <div className="header-brand">
             <Link to="/" className="brand-link" onClick={handleLinkClick}>
@@ -89,7 +110,9 @@ const Header = () => {
                 <li key={item.name} className="nav-item">
                   <Link
                     to={item.path}
-                    className={`nav-link ${location.pathname === item.path ? 'nav-active' : ''}`}
+                    className={`nav-link ${
+                      location.pathname === item.path ? 'nav-active' : ''
+                    }`}
                   >
                     <span className="nav-icon">{item.icon}</span>
                     <span className="nav-text">{item.name}</span>
@@ -102,16 +125,13 @@ const Header = () => {
 
           {/* Header Actions مبسط */}
           <div className="header-actions">
-            
             {/* Theme Toggle مبسط */}
             <button
               className="theme-toggle-btn"
               onClick={toggleDarkMode}
               title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             >
-              <span className="theme-icon">
-                {darkMode ? '☀️' : '🌙'}
-              </span>
+              <span className="theme-icon">{darkMode ? '☀️' : '🌙'}</span>
               <span className="theme-bg"></span>
             </button>
 
@@ -127,7 +147,6 @@ const Header = () => {
               <span className="toggle-line line-3"></span>
               <span className="toggle-bg"></span>
             </button>
-            
           </div>
         </div>
 
@@ -143,11 +162,14 @@ const Header = () => {
             className="mobile-overlay mobile-overlay-show"
             onClick={handleDrawerToggle}
           />
-          
+
           {/* Drawer مع transition */}
-          <div className={`mobile-drawer mobile-drawer-show ${darkMode ? 'drawer-dark' : 'drawer-light'}`}>
+          <div
+            className={`mobile-drawer mobile-drawer-show ${
+              darkMode ? 'drawer-dark' : 'drawer-light'
+            }`}
+          >
             <div className="drawer-content">
-              
               {/* Drawer Header */}
               <div className="drawer-header">
                 <div className="drawer-brand">
@@ -159,8 +181,8 @@ const Header = () => {
                     <span className="drawer-brand-sub">Software</span>
                   </div>
                 </div>
-                <button 
-                  className="drawer-close" 
+                <button
+                  className="drawer-close"
                   onClick={handleDrawerToggle}
                   aria-label="Close menu"
                 >
@@ -173,10 +195,16 @@ const Header = () => {
               <nav className="drawer-navigation">
                 <ul className="drawer-menu">
                   {navigationItems.map((item, index) => (
-                    <li key={item.name} className="drawer-item" style={{ animationDelay: `${index * 100}ms` }}>
+                    <li
+                      key={item.name}
+                      className="drawer-item"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
                       <Link
                         to={item.path}
-                        className={`drawer-link ${location.pathname === item.path ? 'drawer-active' : ''}`}
+                        className={`drawer-link ${
+                          location.pathname === item.path ? 'drawer-active' : ''
+                        }`}
                         onClick={handleLinkClick}
                       >
                         <span className="drawer-link-icon">{item.icon}</span>
@@ -203,7 +231,9 @@ const Header = () => {
                     </div>
                   </div>
                   <button
-                    className={`drawer-theme-toggle ${darkMode ? 'theme-dark-active' : 'theme-light-active'}`}
+                    className={`drawer-theme-toggle ${
+                      darkMode ? 'theme-dark-active' : 'theme-light-active'
+                    }`}
                     onClick={toggleDarkMode}
                     aria-label="Toggle theme"
                   >
@@ -211,7 +241,6 @@ const Header = () => {
                   </button>
                 </div>
               </div>
-              
             </div>
           </div>
         </>

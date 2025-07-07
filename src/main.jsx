@@ -6,13 +6,11 @@ import App from './App'
 import { ThemeContextProvider } from './context/ThemeContext'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <ThemeContextProvider>
-      <HelmetProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </HelmetProvider>
-    </ThemeContextProvider>
-  </React.StrictMode>
+  <ThemeContextProvider>
+    <HelmetProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </HelmetProvider>
+  </ThemeContextProvider>,
 )

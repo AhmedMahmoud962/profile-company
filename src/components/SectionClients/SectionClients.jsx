@@ -91,6 +91,7 @@ const ClientsSection = () => {
                   transition={{ duration: 0.8, delay: index * 0.1 }}
                   whileHover={{ scale: 1.05 }}
                   className="client-card"
+                  loading="lazy"
                 >
                   <div className="client-avatar">
                     <img src={client.image} alt={client.name} />

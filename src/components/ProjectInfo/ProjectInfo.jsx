@@ -91,6 +91,7 @@ const ProjectInfo = () => {
                   src={projectData.mainImage} 
                   alt={projectData.name}
                   className="projectinfo-main-img"
+                  loading="lazy"
                 />
                 <div className="projectinfo-image-overlay">
                   <div className="projectinfo-image-gradient"></div>
@@ -200,6 +201,7 @@ const ProjectInfo = () => {
                     src={image} 
                     alt={`Gallery image ${index + 1}`}
                     className="projectinfo-gallery-image"
+                    loading="lazy"
                   />
                   <div className="projectinfo-gallery-overlay">
                     <span className="projectinfo-gallery-icon">🔍</span>
@@ -251,6 +253,7 @@ const ProjectInfo = () => {
                   src={selectedImage} 
                   alt="Selected gallery image"
                   className="projectinfo-modal-image"
+                  loading="lazy"
                 />
               </div>
               

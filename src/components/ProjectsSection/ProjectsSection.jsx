@@ -121,6 +121,7 @@ const ProjectsSection = () => {
                     <img
                       src={getImageUrl(project.image) || '/default-image.jpg'}
                       alt={project.name}
+                      loading="lazy"
                     />
 
                     {/* Status will be displayed when available in API */}

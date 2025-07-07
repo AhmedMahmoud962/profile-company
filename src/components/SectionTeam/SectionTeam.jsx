@@ -149,6 +149,7 @@ const SectionTeam = () => {
                       src={member.image}
                       alt={member.name}
                       className="team-image"
+                      loading="lazy"
                     />
                     <Box className="team-overlay">
                       <Box className="team-social">
