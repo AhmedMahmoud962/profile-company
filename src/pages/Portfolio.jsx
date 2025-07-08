@@ -1,5 +1,7 @@
-import HeroPage from '../components/HeroSection/Heropage'
+import { Suspense, lazy } from 'react'
 import { Helmet } from 'react-helmet-async'
+
+const HeroPage = lazy(() => import('../components/HeroSection/Heropage'))
 
 export default function Portfolio() {
   return (
@@ -18,11 +20,13 @@ export default function Portfolio() {
       </Helmet>
 
       {/* Hero Section */}
-      <HeroPage
-        title="OUR PORTFOLIO"
-        breadcrumbs={['Portfolio']}
-        backgroundImage="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80"
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <HeroPage
+          title="OUR PORTFOLIO"
+          breadcrumbs={['Portfolio']}
+          backgroundImage="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80"
+        />
+      </Suspense>
     </>
   )
 }

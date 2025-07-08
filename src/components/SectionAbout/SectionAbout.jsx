@@ -4,14 +4,13 @@ import { Link } from 'react-router-dom'
 import { getAboutServices } from '../API/AboutServices'
 import { getImageUrl } from '../utils/constants'
 
-
 const AboutSection = () => {
   const [isMobile, setIsMobile] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
   const [aboutData, setAboutData] = useState({})
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchAboutData = async () => {
       try {
         const response = await getAboutServices()
@@ -23,7 +22,6 @@ const AboutSection = () => {
     }
     fetchAboutData()
   }, [])
-
 
   useEffect(() => {
     const checkMobile = () => {
@@ -79,20 +77,12 @@ const AboutSection = () => {
         <div className="content-container" style={{ '--delay': '0.2s' }}>
           <h6 className="section-label">About Us</h6>
           <h2 className={`main-title ${isMobile ? 'mobile' : ''}`}>
-               {aboutData.title}
-            </h2>
-          <p className="description">
-            {aboutData.description}
-          </p>
-          <p className="description">
-            {aboutData.mission}
-          </p>
-          <p className="description">
-            {aboutData.vision}
-          </p>
-          <p className="description">
-            {aboutData.values}
-          </p>
+            {aboutData.title}
+          </h2>
+          <p className="description">{aboutData.description}</p>
+          <p className="description">{aboutData.mission}</p>
+          <p className="description">{aboutData.vision}</p>
+          <p className="description">{aboutData.values}</p>
           <Link to="/about" className="cta-button learn-more">
             Learn More About Us
           </Link>

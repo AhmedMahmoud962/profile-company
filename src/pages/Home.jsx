@@ -1,12 +1,23 @@
 import { Helmet } from 'react-helmet-async'
+import { Suspense, lazy } from 'react'
 
 // Components
-import HeroSlider from '../components/HeroSlider/HeroSlider'
-import SectionAbout from '../components/SectionAbout/SectionAbout'
-import ServicesSection from '../components/SectionServices/SectionServices'
-import CounterSection from '../components/SectionCounter/SectionCounter'
-import ProjectsSection from '../components/ProjectsSection/ProjectsSection'
-import ClientsSection from '../components/SectionClients/SectionClients'
+const HeroSlider = lazy(() => import('../components/HeroSlider/HeroSlider'))
+const SectionAbout = lazy(() =>
+  import('../components/SectionAbout/SectionAbout'),
+)
+const ServicesSection = lazy(() =>
+  import('../components/SectionServices/SectionServices'),
+)
+const CounterSection = lazy(() =>
+  import('../components/SectionCounter/SectionCounter'),
+)
+const ProjectsSection = lazy(() =>
+  import('../components/ProjectsSection/ProjectsSection'),
+)
+const ClientsSection = lazy(() =>
+  import('../components/SectionClients/SectionClients'),
+)
 
 export default function Home() {
   return (
@@ -17,16 +28,21 @@ export default function Home() {
           name="description"
           content="Welcome to the homepage of Polygon Software – providing professional software solutions to our clients."
         />
-        <meta name="keywords" content="Polygon Software, software development, web applications, IT services" />
+        <meta
+          name="keywords"
+          content="Polygon Software, software development, web applications, IT services"
+        />
         <meta name="robots" content="index, follow" />
       </Helmet>
 
-      <HeroSlider />
-      <SectionAbout />
-      <ServicesSection />
-      <CounterSection />
-      <ProjectsSection />
-      <ClientsSection />
+      <Suspense fallback={<div>Loading...</div>}>
+        <HeroSlider />
+        <SectionAbout />
+        <ServicesSection />
+        <CounterSection />
+        <ProjectsSection />
+        <ClientsSection />
+      </Suspense>
     </>
   )
 }

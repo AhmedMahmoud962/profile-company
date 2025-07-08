@@ -1,6 +1,8 @@
-import { Helmet } from 'react-helmet-async'
-import HeroPage from '../components/HeroSection/Heropage'
-import FormContact from '../components/FormContact/FormContact'
+import { Helmet } from 'react-helmet-async' 
+import { Suspense, lazy } from 'react'
+const HeroPage = lazy(() => import('../components/HeroSection/Heropage'))
+const FormContact = lazy(() => import('../components/FormContact/FormContact'))
+
 
 export default function Contact() {
   return (
@@ -17,12 +19,14 @@ export default function Contact() {
         />
         <meta name="robots" content="index, follow" />
       </Helmet>
+      <Suspense fallback={<div>Loading...</div>}>
       <HeroPage
         title="Contact"
         breadcrumbs={['Contact']}
         backgroundImage="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80"
       />
-      <FormContact />
+        <FormContact />
+      </Suspense>
     </>
   )
 }
