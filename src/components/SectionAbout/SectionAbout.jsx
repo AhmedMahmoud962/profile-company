@@ -1,11 +1,29 @@
 import { useState, useEffect } from 'react'
 import './AboutSection.css'
 import { Link } from 'react-router-dom'
+import { getAboutServices } from '../API/AboutServices'
+import { getImageUrl } from '../utils/constants'
+
 
 const AboutSection = () => {
   const [isMobile, setIsMobile] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
+  const [aboutData, setAboutData] = useState({})
+
+  useEffect(()=>{
+    const fetchAboutData = async () => {
+      try {
+        const response = await getAboutServices()
+        setAboutData(response.data)
+      } catch (error) {
+        console.error('Error fetching about data:', error)
+        setAboutData({})
+      }
+    }
+    fetchAboutData()
+  }, [])
+
 
   useEffect(() => {
     const checkMobile = () => {
@@ -45,7 +63,7 @@ const AboutSection = () => {
           {/* Image placeholder */}
           <div className="image-placeholder">
             <img
-              src="https://images.unsplash.com/photo-1500673922987-e212871fec22?auto=format&fit=crop&w=800&q=80"
+              src={getImageUrl(aboutData.image)}
               alt="About Polygon Software"
               className="about-image"
               width="800"
@@ -61,14 +79,19 @@ const AboutSection = () => {
         <div className="content-container" style={{ '--delay': '0.2s' }}>
           <h6 className="section-label">About Us</h6>
           <h2 className={`main-title ${isMobile ? 'mobile' : ''}`}>
-            We Are Polygon Software
-          </h2>
+               {aboutData.title}
+            </h2>
           <p className="description">
-            At Polygon Software, we specialize in creating innovative digital
-            solutions that help businesses grow and succeed in today's
-            competitive landscape. Our team of skilled developers and designers
-            work together to deliver high-quality software that meets your
-            unique needs.
+            {aboutData.description}
+          </p>
+          <p className="description">
+            {aboutData.mission}
+          </p>
+          <p className="description">
+            {aboutData.vision}
+          </p>
+          <p className="description">
+            {aboutData.values}
           </p>
           <Link to="/about" className="cta-button learn-more">
             Learn More About Us
