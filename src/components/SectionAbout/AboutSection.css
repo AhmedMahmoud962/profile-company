@@ -265,7 +265,7 @@
 }
 
 .learn-more {
-  padding: 14px 28px;
+  padding: 14px ;
   font-size: 15px;
   text-decoration: none;
   color: white;
@@ -276,11 +276,12 @@
   display: inline-block;
   text-align: center;
   font-weight: 600;
+  margin: 10px 0;
 }
 
 .learn-more:hover {
-  background-color: white;
-  color: #ff6b9d;
+  /* background-color: white; */
+  /* color: #ff6b9d; */
   transform: translateY(-2px);
 }
 
