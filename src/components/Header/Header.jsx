@@ -12,7 +12,7 @@ const Header = () => {
   const navigationItems = [
     { name: 'Home', path: '/', icon: '🏠' },
     { name: 'About', path: '/about', icon: 'ℹ️' },
-    { name: 'Portfolio', path: '/portfolio', icon: '💼' },
+    { name: 'Projects', path: '/projects', icon: '💼' },
     { name: 'Contact', path: '/contact', icon: '📞' },
   ]
 
