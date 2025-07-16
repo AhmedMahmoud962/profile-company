@@ -83,7 +83,7 @@ const AboutSection = () => {
           <p className="description">{aboutData.mission}</p>
           <p className="description">{aboutData.vision}</p>
           <p className="description">{aboutData.values}</p>
-          <Link to="/about" className="cta-button learn-more">
+          <Link to="/about" className="learn-more">
             Learn More About Us
           </Link>
         </div>

@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useThemeContext } from '../../context/ThemeContext'
 import { getSetting } from '../API/settingServices'
-import { 
-  Facebook, 
-  Twitter, 
-  LinkedIn, 
+import {
+  Facebook,
+  Twitter,
+  LinkedIn,
   Instagram,
   WhatsApp,
   Email,
   Phone,
   LocationOn,
-  KeyboardArrowUp
+  KeyboardArrowUp,
 } from '@mui/icons-material'
 import './Footer.css'
 
@@ -44,49 +44,53 @@ const Footer = () => {
   ]
 
   // Dynamic social icons based on API data
-  const socialIcons = settingsData ? [
-    { 
-      icon: <Facebook />, 
-      name: 'Facebook', 
-      url: settingsData.facebook || '#' 
-    },
-    // { 
-    //   icon: <Twitter />, 
-    //   name: 'Twitter', 
-    //   url: settingsData.twitter || '#' 
-    // },
-    { 
-      icon: <LinkedIn />, 
-      name: 'LinkedIn', 
-      url: settingsData.linkedin || '#' 
-    },
-    { 
-      icon: <Instagram />, 
-      name: 'Instagram', 
-      url: settingsData.instagram || '#' 
-    },
-  ] : []
+  const socialIcons = settingsData
+    ? [
+        {
+          icon: <Facebook />,
+          name: 'Facebook',
+          url: settingsData.facebook || '#',
+        },
+        // {
+        //   icon: <Twitter />,
+        //   name: 'Twitter',
+        //   url: settingsData.twitter || '#'
+        // },
+        {
+          icon: <LinkedIn />,
+          name: 'LinkedIn',
+          url: settingsData.linkedin || '#',
+        },
+        {
+          icon: <Instagram />,
+          name: 'Instagram',
+          url: settingsData.instagram || '#',
+        },
+      ]
+    : []
 
   // Dynamic contact info based on API data
-  const contactInfo = settingsData ? [
-    { 
-      icon: <Email />, 
-      text: settingsData.email,
-      link: `mailto:${settingsData.email}`,
-      type: 'email'
-    },
-    { 
-      icon: <Phone />, 
-      text: settingsData.phone,
-      link: `tel:+2${settingsData.phone}`,
-      type: 'phone'
-    },
-    { 
-      icon: <LocationOn />, 
-      text: settingsData.address,
-      type: 'address'
-    },
-  ] : []
+  const contactInfo = settingsData
+    ? [
+        {
+          icon: <Email />,
+          text: settingsData.email,
+          link: `mailto:${settingsData.email}`,
+          type: 'email',
+        },
+        {
+          icon: <Phone />,
+          text: settingsData.phone,
+          link: `tel:+2${settingsData.phone}`,
+          type: 'phone',
+        },
+        {
+          icon: <LocationOn />,
+          text: settingsData.address,
+          type: 'address',
+        },
+      ]
+    : []
 
   // Handle scroll to top visibility
   useEffect(() => {
@@ -102,7 +106,7 @@ const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     })
   }
 
@@ -110,7 +114,9 @@ const Footer = () => {
   const openWhatsApp = () => {
     const phoneNumber = settingsData ? `2${settingsData.phone}` : '201033993202'
     const message = 'Hello! I would like to know more about your services.'
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      message,
+    )}`
     window.open(whatsappUrl, '_blank')
   }
 
@@ -142,7 +148,7 @@ const Footer = () => {
                   {settingsData?.name || 'Polygon Software'}
                 </h3>
                 <p className="footer-description">
-                  {settingsData?.description || 
+                  {settingsData?.description ||
                     'Leading software development company providing innovative solutions for businesses worldwide.'}
                 </p>
                 <div className="footer-social">
@@ -197,10 +203,12 @@ const Footer = () => {
                     <div key={index} className="contact-item">
                       <span className="contact-icon">{info.icon}</span>
                       {info.link ? (
-                        <a 
-                          href={info.link} 
+                        <a
+                          href={info.link}
                           className="contact-text clickable"
-                          title={`${info.type === 'email' ? 'Send email' : 'Make a call'}`}
+                          title={`${
+                            info.type === 'email' ? 'Send email' : 'Make a call'
+                          }`}
                         >
                           {info.text}
                         </a>
@@ -223,7 +231,8 @@ const Footer = () => {
             className="footer-bottom"
           >
             <p className="footer-copyright">
-              © {new Date().getFullYear()}. All rights reserved by {settingsData?.name || 'Polygon Software'}.
+              © {new Date().getFullYear()}. All rights reserved by{' '}
+              {settingsData?.name || 'Polygon Software'}.
               <br />
               We are tracking any intention of piracy.
             </p>
@@ -266,14 +275,13 @@ const Footer = () => {
 }
 
 export default Footer
-
 // import React, { useState, useEffect } from 'react'
 // import { motion } from 'framer-motion'
 // import { useThemeContext } from '../../context/ThemeContext'
-// import { 
-//   Facebook, 
-//   Twitter, 
-//   LinkedIn, 
+// import {
+//   Facebook,
+//   Twitter,
+//   LinkedIn,
 //   Instagram,
 //   WhatsApp,
 //   Email,
@@ -301,20 +309,20 @@ export default Footer
 //   ]
 
 //   const contactInfo = [
-//     { 
-//       icon: <Email />, 
+//     {
+//       icon: <Email />,
 //       text: 'info@polygonsoftware.site',
 //       link: 'mailto:info@polygonsoftware.site',
 //       type: 'email'
 //     },
-//     { 
-//       icon: <Phone />, 
+//     {
+//       icon: <Phone />,
 //       text: '+20 103 399 32 02',
 //       link: 'tel:+201033993202',
 //       type: 'phone'
 //     },
-//     { 
-//       icon: <LocationOn />, 
+//     {
+//       icon: <LocationOn />,
 //       text: '28 H/1 Shukry Abdel Halim Street, Maadi',
 //       type: 'address'
 //     },
@@ -413,8 +421,8 @@ export default Footer
 //                     <div key={index} className="contact-item">
 //                       <span className="contact-icon">{info.icon}</span>
 //                       {info.link ? (
-//                         <a 
-//                           href={info.link} 
+//                         <a
+//                           href={info.link}
 //                           className="contact-text clickable"
 //                           title={`${info.type === 'email' ? 'Send email' : 'Make a call'}`}
 //                         >

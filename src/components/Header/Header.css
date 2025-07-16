@@ -68,6 +68,7 @@
   left: 0;
   right: 0;
   z-index: 1000;
+  height: 80px; /* ارتفاع ثابت */
   transition: all var(--transition-normal);
   will-change: background, backdrop-filter, box-shadow;
 }
@@ -107,8 +108,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 var(--padding-xl);
-  height: var(--header-height-xl);
-  transition: all var(--transition-normal);
+  height: 100%; /* ملء الارتفاع */
 }
 
 /* ============================================

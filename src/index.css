@@ -1,15 +1,36 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* منع Layout Shift على مستوى الموقع */
+* {
+  box-sizing: border-box;
+}
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/* تحسين الخطوط */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-display: swap; /* منع Layout Shift من الخطوط */
+  line-height: 1.6;
+}
+
+/* حجز مساحة للصور */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* منع Layout Shift من الفيديوهات */
+video {
+  width: 100%;
+  height: auto;
+}
+
+/* تحسين الانيميشن */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
