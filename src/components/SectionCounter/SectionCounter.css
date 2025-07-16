@@ -9,11 +9,11 @@
 }
 
 .counter-section.light .counter-title {
-  color: #333;
+  color: #1f2937; /* لون أغمق للتباين الأفضل */
 }
 
 .counter-section.light .counter-description {
-  color: #666;
+  color: #374151; /* لون أغمق للتباين الأفضل */
 }
 
 /* Dark Mode */
@@ -27,11 +27,11 @@
 }
 
 .counter-section.dark .counter-title {
-  color: #fff;
+  color: #f9fafb;
 }
 
 .counter-section.dark .counter-description {
-  color: #ccc;
+  color: #d1d5db;
 }
 
 /* Common Styles */

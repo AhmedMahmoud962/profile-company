@@ -58,7 +58,7 @@
 
 /* Common Header Styles */
 .team-subtitle {
-  color: #8F6DFF !important;
+  color: #6b46c1 !important; /* لون أغمق للتباين الأفضل */
   font-weight: 600 !important;
   font-size: 1rem !important;
   text-transform: uppercase;
@@ -76,6 +76,7 @@
 }
 
 .team-description {
+  color: #374151 !important; /* لون أغمق للتباين الأفضل */
   max-width: 600px;
   margin: 0 auto !important;
   line-height: 1.6;
@@ -177,6 +178,7 @@
 }
 
 .team-bio {
+  color: #4b5563 !important; /* لون أغمق للتباين الأفضل */
   line-height: 1.5;
   font-size: 0.9rem !important;
 }

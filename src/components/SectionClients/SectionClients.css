@@ -57,6 +57,7 @@
 }
 
 .clients-subtitle {
+  color: #6b46c1; /* لون أغمق للتباين الأفضل */
   font-weight: 600;
   margin-bottom: 16px;
   text-transform: uppercase;
@@ -133,6 +134,7 @@
 }
 
 .client-description {
+  color: #374151; /* لون أغمق للتباين الأفضل */
   line-height: 1.6;
   margin: 0;
   flex-grow: 1;

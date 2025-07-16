@@ -21,7 +21,7 @@
 }
 
 .projects-subtitle {
-  color: #8F6DFF;
+  color: #6b46c1; /* لون أغمق للتباين الأفضل */
   font-weight: 600;
   font-size: 1rem;
   text-transform: uppercase;
@@ -41,14 +41,14 @@
 
 .projects-description {
   font-size: 1.1rem;
-  color: #666;
+  color: #374151; /* لون أغمق للتباين الأفضل */
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
 }
 
 .projects-section.dark .projects-description {
-  color: #ccc;
+  color: #d1d5db !important;
 }
 
 /* Swiper */
@@ -200,14 +200,14 @@
 }
 
 .project-description {
-  color: #666;
+  color: #4b5563; /* لون أغمق للتباين الأفضل */
   font-size: 0.9rem;
   line-height: 1.5;
   margin-bottom: 16px;
 }
 
 .projects-section.dark .project-description {
-  color: #ccc;
+  color: #d1d5db !important;
 }
 
 /* Technologies */

@@ -6,10 +6,37 @@
 /* تحسين الخطوط */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
+/* إصلاح ألوان الـ Body */
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-display: swap; /* منع Layout Shift من الخطوط */
+  color: #1f2937; /* لون أغمق للنص العادي */
+  background-color: #ffffff;
   line-height: 1.6;
+}
+
+/* Dark Mode للـ Body */
+@media (prefers-color-scheme: dark) {
+  body {
+    color: #f9fafb;
+    background-color: #111827;
+  }
+}
+
+/* CSS Variables للألوان */
+:root {
+  /* Light Mode Colors */
+  --text-primary: #1f2937;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
+  --accent-primary: #6b46c1;
+  --accent-secondary: #7c3aed;
+  
+  /* Dark Mode Colors */
+  --text-primary-dark: #f9fafb;
+  --text-secondary-dark: #d1d5db;
+  --text-muted-dark: #9ca3af;
+  --accent-primary-dark: #a78bfa;
+  --accent-secondary-dark: #8b5cf6;
 }
 
 /* حجز مساحة للصور */
@@ -33,4 +60,16 @@ video {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* استخدام المتغيرات */
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+.accent-primary { color: var(--accent-primary); }
+
+/* Dark Mode */
+[data-theme="dark"] .text-primary { color: var(--text-primary-dark); }
+[data-theme="dark"] .text-secondary { color: var(--text-secondary-dark); }
+[data-theme="dark"] .text-muted { color: var(--text-muted-dark); }
+[data-theme="dark"] .accent-primary { color: var(--accent-primary-dark); }
 
