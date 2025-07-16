@@ -23,8 +23,9 @@ export default function Portfolio() {
       {/* Hero Section */}
       <Suspense fallback={<div>Loading...</div>}>
         <HeroPage
-          title="OUR PORTFOLIO"
-          breadcrumbs={['Portfolio']}
+          title="OUR PROJECTS"
+          breadcrumbs={['Projects']}
+          description="Explore our comprehensive portfolio of web development, mobile apps, AI solutions, and software projects delivered to satisfied clients."
           backgroundImage="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80"
         />
       <AllProjectsSection />

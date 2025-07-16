@@ -27,6 +27,7 @@ function About() {
         <HeroPage
           title="About"
           breadcrumbs={['About']}
+          description="Learn more about Polygon Software, our mission, and the team behind it."
           backgroundImage="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80"
         />
         <SectionAbout />

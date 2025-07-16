@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { Home, ChevronRight } from 'lucide-react'
 import './Heropage.css'
 
-const HeroPage = ({ title, breadcrumbs, backgroundImage }) => {
+const HeroPage = ({ title, breadcrumbs, backgroundImage, description }) => {
   const defaultBgImage = 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=1920&q=80'
 
   return (
@@ -102,7 +102,7 @@ const HeroPage = ({ title, breadcrumbs, backgroundImage }) => {
               mt: 3
             }}
           >
-            Discover excellence in every pixel, every line of code, and every solution we deliver.
+            {description || 'Discover excellence in every pixel, every line of code, and every solution we deliver.'}
           </Typography>
         </motion.div>
       </Container>

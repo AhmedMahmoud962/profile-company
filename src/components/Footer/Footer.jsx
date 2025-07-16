@@ -45,11 +45,11 @@ const Footer = () => {
 
   // Dynamic social icons based on API data
   const socialIcons = settingsData ? [
-    // { 
-    //   icon: <Facebook />, 
-    //   name: 'Facebook', 
-    //   url: settingsData.facebook || '#' 
-    // },
+    { 
+      icon: <Facebook />, 
+      name: 'Facebook', 
+      url: settingsData.facebook || '#' 
+    },
     // { 
     //   icon: <Twitter />, 
     //   name: 'Twitter', 

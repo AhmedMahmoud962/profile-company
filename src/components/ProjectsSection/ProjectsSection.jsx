@@ -157,7 +157,7 @@ const ProjectsSection = () => {
                       {project.category.name}
                     </div>
                     <h3 className="project-title">{project.name}</h3>
-                    <p className="project-description">{project.description}</p>
+                    <p className="project-description">{project.description.length > 120 ? project.description.substring(0, 120) + '...' : project.description}</p>
 
                     {/* Technologies will be displayed when available in API */}
                     {/* <div className="project-technologies">

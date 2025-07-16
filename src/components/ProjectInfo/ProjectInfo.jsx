@@ -6,7 +6,6 @@ import { useThemeContext } from '../../context/ThemeContext'
 import './ProjectInfo.css'
 import { getImageUrl } from '../utils/constants'
 
-
 const ProjectInfo = () => {
   const { darkMode } = useThemeContext()
   const { id } = useParams()
@@ -20,29 +19,28 @@ const ProjectInfo = () => {
       try {
         const response = await getProjectDetailsById(id)
         const data = response.data // ← عشان الريسبونس الكامل فيه msg وstatus وdata
-  
+
         const mappedProject = {
           name: data.name,
           mainImage: getImageUrl(data.image),
           description: data.description,
           duration: 'N/A', // مفيش مدة راجعة من الـ API، ممكن تضيفها لاحقًا
-          client: 'N/A',    // نفس الشيء هنا
+          client: 'N/A', // نفس الشيء هنا
           category: data.category?.name || 'N/A',
           technology: 'N/A', // لو مفيش بيانات تكنولوجيا
           demoLink: data.link,
           whatsappNumber: '+201234567890', // أو استخرجه من الداتا لو موجود
           gallery: data.project_images.map((img) => getImageUrl(img.image)),
         }
-  
+
         setProjectData(mappedProject)
       } catch (error) {
         console.error('Failed to fetch project details', error)
       }
     }
-  
+
     fetchData()
   }, [id])
-  
 
   const openImageModal = (index) => {
     setCurrentImageIndex(index)
@@ -72,7 +70,9 @@ const ProjectInfo = () => {
 
   const handleWhatsApp = () => {
     const message = `Hello! I'm interested in the ${projectData.name} project. Can you provide more details?`
-    const url = `https://wa.me/${projectData.whatsappNumber}?text=${encodeURIComponent(message)}`
+    const url = `https://wa.me/${
+      projectData.whatsappNumber
+    }?text=${encodeURIComponent(message)}`
     window.open(url, '_blank')
   }
 
@@ -103,19 +103,18 @@ const ProjectInfo = () => {
           {/* Left */}
           <div className="projectinfo-left-side">
             <motion.div
-              className="projectinfo-main-image"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
               {/* <div className="projectinfo-image-wrapper"> */}
-                <img
-                  src={projectData.mainImage}
-                  alt={projectData.name}
-                  className="projectinfo-main-img"
-                  loading="lazy"
-                />
-                {/* <div className="projectinfo-image-overlay">
+              <img
+                src={projectData.mainImage}
+                alt={projectData.name}
+                className="projectinfo-main-img"
+                loading="lazy"
+              />
+              {/* <div className="projectinfo-image-overlay">
                   <div className="projectinfo-image-gradient"></div>
                 </div>
               </div> */}
@@ -219,7 +218,7 @@ const ProjectInfo = () => {
           </div>
 
           <div className="projectinfo-gallery-grid">
-          {projectData.gallery?.map((image, index) => (
+            {projectData.gallery?.map((image, index) => (
               <motion.div
                 key={index}
                 className="projectinfo-gallery-item"
@@ -237,7 +236,6 @@ const ProjectInfo = () => {
                     className="projectinfo-gallery-image"
                     loading="lazy"
                   />
-                
                 </div>
               </motion.div>
             ))}
@@ -315,7 +313,6 @@ const ProjectInfo = () => {
 }
 
 export default ProjectInfo
-
 
 // import React, { useState, useEffect } from 'react'
 // import { motion, AnimatePresence } from 'framer-motion'

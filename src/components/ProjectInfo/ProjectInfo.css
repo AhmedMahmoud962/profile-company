@@ -27,43 +27,31 @@
   display: grid;
   grid-template-columns: 1fr 380px;
   gap: 50px;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
 }
 
 /* Left Side - Image and Description */
 .projectinfo-left-side {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1rem;
 }
 
-.projectinfo-main-image {
-  position: relative;
-  width: 100%;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-}
-
-.projectinfo-image-wrapper {
-  position: relative;
-  width: 100%;
-  height: 500px;
-  overflow: hidden;
-}
-
+/* Main Image Styling */
 .projectinfo-main-img {
   width: 100%;
-  height: 500px;
+  height: 500px; /* ارتفاع ثابت لكل الصور */
   /* object-fit: cover; */
+  object-position: center;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   transition: transform 0.5s ease;
-  object-fit: contain;
 }
 
-.projectinfo-main-image:hover .projectinfo-main-img {
-  transform: scale(1.05);
+.projectinfo-main-img:hover {
+  transform: scale(1.02);
 }
-
 .projectinfo-image-overlay {
   position: absolute;
   top: 0;
@@ -93,7 +81,7 @@
 .projectinfo-title {
   font-size: 3rem;
   font-weight: 800;
-  margin-bottom: 20px;
+  margin: 10px 0;
   color: #1a1a1a;
   line-height: 1.2;
 }
@@ -107,7 +95,7 @@
   height: 5px;
   background: linear-gradient(45deg, #8F6DFF, #FF6B9D);
   border-radius: 3px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .projectinfo-description-text {
@@ -531,7 +519,9 @@
     max-height: 70vh;
   } */
   
-
+  .projectinfo-main-img {
+    height: 300px;
+  }
   
   .projectinfo-modal-prev {
     left: 15px;
@@ -656,6 +646,7 @@
     bottom: 5px;
   }
   
+  
 
 }
 
@@ -702,3 +693,4 @@
   transform: translateZ(0);
   backface-visibility: hidden;
 }
+

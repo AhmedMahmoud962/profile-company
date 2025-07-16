@@ -35,17 +35,17 @@ const FormContact = () => {
     e.preventDefault()
     setIsLoading(true)
     setAlert(null)
-    
+
     try {
       const response = await sendContact(formData)
       console.log('Form submitted:', response)
-      
+
       if (response.status === 201) {
         setAlert({
           type: 'success',
           message: `${response.msg}`,
         })
-        
+
         // Reset form
         setFormData({
           name: '',
@@ -62,15 +62,20 @@ const FormContact = () => {
       }
     } catch (error) {
       console.error('Error submitting form:', error)
-      
+
       let errorMessage = '❌ Something went wrong. Please try again.'
-      
+
       if (error.response) {
-        errorMessage = `❌ Error: ${error.response.data?.msg || error.response.statusText || 'Server error'}`
+        errorMessage = `❌ Error: ${
+          error.response.data?.msg ||
+          error.response.statusText ||
+          'Server error'
+        }`
       } else if (error.request) {
-        errorMessage = '❌ Network error. Please check your internet connection.'
+        errorMessage =
+          '❌ Network error. Please check your internet connection.'
       }
-      
+
       setAlert({
         type: 'error',
         message: errorMessage,
@@ -87,17 +92,20 @@ const FormContact = () => {
         <div className={`floating-alert floating-alert-${alert.type}`}>
           <div className="alert-content">
             <div className="alert-icon">
-              <i className={`fas fa-${alert.type === 'success' ? 'check-circle' : 'exclamation-circle'}`}></i>
+              <i
+                className={`fas fa-${
+                  alert.type === 'success'
+                    ? 'check-circle'
+                    : 'exclamation-circle'
+                }`}
+              ></i>
             </div>
             <div className="alert-message">
               {alert.message.split('\n').map((line, index) => (
                 <div key={index}>{line}</div>
               ))}
             </div>
-            <button 
-              className="alert-close" 
-              onClick={() => setAlert(null)}
-            >
+            <button className="alert-close" onClick={() => setAlert(null)}>
               <i className="fas fa-times"></i>
             </button>
           </div>
@@ -122,7 +130,14 @@ const FormContact = () => {
               <div className="info-content">
                 <h4>Address</h4>
                 <p>
-                28H/ 1 Shokry Abd-Elhalim, New Maadi, Cairo, Egypt.
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=28H%2F+1+Shokry+Abd-Elhalim%2C+New+Maadi%2C+Cairo%2C+Egypt"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="contact-link address-link"
+                  >
+                    28H/ 1 Shokry Abd-Elhalim, New Maadi, Cairo, Egypt.
+                  </a>
                 </p>
               </div>
             </div>
@@ -133,7 +148,16 @@ const FormContact = () => {
               </div>
               <div className="info-content">
                 <h4>Phone</h4>
-                <p>+20 106 952 9529</p>
+                <p>
+                  <a
+                    href="https://wa.me/201069529529"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="contact-link phone-link"
+                  >
+                    +20 106 952 9529
+                  </a>
+                </p>
               </div>
             </div>
 
@@ -143,7 +167,14 @@ const FormContact = () => {
               </div>
               <div className="info-content">
                 <h4>Email</h4>
-                  <p>info@polygonsoftware.tech</p>
+                <p>
+                  <a
+                    href="mailto:info@polygonsoftware.tech"
+                    className="contact-link email-link"
+                  >
+                    info@polygonsoftware.tech
+                  </a>
+                </p>
               </div>
             </div>
           </div>
@@ -226,8 +257,8 @@ const FormContact = () => {
                 ></textarea>
               </div>
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className={`submit-btn ${isLoading ? 'loading' : ''}`}
                 disabled={isLoading}
               >
