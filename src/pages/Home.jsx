@@ -1,5 +1,6 @@
-import { useEffect, useState, Suspense, lazy } from 'react'
+import { useEffect, useState, Suspense, lazy, useCallback } from 'react'
 import { Helmet } from 'react-helmet-async'
+import Spinner from '../components/Spinner/Spinner' // تأكد من المسار
 import { useLoading } from '../context/LoadingContext'
 
 // Lazy Components
@@ -22,27 +23,28 @@ const ClientsSection = lazy(() =>
 
 export default function Home() {
   const { startLoading, stopLoading } = useLoading()
-  const [data, setData] = useState(null)
+  const [isInitialized, setIsInitialized] = useState(false)
+
+  const loadPageData = useCallback(async () => {
+    if (isInitialized) return // منع التحميل المتكرر
+
+    startLoading('Loading Home Page...')
+
+    try {
+      // محاكاة تحميل البيانات
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+
+      setIsInitialized(true)
+    } catch (error) {
+      console.error('Failed to load home page:', error)
+    } finally {
+      stopLoading()
+    }
+  }, [isInitialized, startLoading, stopLoading])
 
   useEffect(() => {
-    const loadData = async () => {
-      startLoading('Loading Home Page...')
-
-      try {
-        // محاكاة تحميل البيانات - عشان نشوف الـ spinner
-        await new Promise((resolve) => setTimeout(resolve, 2000))
-
-        // هنا ممكن تضع API call لما المشكلة تتحل
-        setData({ message: 'Data loaded successfully!' })
-      } catch (err) {
-        console.error(err)
-      } finally {
-        stopLoading()
-      }
-    }
-
-    loadData()
-  }, [])
+    loadPageData()
+  }, []) // dependency array فاضية
 
   return (
     <>
@@ -50,7 +52,7 @@ export default function Home() {
         <title>Home | Polygon Software</title>
         <meta
           name="description"
-          content="Welcome to the homepage of Polygon Software – providing professional software solutions to our clients."
+          content="Welcome to Polygon Software – Your trusted partner for innovative software solutions."
         />
         <meta
           name="keywords"
@@ -59,14 +61,16 @@ export default function Home() {
         <meta name="robots" content="index, follow" />
       </Helmet>
 
-      <Suspense fallback={<div></div>}>
-        <HeroSlider />
-        <SectionAbout />
-        <ServicesSection />
-        <CounterSection />
-        <ProjectsSection />
-        <ClientsSection />
-      </Suspense>
+      <main>
+        <Suspense fallback={<div style={{ minHeight: '50vh' }}></div>}>
+          <HeroSlider />
+          <SectionAbout />
+          <ServicesSection />
+          <CounterSection />
+          <ProjectsSection />
+          <ClientsSection />
+        </Suspense>
+      </main>
     </>
   )
 }

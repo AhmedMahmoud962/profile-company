@@ -8,6 +8,7 @@ import Contact from './pages/Contact'
 import ScrollToTop from './components/ScrollToTop/ScrollToTop'
 import ProjectDetails from './pages/ProjectDetails'
 import GlobalSpinner from './components/GlobalSpinner/GlobalSpinner'
+import NotFound from './components/NotFound/NotFound'
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/project/:id" element={<ProjectDetails />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </>
