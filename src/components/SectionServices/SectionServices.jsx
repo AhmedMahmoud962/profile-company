@@ -4,7 +4,7 @@ import { useThemeContext } from '../../context/ThemeContext'
 import { getServices } from '../API/serviceServices'
 import { useState, useEffect } from 'react'
 import './SectionServices.css'
-import Spinner from '../Spinner/Spinner'
+// import Spinner from '../Spinner/Spinner'
 
 const ServicesSection = () => {
   const { darkMode } = useThemeContext()
@@ -28,9 +28,9 @@ const ServicesSection = () => {
     fetchServices()
   }, [])
 
-  if (loading) {
-    return <Spinner message="Loading services..." />
-  }
+  // if (loading) {
+  //   return <Spinner message="Loading services..." />
+  // }
 
   if (services.length === 0) {
     return (

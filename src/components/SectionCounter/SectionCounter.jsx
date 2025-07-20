@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useThemeContext } from '../../context/ThemeContext'
 import './SectionCounter.css'
 import { getCounters } from '../API/countersService'
-import Spinner from '../Spinner/Spinner'
+// import Spinner from '../Spinner/Spinner'
 const CounterSection = () => {
   const { darkMode } = useThemeContext()
   const [counters, setCounters] = useState([])
@@ -26,9 +26,9 @@ const CounterSection = () => {
     fetchCounters()
   }, [])
 
-  if (loading) {
-    return <Spinner message="Loading counters..." />
-  }
+  // if (loading) {
+  //   return <Spinner message="Loading counters..." />
+  // }
 
   if (counters.length === 0) {
     return (

@@ -23,6 +23,8 @@ const AboutSection = () => {
     fetchAboutData()
   }, [])
 
+  
+
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768)

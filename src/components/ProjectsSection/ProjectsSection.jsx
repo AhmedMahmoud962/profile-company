@@ -7,7 +7,7 @@ import './ProjectsSection.css'
 import { Link } from 'react-router-dom'
 import { getProjects } from '../API/ProjectService'
 import { useState, useEffect } from 'react'
-import Spinner from '../Spinner/Spinner'
+// import Spinner from '../Spinner/Spinner'
 import { getImageUrl } from '../utils/constants'
 
 // Import Swiper styles
@@ -34,9 +34,9 @@ const ProjectsSection = () => {
     fetchProjects()
   }, [])
 
-  if (loading) {
-    return <Spinner message="Loading projects..." />
-  }
+  // if (loading) {
+  //   return <Spinner message="Loading projects..." />
+  // }
   if (projects.length === 0) {
     return (
       <div className="projects-section">

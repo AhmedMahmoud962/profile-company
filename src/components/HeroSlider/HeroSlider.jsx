@@ -9,7 +9,7 @@ import 'swiper/css/effect-fade'
 import { Link } from 'react-router-dom'
 import { getSlider } from '../API/sliderService'
 import { useState, useEffect } from 'react'
-import Spinner from '../Spinner/Spinner'
+// import Spinner from '../Spinner/Spinner'
 import { getImageUrl } from '../utils/constants'
 import './HeroSlider.css'
 
