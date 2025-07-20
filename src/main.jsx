@@ -4,13 +4,16 @@ import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import App from './App'
 import { ThemeContextProvider } from './context/ThemeContext'
+import { LoadingProvider } from './context/LoadingContext'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <ThemeContextProvider>
-    <HelmetProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </HelmetProvider>
-  </ThemeContextProvider>,
+    <LoadingProvider>
+      <HelmetProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </HelmetProvider>
+    </LoadingProvider>
+  </ThemeContextProvider>
 )

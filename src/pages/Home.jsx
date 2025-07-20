@@ -1,7 +1,8 @@
+import { useEffect, useState, Suspense, lazy } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Suspense, lazy } from 'react'
+import { useLoading } from '../context/LoadingContext'
 
-// Components
+// Lazy Components
 const HeroSlider = lazy(() => import('../components/HeroSlider/HeroSlider'))
 const SectionAbout = lazy(() =>
   import('../components/SectionAbout/SectionAbout'),
@@ -20,6 +21,29 @@ const ClientsSection = lazy(() =>
 )
 
 export default function Home() {
+  const { startLoading, stopLoading } = useLoading()
+  const [data, setData] = useState(null)
+
+  useEffect(() => {
+    const loadData = async () => {
+      startLoading('Loading Home Page...')
+
+      try {
+        // محاكاة تحميل البيانات - عشان نشوف الـ spinner
+        await new Promise((resolve) => setTimeout(resolve, 2000))
+
+        // هنا ممكن تضع API call لما المشكلة تتحل
+        setData({ message: 'Data loaded successfully!' })
+      } catch (err) {
+        console.error(err)
+      } finally {
+        stopLoading()
+      }
+    }
+
+    loadData()
+  }, [])
+
   return (
     <>
       <Helmet>
@@ -35,7 +59,7 @@ export default function Home() {
         <meta name="robots" content="index, follow" />
       </Helmet>
 
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div></div>}>
         <HeroSlider />
         <SectionAbout />
         <ServicesSection />

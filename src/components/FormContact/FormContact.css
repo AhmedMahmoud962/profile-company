@@ -575,10 +575,8 @@
 /* Responsive for alerts */
 @media (max-width: 768px) {
   .floating-alert {
-    top: 10px;
+    bottom: 10px;
     right: 10px;
-    left: 10px;
-    max-width: none;
   }
   
   .alert-content {

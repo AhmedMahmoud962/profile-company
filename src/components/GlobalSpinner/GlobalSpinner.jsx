@@ -1,7 +1,12 @@
 import React from 'react'
-import './Spinner.css'
+import { useLoading } from '../../context/LoadingContext'
+import './GlobalSpinner.css'
 
-const Spinner = ({ message = 'Loading...' }) => {
+const GlobalSpinner = () => {
+  const { isLoading, message } = useLoading()
+
+  if (!isLoading) return null
+
   return (
     <div className="global-spinner-overlay">
       {/* Background Blur Overlay */}
@@ -65,4 +70,4 @@ const Spinner = ({ message = 'Loading...' }) => {
   )
 }
 
-export default Spinner
+export default GlobalSpinner
