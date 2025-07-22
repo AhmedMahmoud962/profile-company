@@ -43,7 +43,6 @@ const ProjectInfo = () => {
     fetchData()
   }, [id])
 
-  if (loading) return <Spinner message="Loading project details..." />
 
   const openImageModal = (index) => {
     setCurrentImageIndex(index)
@@ -93,7 +92,7 @@ const ProjectInfo = () => {
   }, [selectedImage, currentImageIndex])
 
   // لو البيانات لسه محمّلتش
-  if (!projectData) return <p>Loading project details...</p>
+  if (!projectData) return <Spinner message="Loading project details..." />
 
   return (
     <div
