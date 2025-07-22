@@ -9,7 +9,7 @@ import 'swiper/css/effect-fade'
 import { Link } from 'react-router-dom'
 import { getSlider } from '../API/sliderService'
 import { useState, useEffect } from 'react'
-// import Spinner from '../Spinner/Spinner'
+import Spinner from '../Spinner/Spinner'
 import { getImageUrl } from '../utils/constants'
 import './HeroSlider.css'
 
@@ -34,7 +34,7 @@ const HeroSlider = () => {
     fetchSlides()
   }, [])
 
-  // if (loading) return <Spinner message="Loading hero slider..." />
+  if (loading) return <Spinner message="Loading hero slider..." />
 
   if (slides.length === 0) return <div className='text-center text-2xl font-bold'>No slides found</div>
 

@@ -5,6 +5,7 @@ import { getProjectDetailsById } from '../API/ProjectService'
 import { useThemeContext } from '../../context/ThemeContext'
 import './ProjectInfo.css'
 import { getImageUrl } from '../utils/constants'
+import Spinner from '../Spinner/Spinner'
 
 const ProjectInfo = () => {
   const { darkMode } = useThemeContext()
@@ -24,12 +25,12 @@ const ProjectInfo = () => {
           name: data.name,
           mainImage: getImageUrl(data.image),
           description: data.description,
-          duration: 'N/A', // مفيش مدة راجعة من الـ API، ممكن تضيفها لاحقًا
-          client: 'N/A', // نفس الشيء هنا
+          // duration: 'N/A', // مفيش مدة راجعة من الـ API، ممكن تضيفها لاحقًا
+          // client: 'N/A', // نفس الشيء هنا
           category: data.category?.name || 'N/A',
-          technology: 'N/A', // لو مفيش بيانات تكنولوجيا
+          // technology: 'N/A', // لو مفيش بيانات تكنولوجيا
           demoLink: data.link,
-          whatsappNumber: '+201234567890', // أو استخرجه من الداتا لو موجود
+          whatsappNumber: '+201099681654', // أو استخرجه من الداتا لو موجود
           gallery: data.project_images.map((img) => getImageUrl(img.image)),
         }
 
@@ -41,6 +42,8 @@ const ProjectInfo = () => {
 
     fetchData()
   }, [id])
+
+  if (loading) return <Spinner message="Loading project details..." />
 
   const openImageModal = (index) => {
     setCurrentImageIndex(index)
@@ -149,32 +152,32 @@ const ProjectInfo = () => {
 
               <div className="projectinfo-info-details">
                 <div className="projectinfo-info-item">
-                  <span className="projectinfo-info-label">Duration:</span>
+                  <span className="projectinfo-info-label">Project Name</span>
                   <span className="projectinfo-info-value">
-                    {projectData.duration}
+                    {projectData.name}
                   </span>
                 </div>
 
-                <div className="projectinfo-info-item">
+                {/* <div className="projectinfo-info-item">
                   <span className="projectinfo-info-label">Client:</span>
                   <span className="projectinfo-info-value">
                     {projectData.client}
                   </span>
-                </div>
+                </div> */}
 
                 <div className="projectinfo-info-item">
-                  <span className="projectinfo-info-label">Category:</span>
+                  <span className="projectinfo-info-label">Category</span>
                   <span className="projectinfo-info-value">
                     {projectData.category}
                   </span>
                 </div>
 
-                <div className="projectinfo-info-item">
+                {/* <div className="projectinfo-info-item">
                   <span className="projectinfo-info-label">Technology:</span>
                   <span className="projectinfo-info-value">
                     {projectData.technology}
                   </span>
-                </div>
+                </div> */}
               </div>
 
               <div className="projectinfo-action-buttons">

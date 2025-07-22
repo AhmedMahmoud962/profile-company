@@ -1,7 +1,5 @@
-import { useEffect, useState, Suspense, lazy, useCallback } from 'react'
+import { Suspense, lazy } from 'react'
 import { Helmet } from 'react-helmet-async'
-import Spinner from '../components/Spinner/Spinner' // تأكد من المسار
-import { useLoading } from '../context/LoadingContext'
 
 // Lazy Components
 const HeroSlider = lazy(() => import('../components/HeroSlider/HeroSlider'))
@@ -22,30 +20,6 @@ const ClientsSection = lazy(() =>
 )
 
 export default function Home() {
-  const { startLoading, stopLoading } = useLoading()
-  const [isInitialized, setIsInitialized] = useState(false)
-
-  const loadPageData = useCallback(async () => {
-    if (isInitialized) return // منع التحميل المتكرر
-
-    startLoading('Loading Home Page...')
-
-    try {
-      // محاكاة تحميل البيانات
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-
-      setIsInitialized(true)
-    } catch (error) {
-      console.error('Failed to load home page:', error)
-    } finally {
-      stopLoading()
-    }
-  }, [isInitialized, startLoading, stopLoading])
-
-  useEffect(() => {
-    loadPageData()
-  }, []) // dependency array فاضية
-
   return (
     <>
       <Helmet>

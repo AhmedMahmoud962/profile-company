@@ -198,20 +198,21 @@
 /* Action Buttons */
 .projectinfo-action-buttons {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
 }
 
 .projectinfo-action-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 16px 24px;
+  gap: 6px;
+  padding: 10px 15px;
   border: none;
   border-radius: 50px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: .7rem;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
@@ -259,7 +260,7 @@
 }
 
 .projectinfo-btn-icon {
-  font-size: 1.3rem;
+  font-size: .9rem;
   z-index: 1;
 }
 

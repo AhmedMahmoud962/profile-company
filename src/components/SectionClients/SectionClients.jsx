@@ -6,6 +6,7 @@ import { useThemeContext } from '../../context/ThemeContext'
 import './SectionClients.css'
 import { getClients } from '../API/ClientsService'
 import { getImageUrl } from '../utils/constants'
+// import Spinner from '../Spinner/Spinner'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -32,9 +33,9 @@ const ClientsSection = () => {
     fetchClients()
   }, [])
 
-  if (loading) {
-    return <div>Loading...</div>
-  }
+  // if (loading) {
+  //   return <Spinner message="Loading clients..." />
+  // }
 
   return (
     <div className={`clients-section ${darkMode ? 'dark' : 'light'}`}>
