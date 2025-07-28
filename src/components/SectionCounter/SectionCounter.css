@@ -1,7 +1,7 @@
 /* Light Mode */
 .counter-section.light {
   padding: 64px 0;
-  background: linear-gradient(135deg, rgba(143, 109, 255, 0.1), rgba(255, 107, 157, 0.1));
+  /* background: linear-gradient(135deg, rgba(143, 109, 255, 0.1), rgba(255, 107, 157, 0.1)); */
 }
 
 .counter-section.light .counter-number {

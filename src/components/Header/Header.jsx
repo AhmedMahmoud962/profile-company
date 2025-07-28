@@ -20,12 +20,6 @@ const Header = () => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 50
       setScrolled(isScrolled)
-
-      // تقليل scroll progress calculations للأداء - معطل حالياً
-      // if (isScrolled) {
-      //   const scrollProgress = Math.min((window.scrollY / 1000) * 100, 100)
-      //   document.documentElement.style.setProperty('--scroll-progress', `${scrollProgress}%`)
-      // }
     }
 
     // تحسين scroll listener

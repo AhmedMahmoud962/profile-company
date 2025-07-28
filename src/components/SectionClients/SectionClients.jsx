@@ -28,14 +28,10 @@ const ClientsSection = () => {
         console.error('Error fetching clients:', error)
         setClients([])
         setLoading(false)
-      } 
+      }
     }
     fetchClients()
   }, [])
-
-  // if (loading) {
-  //   return <Spinner message="Loading clients..." />
-  // }
 
   return (
     <div className={`clients-section ${darkMode ? 'dark' : 'light'}`}>
@@ -60,7 +56,7 @@ const ClientsSection = () => {
                 slidesPerView: 2,
               },
               1024: {
-                slidesPerView: 3,
+                slidesPerView: 2,
               },
             }}
             autoplay={{
@@ -81,14 +77,19 @@ const ClientsSection = () => {
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.8, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
                   className="client-card"
                 >
                   <div className="client-avatar">
-                    <img src={getImageUrl(client.image)} alt={client.name} loading="lazy" />
+                    <img
+                      src={getImageUrl(client.image)}
+                      alt={client.name}
+                      loading="lazy"
+                    />
                   </div>
-                  <h3 className="client-name">{client.name}</h3>
-                  <p className="client-description">{client.description}</p>
+                  <div className="client-text-content">
+                    <h3 className="client-name">{client.name}</h3>
+                    <p className="client-description">{client.description}</p>
+                  </div>
                 </motion.div>
               </SwiperSlide>
             ))}

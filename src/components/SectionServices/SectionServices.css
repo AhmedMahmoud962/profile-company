@@ -1,7 +1,7 @@
 /* Light Mode */
 .services-section.light {
   padding: 64px 0;
-  background-color: #F8F9FA;
+  /* background-color: #F8F9FA; */
 }
 
 .services-section.light .service-card {
