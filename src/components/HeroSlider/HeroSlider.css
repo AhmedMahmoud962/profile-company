@@ -1,8 +1,8 @@
 /* Reset and Variables */
 :root {
-  --primary-color: #CC4570;
-  --secondary-color: #CC4570;
-  --accent-color: #FF9AC4;
+  --primary-color: #8f6dff;
+  --secondary-color: #8f6dff;
+  --accent-color: #ab94f5;
   --text-primary: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.8);
   --overlay-dark: rgba(0, 0, 0, 0.6);
@@ -743,7 +743,7 @@
 .hero-description {
   line-height: 1.4;
   margin-bottom: 1rem;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 .title-main { 
   font-size: 2rem;

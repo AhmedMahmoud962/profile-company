@@ -48,7 +48,11 @@ const ServicesSection = () => {
           className="services-header"
         >
           <h6 className="services-subtitle">Our Services</h6>
-          <h2 className="services-title">What We Offer</h2>
+          <h2 className="services-title">How can we help?</h2>
+          <p>
+            We help premium brands achieve their future through innovation and
+            creative perspectives.
+          </p>
         </motion.div>
 
         <div className="services-grid">
@@ -113,7 +117,7 @@ export default ServicesSection
 //       title: '24/7 Support',
 //       description: 'Continuous support and maintenance to keep your applications running smoothly.',
 //     },
-      
+
 //   ]
 
 //   return (

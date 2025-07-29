@@ -7,7 +7,7 @@ import { getCounters } from '../API/countersService'
 const CounterSection = () => {
   const { darkMode } = useThemeContext()
   const [counters, setCounters] = useState([])
-  const [loading, setLoading] = useState(true)
+  // const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchCounters = async () => {
@@ -20,7 +20,7 @@ const CounterSection = () => {
         console.error('Failed to fetch counters:', err)
         setCounters([])
       } finally {
-        setLoading(false)
+        // setLoading(false)
       }
     }
     fetchCounters()
@@ -38,6 +38,14 @@ const CounterSection = () => {
 
   return (
     <div className={`counter-section ${darkMode ? 'dark' : 'light'}`}>
+      <div className="counter-section-title">
+        <h2>Fun Facts
+        </h2>
+        <p>
+          This motivates us to continue looking for new challenges in order to
+          improve our services.
+        </p>
+      </div>
       <div className="counter-container">
         <div className="counter-grid">
           {counters.map((counter) => (

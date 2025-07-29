@@ -6,9 +6,9 @@
 :root {
   /* Color Palette - Theme Based */
   --primary-gradient: linear-gradient(135deg, #8F6DFF 0%, #6B4FCC 100%);
-  --secondary-gradient: linear-gradient(135deg, #FF6B9D 0%, #CC4570 100%);
-  --accent-gradient: linear-gradient(135deg, #8F6DFF 0%, #FF6B9D 100%);
-  --reverse-gradient: linear-gradient(135deg, #FF6B9D 0%, #8F6DFF 100%);
+  --secondary-gradient: linear-gradient(135deg, #8f6dff 0%, #8f6dff 100%);
+  --accent-gradient: linear-gradient(135deg, #8F6DFF 0%, #8f6dff 100%);
+  --reverse-gradient: linear-gradient(135deg, #8f6dff 0%, #8F6DFF 100%);
   
   /* Glass Morphism Colors */
   --glass-light: rgba(255, 255, 255, 0.25);
@@ -943,6 +943,7 @@
   .drawer-content {
     padding: 1.5rem;
   }
+
 }
 
 /* Extra Small (320px and below) */

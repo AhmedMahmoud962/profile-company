@@ -33,10 +33,10 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin: 0 0 16px 0;
-  background: linear-gradient(45deg, #8F6DFF, #FF6B9D);
+  /* background: linear-gradient(45deg, #8F6DFF, #FF6B9D);
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent; */
 }
 
 .projects-description {
@@ -147,7 +147,7 @@
 }
 
 .project-link.demo {
-  background: linear-gradient(45deg, #8F6DFF, #FF6B9D);
+  background: linear-gradient(45deg, #8F6DFF, #8F6DFF);
   color: white;
 }
 
@@ -235,7 +235,7 @@
 }
 
 .project-tech {
-  background: linear-gradient(45deg, #8F6DFF, #FF6B9D);
+  background: linear-gradient(45deg, #8F6DFF, #8F6DFF);
   color: white;
   padding: 4px 10px;
   border-radius: 15px;
@@ -249,7 +249,7 @@
 }
 
 .projects-btn {
-  background: linear-gradient(45deg, #8F6DFF, #FF6B9D);
+  background: linear-gradient(45deg, #8F6DFF, #8F6DFF);
   color: white;
   padding: 14px 28px;
   border: none;
@@ -274,7 +274,7 @@
 }
 
 .projects-swiper .swiper-pagination-bullet-active {
-  background: linear-gradient(45deg, #8F6DFF, #FF6B9D) !important;
+  background: linear-gradient(45deg, #8F6DFF, #8F6DFF) !important;
   opacity: 1 !important;
 }
 

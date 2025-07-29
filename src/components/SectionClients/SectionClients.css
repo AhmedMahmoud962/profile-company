@@ -74,7 +74,7 @@
 .clients-title {
   font-weight: bold;
   margin-bottom: 48px;
-  background: linear-gradient(45deg, #8F6DFF, #FF6B9D);
+  background: linear-gradient(45deg, #8F6DFF, #8F6DFF);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -170,7 +170,7 @@
 }
 
 .clients-swiper .swiper-pagination-bullet-active {
-  background: linear-gradient(45deg, #8F6DFF, #FF6B9D) !important;
+  background: linear-gradient(45deg, #8F6DFF, #8F6DFF) !important;
   opacity: 1 !important;
   transform: scale(1.2) !important;
 }
