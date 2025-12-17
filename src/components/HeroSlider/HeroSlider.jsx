@@ -23,6 +23,17 @@ const HeroSlider = () => {
         const response = await getSlider()
         if (response.status === 200) {
           setSlides(response.data)
+          
+          // Preload first slide image for better LCP
+          if (response.data && response.data[0]) {
+            const firstImageUrl = getImageUrl(response.data[0].image)
+            const link = document.createElement('link')
+            link.rel = 'preload'
+            link.as = 'image'
+            link.href = firstImageUrl
+            link.fetchpriority = 'high'
+            document.head.appendChild(link)
+          }
         }
       } catch (err) {
         console.error('Failed to fetch slides:', err)
@@ -71,16 +82,18 @@ const HeroSlider = () => {
         loop={true}
         className="hero-swiper"
       >
-        {slides.map((slide) => (
+        {slides.map((slide, index) => (
           <SwiperSlide key={slide.id}>
             <div className="hero-slide">
-              {/* Background Image */}
-              <div
+              {/* Background Image - optimized for LCP */}
+              <img
+                src={getImageUrl(slide.image)}
+                alt={slide.name}
                 className="hero-bg-image"
-                style={{
-                  backgroundImage: `url(${getImageUrl(slide.image)})`,
-                }}
-              ></div>
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchpriority={index === 0 ? "high" : "auto"}
+                decoding="async"
+              />
 
               {/* Enhanced Overlay Layers */}
               <div className="hero-overlay-primary"></div>

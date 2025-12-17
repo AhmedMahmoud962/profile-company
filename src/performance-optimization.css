@@ -1,0 +1,62 @@
+/**
+ * Performance Optimization CSS
+ * This file contains CSS optimizations to reduce reflows and improve performance
+ */
+
+/* GPU Acceleration for animated elements */
+.hero-slide,
+.hero-bg-image,
+.floating-shape,
+.floating-line,
+.feature-item,
+.hero-link {
+  will-change: auto;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Prevent layout thrashing */
+img,
+video {
+  content-visibility: auto;
+}
+
+/* Optimize repaints */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Use contain for isolated components */
+.projectinfo-gallery-item,
+.hero-slide,
+.feature-item {
+  contain: layout style paint;
+}
+
+/* Optimize scrolling */
+.projectinfo-container,
+.hero-slider-container {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Reduce paint areas */
+.projectinfo-image-modal {
+  isolation: isolate;
+}
+
+/* Font rendering optimization */
+body {
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
