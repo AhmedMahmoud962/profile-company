@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useParams } from 'react-router-dom'
 import { getProjectDetailsById } from '../API/ProjectService'
 import { useThemeContext } from '../../context/ThemeContext'
@@ -43,24 +43,27 @@ const ProjectInfo = () => {
     fetchData()
   }, [id])
 
-
+  // Open image modal
   const openImageModal = (index) => {
     setCurrentImageIndex(index)
     setSelectedImage(projectData.gallery[index])
     document.body.style.overflow = 'hidden'
   }
 
+  // Close image modal
   const closeImageModal = () => {
     setSelectedImage(null)
     document.body.style.overflow = 'auto'
   }
 
+  // Next image
   const nextImage = () => {
     const nextIndex = (currentImageIndex + 1) % projectData.gallery.length
     setCurrentImageIndex(nextIndex)
     setSelectedImage(projectData.gallery[nextIndex])
   }
 
+  // Previous image
   const prevImage = () => {
     const prevIndex =
       currentImageIndex === 0
@@ -70,6 +73,7 @@ const ProjectInfo = () => {
     setSelectedImage(projectData.gallery[prevIndex])
   }
 
+  // Handle WhatsApp
   const handleWhatsApp = () => {
     const message = `Hello! I'm interested in the ${projectData.name} project. Can you provide more details?`
     const url = `https://wa.me/${
@@ -78,6 +82,7 @@ const ProjectInfo = () => {
     window.open(url, '_blank')
   }
 
+  // Handle key down
   const handleKeyDown = (e) => {
     if (selectedImage) {
       if (e.key === 'ArrowRight') nextImage()
@@ -86,6 +91,7 @@ const ProjectInfo = () => {
     }
   }
 
+  // Add event listener for key down
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
@@ -130,9 +136,12 @@ const ProjectInfo = () => {
             >
               <h1 className="projectinfo-title">{projectData.name}</h1>
               <div className="projectinfo-title-underline"></div>
-              <p className="projectinfo-description-text">
-                {projectData.description}
-              </p>
+              <div
+                className="projectinfo-description-text"
+                dangerouslySetInnerHTML={{
+                  __html: projectData.description,
+                }}
+              />
             </motion.div>
           </div>
 

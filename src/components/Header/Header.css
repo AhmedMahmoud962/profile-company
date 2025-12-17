@@ -62,17 +62,21 @@
    BASE HEADER STYLES
    ============================================ */
 
-.modern-header {
+/* .modern-header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  height: 80px; /* ارتفاع ثابت */
+  height: 80px;
+  transition: all var(--transition-normal);
+  will-change: background, backdrop-filter, box-shadow;
+} */
+.modern-header {
+  height: 80px;
   transition: all var(--transition-normal);
   will-change: background, backdrop-filter, box-shadow;
 }
-
 /* Transparent State */
 .header-transparent {
   background: transparent;
