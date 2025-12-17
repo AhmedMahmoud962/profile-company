@@ -141,11 +141,7 @@ const AllProjectsGrid = () => {
                   <img
                     src={getImageUrl(project.image) || '/default-image.jpg'}
                     alt={project.name}
-                    width="400"
-                    height="300"
                     loading="lazy"
-                    decoding="async"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="project-overlay">
                     <div className="overlay-content">
