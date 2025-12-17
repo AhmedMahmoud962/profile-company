@@ -10,10 +10,10 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false)
 
   const navigationItems = [
-    { name: 'Home', path: '/', icon: '🏠' },
-    { name: 'About', path: '/about', icon: 'ℹ️' },
-    { name: 'Projects', path: '/projects', icon: '💼' },
-    { name: 'Contact', path: '/contact', icon: '📞' },
+    { name: 'Home', path: '/'},
+    { name: 'About', path: '/about'},
+    { name: 'Projects', path: '/projects'},
+    { name: 'Contact', path: '/contact' },
   ]
 
   useEffect(() => {
@@ -84,16 +84,18 @@ const Header = () => {
         }`}
       >
         <div className="header-container">
-          {/* Logo مبسط - بدون Framer Motion */}
+          {/* Logo with Image */}
           <div className="header-brand">
             <Link to="/" className="brand-link" onClick={handleLinkClick}>
-              <div className="brand-icon">
-                <span className="brand-letter">P</span>
+              <div className="brand-icon-wrapper">
+                <img
+                  src="/software.png"
+                  alt="Polygon Software Logo"
+                  className="brand-logo-image"
+                  loading="eager"
+                />
               </div>
-              <div className="brand-text-container">
-                <span className="brand-text">Polygon</span>
-                <span className="brand-subtitle">Software</span>
-              </div>
+            
             </Link>
           </div>
 
@@ -108,7 +110,6 @@ const Header = () => {
                       location.pathname === item.path ? 'nav-active' : ''
                     }`}
                   >
-                    <span className="nav-icon">{item.icon}</span>
                     <span className="nav-text">{item.name}</span>
                     <span className="nav-indicator"></span>
                   </Link>
@@ -168,12 +169,13 @@ const Header = () => {
               <div className="drawer-header">
                 <div className="drawer-brand">
                   <div className="drawer-brand-icon">
-                    <span className="drawer-brand-letter">P</span>
+                    <img
+                      src="/software.png"
+                      alt="Polygon Software Logo"
+                      className="drawer-logo-image"
+                    />
                   </div>
-                  <div className="drawer-brand-text">
-                    <span className="drawer-brand-name">Polygon</span>
-                    <span className="drawer-brand-sub">Software</span>
-                  </div>
+        
                 </div>
                 <button
                   className="drawer-close"
@@ -201,7 +203,6 @@ const Header = () => {
                         }`}
                         onClick={handleLinkClick}
                       >
-                        <span className="drawer-link-icon">{item.icon}</span>
                         <span className="drawer-link-text">{item.name}</span>
                         <span className="drawer-link-arrow">→</span>
                       </Link>

@@ -161,9 +161,10 @@ const ProjectsSection = () => {
                     </h3>
                     <p className="project-description">
                       <span className="description-icon">📝</span>
-                      {project.description.length > 120
+                      {/* {project.description.length > 120
                         ? project.description.substring(0, 120) + '...'
-                        : project.description}
+                        : project.description} */}
+                        {project.summary}
                     </p>
                   </div>
                 </motion.div>

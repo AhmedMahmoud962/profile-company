@@ -23,7 +23,7 @@ const HeroSlider = () => {
         const response = await getSlider()
         if (response.status === 200) {
           setSlides(response.data)
-          
+
           // Preload first slide image for better LCP
           if (response.data && response.data[0]) {
             const firstImageUrl = getImageUrl(response.data[0].image)
@@ -46,8 +46,7 @@ const HeroSlider = () => {
   }, [])
 
   if (loading) return <Spinner message="Loading hero slider..." />
-
-  if (slides.length === 0) return <div className='text-center text-2xl font-bold'>No slides found</div>
+  
 
   return (
     <div className="hero-slider-container">
@@ -90,8 +89,8 @@ const HeroSlider = () => {
                 src={getImageUrl(slide.image)}
                 alt={slide.name}
                 className="hero-bg-image"
-                loading={index === 0 ? "eager" : "lazy"}
-                fetchpriority={index === 0 ? "high" : "auto"}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                fetchpriority={index === 0 ? 'high' : 'auto'}
                 decoding="async"
               />
 
