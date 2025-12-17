@@ -34,7 +34,14 @@ const ServicesSection = () => {
 
   if (services.length === 0) {
     return (
-      <div className="text-center text-2xl font-bold">No services found</div>
+      <div className="projects-grid-section">
+        <div className="projects-grid-container">
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+            <p>Loading projects...</p>
+          </div>
+        </div>
+      </div>
     )
   }
 

@@ -74,14 +74,17 @@
 .clients-title {
   font-weight: bold;
   margin-bottom: 48px;
-  background: linear-gradient(45deg, #8F6DFF, #8F6DFF);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 3rem;
+  /* background: linear-gradient(45deg, #8F6DFF, #8F6DFF); */
+
+  font-size: 2.5rem;
   margin: 0;
 }
-
+.clients-title.dark {
+  color: #fff;
+}
+.clients-title.light {
+  color: #000;
+}
 /* Swiper Container */
 .clients-swiper-container {
   position: relative;

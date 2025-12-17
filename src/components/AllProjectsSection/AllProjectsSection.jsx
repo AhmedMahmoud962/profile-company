@@ -1,10 +1,10 @@
 import React from 'react'
-import ProjectsSection from '../ProjectsSection/ProjectsSection'
+import AllProjectsGrid from './AllProjectsGrid'
 
 function AllProjectsSection() {
   return (
     <>
-    <ProjectsSection />
+      <AllProjectsGrid />
     </>
   )
 }

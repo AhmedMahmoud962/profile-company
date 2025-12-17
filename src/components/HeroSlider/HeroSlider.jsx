@@ -9,7 +9,7 @@ import 'swiper/css/effect-fade'
 import { Link } from 'react-router-dom'
 import { getSlider } from '../API/sliderService'
 import { useState, useEffect } from 'react'
-import Spinner from '../Spinner/Spinner'
+// import Spinner from '../Spinner/Spinner'
 import { getImageUrl } from '../utils/constants'
 import './HeroSlider.css'
 
@@ -45,8 +45,19 @@ const HeroSlider = () => {
     fetchSlides()
   }, [])
 
-  if (loading) return <Spinner message="Loading hero slider..." />
-  
+  if (loading) {
+    return (
+      <div className="projects-grid-section">
+        <div className="projects-grid-container">
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+            <p>Loading hero slider...</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
 
   return (
     <div className="hero-slider-container">

@@ -1,22 +1,21 @@
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useState, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination, Autoplay } from 'swiper/modules'
+import { motion } from 'framer-motion'
+import { Pagination, Navigation } from 'swiper/modules'
 import { useThemeContext } from '../../context/ThemeContext'
 import './ProjectsSection.css'
 import { Link } from 'react-router-dom'
 import { getProjects } from '../API/ProjectService'
-import { useState, useEffect } from 'react'
 import { getImageUrl } from '../utils/constants'
 
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/pagination'
+import 'swiper/css/navigation'
 
 const ProjectsSection = () => {
   const { darkMode } = useThemeContext()
   const [projects, setProjects] = useState([])
-  const [loading, setLoading] = useState(true)
 
   // دالة للحصول على أيقونة الفئة
   const getCategoryIcon = (categoryName) => {
@@ -45,11 +44,9 @@ const ProjectsSection = () => {
       try {
         const response = await getProjects()
         setProjects(response.data)
-        setLoading(false)
       } catch (error) {
         console.error('Error fetching projects:', error)
         setProjects([])
-        setLoading(false)
       }
     }
     fetchProjects()
@@ -57,9 +54,12 @@ const ProjectsSection = () => {
 
   if (projects.length === 0) {
     return (
-      <div className="projects-section">
-        <div className="projects-container">
-          <h2>No projects found</h2>
+      <div className="projects-grid-section">
+        <div className="projects-grid-container">
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+            <p>Loading projects...</p>
+          </div>
         </div>
       </div>
     )
@@ -83,7 +83,7 @@ const ProjectsSection = () => {
 
         <div className="projects-swiper-container">
           <Swiper
-            modules={[Pagination, Autoplay]}
+            modules={[Pagination]}
             spaceBetween={30}
             slidesPerView={1}
             pagination={{
@@ -91,11 +91,8 @@ const ProjectsSection = () => {
               bulletClass: 'swiper-pagination-bullet',
               bulletActiveClass: 'swiper-pagination-bullet-active',
             }}
-            autoplay={{
-              delay: 4000,
-              disableOnInteraction: false,
-            }}
             loop={true}
+            navigation={true}
             breakpoints={{
               640: {
                 slidesPerView: 1,
@@ -115,10 +112,19 @@ const ProjectsSection = () => {
             {projects.map((project, index) => (
               <SwiperSlide key={project.id}>
                 <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
-                  whileHover={{ y: -10 }}
+                  initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{
+                    duration: 0.6,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: index * 0.1,
+                  }}
+                  whileHover={{
+                    y: -15,
+                    scale: 1.02,
+                    transition: { duration: 0.3 },
+                  }}
                   className="project-card"
                 >
                   <div className="project-image-container">
@@ -159,13 +165,16 @@ const ProjectsSection = () => {
                       <span className="title-icon">📋</span>
                       {project.name}
                     </h3>
-                    <p className="project-description">
+                    <div className="project-description">
+                      <span>📝</span>
+                      {project.summary || 'No description available'}
+                    </div>
+                    {console.log('Project Summary:', project)}
+                    {/* <p className="project-description">
                       <span className="description-icon">📝</span>
-                      {/* {project.description.length > 120
-                        ? project.description.substring(0, 120) + '...'
-                        : project.description} */}
-                        {project.summary}
-                    </p>
+
+                      {project.summary}
+                    </p> */}
                   </div>
                 </motion.div>
               </SwiperSlide>
