@@ -120,7 +120,11 @@ const ProjectInfo = () => {
                 src={projectData.mainImage}
                 alt={projectData.name}
                 className="projectinfo-main-img"
+                width="1200"
+                height="800"
                 loading="lazy"
+                decoding="async"
+                sizes="(max-width: 768px) 100vw, 1200px"
               />
               {/* <div className="projectinfo-image-overlay">
                   <div className="projectinfo-image-gradient"></div>
@@ -245,7 +249,11 @@ const ProjectInfo = () => {
                     src={image}
                     alt={`Gallery image ${index + 1}`}
                     className="projectinfo-gallery-image"
+                    width="600"
+                    height="400"
                     loading="lazy"
+                    decoding="async"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 </div>
               </motion.div>
@@ -293,7 +301,10 @@ const ProjectInfo = () => {
                   src={selectedImage}
                   alt="Selected gallery image"
                   className="projectinfo-modal-image"
+                  width="1200"
+                  height="800"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
 

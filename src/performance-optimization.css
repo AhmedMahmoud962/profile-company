@@ -3,23 +3,29 @@
  * This file contains CSS optimizations to reduce reflows and improve performance
  */
 
-/* GPU Acceleration for animated elements */
+/* GPU Acceleration for animated elements - Optimized */
 .hero-slide,
 .hero-bg-image,
 .floating-shape,
 .floating-line,
 .feature-item,
-.hero-link {
-  will-change: auto;
+.hero-link,
+.project-card,
+.project-grid-card {
+  will-change: transform;
   transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
+  /* Reduce main-thread work */
+  contain: layout style paint;
 }
 
-/* Prevent layout thrashing */
+/* Prevent layout thrashing - Enhanced */
 img,
 video {
   content-visibility: auto;
+  /* Prevent layout shift */
+  aspect-ratio: attr(width) / attr(height);
 }
 
 /* Optimize repaints */
@@ -27,23 +33,36 @@ video {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Use contain for isolated components */
+/* Use contain for isolated components - Enhanced */
 .projectinfo-gallery-item,
 .hero-slide,
-.feature-item {
+.feature-item,
+.project-card,
+.nav-link,
+.mobile-toggle {
   contain: layout style paint;
+  /* Reduce reflow */
+  isolation: isolate;
 }
 
-/* Optimize scrolling */
+/* Optimize scrolling - Performance */
 .projectinfo-container,
-.hero-slider-container {
+.hero-slider-container,
+.projects-grid-section {
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  /* Reduce main-thread work */
+  contain: layout style;
 }
 
-/* Reduce paint areas */
-.projectinfo-image-modal {
+/* Reduce paint areas - Enhanced */
+.projectinfo-image-modal,
+.mobile-drawer,
+.mobile-overlay {
   isolation: isolate;
+  contain: layout style paint;
+  /* GPU acceleration */
+  transform: translateZ(0);
 }
 
 /* Font rendering optimization */
@@ -51,12 +70,53 @@ body {
   text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Reduce layout work */
+  contain: layout style;
 }
 
-/* Optimize animations */
+/* Optimize animations - Reduce main-thread work */
 @media (prefers-reduced-motion: no-preference) {
   * {
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
+  
+  /* Use transform instead of position changes */
+  .project-card:hover,
+  .project-grid-card:hover {
+    will-change: transform;
+  }
+}
+
+/* Reduce JavaScript work - CSS-only solutions */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Optimize images - Prevent layout shift */
+img {
+  max-width: 100%;
+  height: auto;
+  /* Prevent reflow */
+  display: block;
+}
+
+/* Reduce paint complexity */
+.swiper-wrapper,
+.swiper-slide {
+  contain: layout style paint;
+  will-change: transform;
+}
+
+/* Optimize header - Reduce reflow */
+.modern-header {
+  contain: layout style;
+  will-change: transform, opacity;
 }
 

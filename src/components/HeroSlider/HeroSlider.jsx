@@ -1,7 +1,7 @@
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules'
-import { motion } from 'framer-motion'
+// Removed framer-motion for better performance - using CSS animations instead
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
@@ -58,7 +58,6 @@ const HeroSlider = () => {
     )
   }
 
-
   return (
     <div className="hero-slider-container">
       {/* Background Pattern */}
@@ -103,6 +102,10 @@ const HeroSlider = () => {
                 loading={index === 0 ? 'eager' : 'lazy'}
                 fetchpriority={index === 0 ? 'high' : 'auto'}
                 decoding="async"
+                width="1920"
+                height="1080"
+                sizes="100vw"
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
               />
 
               {/* Enhanced Overlay Layers */}
@@ -123,33 +126,16 @@ const HeroSlider = () => {
               {/* Content */}
               <div className="hero-content">
                 <div className="hero-content-inner">
-                  {/* Title */}
-                  <motion.h1
-                    className="hero-title"
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                  >
+                  {/* Title - Optimized animation */}
+                  <h1 className="hero-title">
                     <span className="title-main">{slide.name}</span>
-                  </motion.h1>
+                  </h1>
 
                   {/* Description */}
-                  <motion.p
-                    className="hero-description"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.6 }}
-                  >
-                    {slide.description}
-                  </motion.p>
+                  <p className="hero-description">{slide.description}</p>
 
                   {/* Features Grid */}
-                  <motion.div
-                    className="hero-features"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.8 }}
-                  >
+                  <div className="hero-features">
                     <div className="feature-item">
                       <div className="feature-icon">⚡</div>
                       <span>Lightning Fast</span>
@@ -162,15 +148,10 @@ const HeroSlider = () => {
                       <div className="feature-icon">💎</div>
                       <span>Premium Quality</span>
                     </div>
-                  </motion.div>
+                  </div>
 
                   {/* Action Links */}
-                  <motion.div
-                    className="hero-actions"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 1.0 }}
-                  >
+                  <div className="hero-actions">
                     <Link to="/contact" className="hero-link primary">
                       <span className="link-content">
                         <span className="link-icon">🚀</span>
@@ -179,7 +160,7 @@ const HeroSlider = () => {
                       </span>
                       <div className="link-ripple"></div>
                     </Link>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
             </div>

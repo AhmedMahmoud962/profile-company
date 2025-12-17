@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './AboutSection.css'
 import { Link } from 'react-router-dom'
 import { getAboutServices } from '../API/AboutServices'
-import { getImageUrl } from '../utils/constants'
+// Removed unused import
 import imageAbout1 from '../../assets/images/about1.webp'
 import imageAbout2 from '../../assets/images/about2.webp'
 import imageAbout3 from '../../assets/images/about3.webp'
@@ -69,9 +69,11 @@ const AboutSection = () => {
               className="about-image"
               width="300"
               height="300"
+              sizes="(max-width: 768px) 200px, 300px"
               onLoad={() => setImageLoaded(true)}
               style={{ opacity: imageLoaded ? 1 : 0 }}
               loading="lazy"
+              decoding="async"
             />
             {/* <img
               src={getImageUrl(aboutData.image)}
@@ -92,11 +94,13 @@ const AboutSection = () => {
                 src={imageAbout1}
                 alt="About Polygon Software"
                 className="about-image"
-                width="200"
-                height="200"
+                width="368"
+                height="329"
+                sizes="(max-width: 768px) 200px, 368px"
                 onLoad={() => setImageLoaded(true)}
                 style={{ opacity: imageLoaded ? 1 : 0 }}
                 loading="lazy"
+                decoding="async"
               />
               {/* <img
               src={getImageUrl(aboutData.image)}
@@ -115,11 +119,13 @@ const AboutSection = () => {
                 src={imageAbout3}
                 alt="About Polygon Software"
                 className="about-image"
-                width="150"
-                height="150"
+                width="211"
+                height="210"
+                sizes="(max-width: 768px) 150px, 211px"
                 onLoad={() => setImageLoaded(true)}
                 style={{ opacity: imageLoaded ? 1 : 0 }}
                 loading="lazy"
+                decoding="async"
               />
               {/* <img
               src={getImageUrl(aboutData.image)}
@@ -152,12 +158,10 @@ const AboutSection = () => {
             <li className="list-item">
               <span className="check-icon">✓</span>
               These advantages are pixel perfect design & clear code delivered
-
             </li>
             <li className="list-item">
               <span className="check-icon">✓</span>
               Present your services with flexible, convenient and multipurpose
-
             </li>
           </ul>
           <Link to="/about" className="learn-more">
