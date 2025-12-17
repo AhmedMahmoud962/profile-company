@@ -30,18 +30,18 @@ const CounterSection = () => {
   //   return <Spinner message="Loading counters..." />
   // }
 
-  if (counters.length === 0) {
-    return (
-      <div className="projects-grid-section">
-        <div className="projects-grid-container">
-          <div className="loading-spinner">
-            <div className="spinner"></div>
-            <p>Loading projects...</p>
-          </div>
-        </div>
-      </div>
-    )
-  }
+  // if (counters.length === 0) {
+  //   return (
+  //     <div className="projects-grid-section">
+  //       <div className="projects-grid-container">
+  //         <div className="loading-spinner">
+  //           <div className="spinner"></div>
+  //           <p>Loading projects...</p>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   return (
     <div className={`counter-section ${darkMode ? 'dark' : 'light'}`}>

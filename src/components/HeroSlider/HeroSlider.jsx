@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react'
 // import Spinner from '../Spinner/Spinner'
 import { getImageUrl } from '../utils/constants'
 import './HeroSlider.css'
+// import "../../performance-optimization.css"
 
 const HeroSlider = () => {
   const [slides, setSlides] = useState([])
@@ -45,18 +46,18 @@ const HeroSlider = () => {
     fetchSlides()
   }, [])
 
-  if (loading) {
-    return (
-      <div className="projects-grid-section">
-        <div className="projects-grid-container">
-          <div className="loading-spinner">
-            <div className="spinner"></div>
-            <p>Loading hero slider...</p>
-          </div>
-        </div>
-      </div>
-    )
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="projects-grid-section">
+  //       <div className="projects-grid-container">
+  //         <div className="loading-spinner">
+  //           <div className="spinner"></div>
+  //           <p>Loading hero slider...</p>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   return (
     <div className="hero-slider-container">
