@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules'
 // Removed framer-motion for better performance - using CSS animations instead
@@ -8,7 +8,6 @@ import 'swiper/css/navigation'
 import 'swiper/css/effect-fade'
 import { Link } from 'react-router-dom'
 import { getSlider } from '../API/sliderService'
-import { useState, useEffect } from 'react'
 // import Spinner from '../Spinner/Spinner'
 import { getImageUrl } from '../utils/constants'
 import './HeroSlider.css'
@@ -17,6 +16,7 @@ import './HeroSlider.css'
 const HeroSlider = () => {
   const [slides, setSlides] = useState([])
   const [loading, setLoading] = useState(true)
+  const swiperRef = useRef(null)
 
   useEffect(() => {
     const fetchSlides = async () => {
@@ -46,18 +46,23 @@ const HeroSlider = () => {
     fetchSlides()
   }, [])
 
-  // if (loading) {
-  //   return (
-  //     <div className="projects-grid-section">
-  //       <div className="projects-grid-container">
-  //         <div className="loading-spinner">
-  //           <div className="spinner"></div>
-  //           <p>Loading hero slider...</p>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
+  // Force pagination update after slides load
+  useEffect(() => {
+    if (slides.length > 0 && swiperRef.current) {
+      // Small delay to ensure Swiper is fully initialized
+      setTimeout(() => {
+        if (swiperRef.current?.swiper) {
+          swiperRef.current.swiper.pagination.render()
+          swiperRef.current.swiper.pagination.update()
+        }
+      }, 100)
+    }
+  }, [slides])
+
+  // Don't render if no slides
+  if (loading || slides.length === 0) {
+    return null
+  }
 
   return (
     <div className="hero-slider-container">
@@ -65,6 +70,7 @@ const HeroSlider = () => {
       <div className="hero-bg-pattern"></div>
 
       <Swiper
+        ref={swiperRef}
         modules={[Autoplay, Pagination, Navigation, EffectFade]}
         spaceBetween={0}
         slidesPerView={1}
@@ -87,9 +93,17 @@ const HeroSlider = () => {
                       <span class="bullet-progress"></span>
                     </span>`
           },
+          dynamicBullets: false,
+        }}
+        onSwiper={(swiper) => {
+          // Ensure pagination renders after initialization
+          if (swiper.pagination) {
+            swiper.pagination.render()
+            swiper.pagination.update()
+          }
         }}
         navigation={false}
-        loop={true}
+        loop={slides.length > 1}
         className="hero-swiper"
       >
         {slides.map((slide, index) => (
@@ -169,10 +183,12 @@ const HeroSlider = () => {
         ))}
       </Swiper>
 
-      {/* Enhanced Centered Pagination */}
-      <div className="hero-pagination-wrapper">
-        <div className="hero-pagination"></div>
-      </div>
+      {/* Enhanced Centered Pagination - Only show if more than 1 slide */}
+      {slides.length > 1 && (
+        <div className="hero-pagination-wrapper">
+          <div className="hero-pagination"></div>
+        </div>
+      )}
 
       {/* Scroll Indicator */}
       <div className="scroll-indicator">
