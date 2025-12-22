@@ -37,9 +37,10 @@ const ClientsSection = () => {
     <div className={`clients-section ${darkMode ? 'dark' : 'light'}`}>
       <div className="clients-container">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          viewport={{ once: true }}
           className="clients-header"
         >
           <h6 className="clients-subtitle">Our Clients</h6>
@@ -74,9 +75,10 @@ const ClientsSection = () => {
             {clients.map((client, index) => (
               <SwiperSlide key={client.id}>
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  viewport={{ once: true }}
                   className="client-card"
                 >
                   <div className="client-avatar">

@@ -49,9 +49,10 @@ const ServicesSection = () => {
     <div className={`services-section ${darkMode ? 'dark' : 'light'}`}>
       <div className="services-container">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          viewport={{ once: true }}
           className="services-header"
         >
           <h6 className="services-subtitle">Our Services</h6>
@@ -66,10 +67,10 @@ const ServicesSection = () => {
           {services.map((service) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: service.id * 0.1 }}
-              whileHover={{ y: -10 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: service.id * 0.05 }}
+              viewport={{ once: true }}
               className="service-card"
             >
               <div className="service-icon">{service.icon}</div>

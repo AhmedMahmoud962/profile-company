@@ -140,9 +140,10 @@ const Footer = () => {
             {/* Company Info */}
             <div className="footer-column">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                viewport={{ once: true }}
               >
                 <h3 className="footer-logo">
                   {settingsData?.name || 'Polygon Software'}
@@ -157,8 +158,9 @@ const Footer = () => {
                       key={index}
                       href={social.url}
                       className="social-icon"
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
                       title={social.name}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -173,9 +175,10 @@ const Footer = () => {
             {/* Quick Links */}
             <div className="footer-column">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+                viewport={{ once: true }}
               >
                 <h4 className="footer-title">Quick Links</h4>
                 <ul className="footer-links">
@@ -193,9 +196,10 @@ const Footer = () => {
             {/* Contact Info */}
             <div className="footer-column">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
+                viewport={{ once: true }}
               >
                 <h4 className="footer-title">Contact Info</h4>
                 <div className="footer-contact">
@@ -227,7 +231,8 @@ const Footer = () => {
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            transition={{ duration: 0.3, delay: 0.3 }}
+            viewport={{ once: true }}
             className="footer-bottom"
           >
             <p className="footer-copyright">
@@ -244,11 +249,11 @@ const Footer = () => {
       <motion.button
         className={`whatsapp-float ${darkMode ? 'dark' : 'light'}`}
         onClick={openWhatsApp}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3, delay: 1 }}
+        transition={{ duration: 0.2, delay: 0.5 }}
         title="Chat with us on WhatsApp"
       >
         <WhatsApp />
@@ -259,12 +264,12 @@ const Footer = () => {
         <motion.button
           className={`scroll-to-top ${darkMode ? 'dark' : 'light'}`}
           onClick={scrollToTop}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.2 }}
           title="Scroll to top"
         >
           <KeyboardArrowUp />

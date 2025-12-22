@@ -69,9 +69,10 @@ const ProjectsSection = () => {
     <div className={`projects-section ${darkMode ? 'dark' : 'light'}`}>
       <div className="projects-container">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          viewport={{ once: true }}
           className="projects-header"
         >
           <h6 className="projects-subtitle">Our Work</h6>
@@ -112,18 +113,12 @@ const ProjectsSection = () => {
             {projects.map((project, index) => (
               <SwiperSlide key={project.id}>
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.8, y: 50 }}
-                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
                   transition={{
-                    duration: 0.6,
-                    ease: [0.22, 1, 0.36, 1],
-                    delay: index * 0.1,
-                  }}
-                  whileHover={{
-                    y: -15,
-                    scale: 1.02,
-                    transition: { duration: 0.3 },
+                    duration: 0.3,
+                    delay: index * 0.05,
                   }}
                   className="project-card"
                 >
@@ -184,8 +179,8 @@ const ProjectsSection = () => {
 
         <div className="projects-view-all">
           <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.2 }}
             className="projects-btn"
           >
             <Link
