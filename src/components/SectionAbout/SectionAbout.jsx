@@ -53,6 +53,10 @@ const AboutSection = () => {
     return () => clearTimeout(timer)
   }, [])
 
+  // loading spinner
+  if (!aboutData) {
+    return <Spinner message="Loading about data..." />
+  }
   return (
     <div className="about-container">
       <div
@@ -146,10 +150,16 @@ const AboutSection = () => {
           <h2 className={`main-title ${isMobile ? 'mobile' : ''}`}>
             {aboutData.title}
           </h2>
-          <p className="description">{aboutData.description}</p>
-          <p className="description">{aboutData.mission}</p>
-          <p className="description">{aboutData.vision}</p>
-          <p className="description">{aboutData.values}</p>
+          {/* <p className="description">{aboutData.description}</p> */}
+          <div
+            className="projectinfo-description-text"
+            dangerouslySetInnerHTML={{
+              __html: aboutData.description,
+            }}
+          />
+          {/* <p className="description">{aboutData.mission}</p> */}
+          {/* <p className="description">{aboutData.vision}</p> */}
+          {/* <p className="description">{aboutData.values}</p> */}
           <ul className="list-items">
             <li className="list-item">
               <span className="check-icon">✓</span>

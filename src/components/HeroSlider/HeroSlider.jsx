@@ -8,7 +8,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/effect-fade'
 import { Link } from 'react-router-dom'
 import { getSlider } from '../API/sliderService'
-// import Spinner from '../Spinner/Spinner'
+import Spinner from '../Spinner/Spinner'
 import { getImageUrl } from '../utils/constants'
 import './HeroSlider.css'
 // import "../../performance-optimization.css"
@@ -59,8 +59,13 @@ const HeroSlider = () => {
     }
   }, [slides])
 
+  // Show spinner while loading
+  if (loading) {
+    return <Spinner message="Loading Slider..." />
+  }
+
   // Don't render if no slides
-  if (loading || slides.length === 0) {
+  if (slides.length === 0) {
     return null
   }
 
