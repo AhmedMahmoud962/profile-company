@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useThemeContext } from '../../context/ThemeContext'
 import { getSetting } from '../API/settingServices'
-import {
-  Facebook,
-  Twitter,
-  LinkedIn,
-  Instagram,
-  WhatsApp,
-  Email,
-  Phone,
-  LocationOn,
-  KeyboardArrowUp,
-} from '@mui/icons-material'
+import FacebookIcon from '@mui/icons-material/Facebook'
+import TwitterIcon from '@mui/icons-material/Twitter'
+import LinkedInIcon from '@mui/icons-material/LinkedIn'
+import InstagramIcon from '@mui/icons-material/Instagram'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
+import EmailIcon from '@mui/icons-material/Email'
+import PhoneIcon from '@mui/icons-material/Phone'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import './Footer.css'
 
 const Footer = () => {
@@ -47,7 +45,7 @@ const Footer = () => {
   const socialIcons = settingsData
     ? [
         {
-          icon: <Facebook />,
+          icon: <FacebookIcon />,
           name: 'Facebook',
           url: settingsData.facebook || '#',
         },
@@ -57,12 +55,12 @@ const Footer = () => {
         //   url: settingsData.twitter || '#'
         // },
         {
-          icon: <LinkedIn />,
+          icon: <LinkedInIcon />,
           name: 'LinkedIn',
           url: settingsData.linkedin || '#',
         },
         {
-          icon: <Instagram />,
+          icon: <InstagramIcon />,
           name: 'Instagram',
           url: settingsData.instagram || '#',
         },
@@ -73,19 +71,19 @@ const Footer = () => {
   const contactInfo = settingsData
     ? [
         {
-          icon: <Email />,
+          icon: <EmailIcon />,
           text: settingsData.email,
           link: `mailto:${settingsData.email}`,
           type: 'email',
         },
         {
-          icon: <Phone />,
+          icon: <PhoneIcon />,
           text: settingsData.phone,
           link: `tel:+2${settingsData.phone}`,
           type: 'phone',
         },
         {
-          icon: <LocationOn />,
+          icon: <LocationOnIcon />,
           text: settingsData.address,
           type: 'address',
         },
@@ -256,7 +254,7 @@ const Footer = () => {
         transition={{ duration: 0.2, delay: 0.5 }}
         title="Chat with us on WhatsApp"
       >
-        <WhatsApp />
+        <WhatsAppIcon />
       </motion.button>
 
       {/* Scroll to Top Button */}
@@ -272,7 +270,7 @@ const Footer = () => {
           transition={{ duration: 0.2 }}
           title="Scroll to top"
         >
-          <KeyboardArrowUp />
+          <KeyboardArrowUpIcon />
         </motion.button>
       )}
     </>

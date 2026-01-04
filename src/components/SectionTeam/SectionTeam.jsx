@@ -9,7 +9,10 @@ import {
   IconButton,
 } from '@mui/material'
 import { motion } from 'framer-motion'
-import { LinkedIn, Twitter, GitHub, Email } from '@mui/icons-material'
+import LinkedInIcon from '@mui/icons-material/LinkedIn'
+import TwitterIcon from '@mui/icons-material/Twitter'
+import GitHubIcon from '@mui/icons-material/GitHub'
+import EmailIcon from '@mui/icons-material/Email'
 import { useThemeContext } from '../../context/ThemeContext'
 import './SectionTeam.css'
 
@@ -161,7 +164,7 @@ const SectionTeam = () => {
                             rel="noopener noreferrer"
                             aria-label={`${member.name} LinkedIn`}
                           >
-                            <LinkedIn />
+                            <LinkedInIcon />
                           </IconButton>
                         )}
                         {member.social.twitter && (
@@ -172,7 +175,7 @@ const SectionTeam = () => {
                             rel="noopener noreferrer"
                             aria-label={`${member.name} Twitter`}
                           >
-                            <Twitter />
+                            <TwitterIcon />
                           </IconButton>
                         )}
                         {member.social.github && (
@@ -183,7 +186,7 @@ const SectionTeam = () => {
                             rel="noopener noreferrer"
                             aria-label={`${member.name} GitHub`}
                           >
-                            <GitHub />
+                            <GitHubIcon />
                           </IconButton>
                         )}
                         {member.social.email && (
@@ -192,7 +195,7 @@ const SectionTeam = () => {
                             href={`mailto:${member.social.email}`}
                             aria-label={`Email ${member.name}`}
                           >
-                            <Email />
+                            <EmailIcon />
                           </IconButton>
                         )}
                       </Box>
