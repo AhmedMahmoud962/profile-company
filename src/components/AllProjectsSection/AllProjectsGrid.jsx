@@ -11,6 +11,8 @@ const AllProjectsGrid = () => {
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState('All')
+  const [currentPage, setCurrentPage] = useState(1)
+  const projectsPerPage = 3
 
   // Get category icon
   const getCategoryIcon = (categoryName) => {
@@ -59,6 +61,75 @@ const AllProjectsGrid = () => {
     filter === 'All'
       ? projects
       : projects.filter((p) => p.category?.name === filter)
+
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredProjects.length / projectsPerPage)
+  const indexOfLastProject = currentPage * projectsPerPage
+  const indexOfFirstProject = indexOfLastProject - projectsPerPage
+  const currentProjects = filteredProjects.slice(
+    indexOfFirstProject,
+    indexOfLastProject
+  )
+
+  // Reset to page 1 when filter changes
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [filter])
+
+  // Pagination handlers
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
+  // Generate page numbers array
+  const getPageNumbers = () => {
+    const pages = []
+    const maxVisiblePages = 5
+
+    if (totalPages <= maxVisiblePages) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i)
+      }
+    } else {
+      if (currentPage <= 3) {
+        for (let i = 1; i <= 4; i++) {
+          pages.push(i)
+        }
+        pages.push('...')
+        pages.push(totalPages)
+      } else if (currentPage >= totalPages - 2) {
+        pages.push(1)
+        pages.push('...')
+        for (let i = totalPages - 3; i <= totalPages; i++) {
+          pages.push(i)
+        }
+      } else {
+        pages.push(1)
+        pages.push('...')
+        pages.push(currentPage - 1)
+        pages.push(currentPage)
+        pages.push(currentPage + 1)
+        pages.push('...')
+        pages.push(totalPages)
+      }
+    }
+    return pages
+  }
 
   if (loading) {
     return (
@@ -114,9 +185,16 @@ const AllProjectsGrid = () => {
           </div>
         </motion.div>
 
+        {/* Projects Count */}
+        {filteredProjects.length > 0 && (
+          <div className="projects-count">
+            Showing {indexOfFirstProject + 1} - {Math.min(indexOfLastProject, filteredProjects.length)} of {filteredProjects.length} projects
+          </div>
+        )}
+
         {/* Projects Grid */}
         <div className="projects-grid">
-          {filteredProjects.map((project, index) => (
+          {currentProjects.map((project, index) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, scale: 0.9, y: 30 }}
@@ -196,6 +274,47 @@ const AllProjectsGrid = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Pagination */}
+        {filteredProjects.length > projectsPerPage && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="pagination-container"
+          >
+            <button
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+              className="pagination-arrow"
+            >
+              ← Previous
+            </button>
+
+            <div className="pagination-numbers">
+              {getPageNumbers().map((pageNum, index) => (
+                <button
+                  key={index}
+                  onClick={() => pageNum !== '...' && handlePageChange(pageNum)}
+                  disabled={pageNum === '...'}
+                  className={`pagination-btn ${
+                    pageNum === currentPage ? 'active' : ''
+                  } ${pageNum === '...' ? 'dots' : ''}`}
+                >
+                  {pageNum}
+                </button>
+              ))}
+            </div>
+
+            <button
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+              className="pagination-arrow"
+            >
+              Next →
+            </button>
+          </motion.div>
+        )}
 
         {/* No Results */}
         {filteredProjects.length === 0 && (

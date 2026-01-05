@@ -104,9 +104,9 @@
 }
 
 .theme-dark.header-scrolled {
-  background: var(--glass-dark);
+  background: #1e1e1e;
   box-shadow: var(--shadow-dark);
-  border-bottom-color: var(--glass-border-dark);
+  border-bottom:none;
 }
 
 /* Header Container */
@@ -1053,5 +1053,25 @@
 @media print {
   .modern-header {
     display: none;
+  }
+}
+
+/* === DISABLE BACKGROUND ON ACTIVE LINK (Desktop Scrolled) === */
+@media (min-width: 769px) {
+  .header-scrolled .nav-active::before {
+    opacity: 0 !important;
+    transform: scale(0.8) !important;
+  }
+
+  /* === ONLY SHOW & COLOR THE UNDERLINE INDICATOR === */
+  .header-scrolled .nav-active .nav-indicator {
+    width: 80% !important;
+    background: var(--modern-gradient) !important; /* or your preferred color */
+    opacity: 1 !important;
+  }
+
+  /* Ensure indicator is visible only on active (not on hover) */
+  .header-scrolled .nav-link:not(.nav-active):hover .nav-indicator {
+    width: 0 !important;
   }
 }
