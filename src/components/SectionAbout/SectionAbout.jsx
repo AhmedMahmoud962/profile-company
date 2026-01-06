@@ -103,7 +103,7 @@ const AboutSection = () => {
                 sizes="(max-width: 768px) 200px, 368px"
                 onLoad={() => setImageLoaded(true)}
                 style={{ opacity: imageLoaded ? 1 : 0 }}
-                loading="lazy"
+                fetchpriority="high"
                 decoding="async"
               />
               {/* <img

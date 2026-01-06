@@ -2,32 +2,33 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  base: '/', // 👈 مهم
   plugins: [react()],
   build: {
+    // Code splitting for better performance
     rollupOptions: {
       output: {
         manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'framer-motion': ['framer-motion'],
-          'swiper': ['swiper'],
+          // Split vendor code
+          "react-vendor": ["react", "react-dom", "react-router-dom"],
+          "framer-motion": ["framer-motion"],
+          swiper: ["swiper"],
+          "mui-vendor": ["@mui/material", "@mui/icons-material"],
         },
       },
     },
-    minify: 'esbuild',
+    minify: "esbuild",
     esbuild: {
-      drop: ['console', 'debugger'],
+      drop: ["console", "debugger"],
     },
     chunkSizeWarningLimit: 1000,
   },
   optimizeDeps: {
     include: [
-      'react',
-      'react-dom',
-      'react-router-dom',
-      'framer-motion',
-      'swiper'
+      "react",
+      "react-dom",
+      "react-router-dom",
+      "framer-motion",
+      "swiper",
     ],
   },
 });
-

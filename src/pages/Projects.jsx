@@ -22,7 +22,7 @@ export default function Portfolio() {
       </Helmet>
 
       {/* Hero Section */}
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense>
       <Header />
         <HeroPage
           title="OUR PROJECTS"

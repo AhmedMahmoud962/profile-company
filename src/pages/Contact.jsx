@@ -20,7 +20,7 @@ export default function Contact() {
         />
         <meta name="robots" content="index, follow" />
       </Helmet>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense >
       <Header />
       <HeroPage
         title="Contact"

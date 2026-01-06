@@ -15,7 +15,7 @@ const ProjectDetails = () => {
         <meta name="keywords" content="project details, portfolio, projects, web development, mobile apps, software solutions" />
         <meta name="robots" content="index, follow" />
       </Helmet>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense>
         <Header />
         <HeroPage title="Project Details" breadcrumbs={['Project Details']} description="Explore detailed information about our projects, including features, technologies, and client testimonials." backgroundImage="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80" />
         <ProjectInfo />

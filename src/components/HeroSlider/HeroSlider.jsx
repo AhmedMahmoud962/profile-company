@@ -110,6 +110,14 @@ const HeroSlider = () => {
         navigation={false}
         loop={slides.length > 1}
         className="hero-swiper"
+        // Performance optimizations to reduce forced reflows
+        watchSlidesProgress={false}
+        watchSlidesVisibility={false}
+        preventInteractionOnTransition={true}
+        touchStartPreventDefault={false}
+        passiveListeners={true}
+        resistance={false}
+        resistanceRatio={0}
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={slide.id}>
