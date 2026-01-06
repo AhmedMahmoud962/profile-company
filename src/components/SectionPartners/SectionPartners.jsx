@@ -98,6 +98,8 @@ const SectionPartners = () => {
                 alt={partner.name}
                 className="partner-logo"
                 loading="lazy"
+                width="100%"
+                height="auto"
               />
               </a>
               

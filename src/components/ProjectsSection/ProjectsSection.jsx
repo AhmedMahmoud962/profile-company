@@ -127,6 +127,8 @@ const ProjectsSection = () => {
                       src={getImageUrl(project.image) || '/default-image.jpg'}
                       alt={project.name}
                       loading="lazy"
+                      width="100%"
+                      height="auto"
                     />
 
                     <div className="project-overlay">

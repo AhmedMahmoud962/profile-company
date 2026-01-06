@@ -86,6 +86,8 @@ const ClientsSection = () => {
                       src={getImageUrl(client.image)}
                       alt={client.name}
                       loading="lazy"
+                      width="100%"
+                      height="auto"
                     />
                   </div>
                   <div className="client-text-content">
