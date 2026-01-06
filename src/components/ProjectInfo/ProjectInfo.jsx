@@ -123,7 +123,6 @@ const ProjectInfo = () => {
                 loading="lazy"
                 width="100%"
                 height="auto"
-                style={{ objectFit: 'contain' }}
               />
               {/* <div className="projectinfo-image-overlay">
                   <div className="projectinfo-image-gradient"></div>
@@ -251,7 +250,6 @@ const ProjectInfo = () => {
                     loading="lazy"
                     width="100%"
                     height="auto"
-                    style={{ objectFit: 'contain' }}
                   />
                 </div>
               </motion.div>
@@ -302,7 +300,6 @@ const ProjectInfo = () => {
                   loading="lazy"
                   width="100%"
                   height="auto"
-                  style={{ objectFit: 'contain' }}
 
                 />
               </div>
