@@ -46,16 +46,17 @@ const HeroSlider = () => {
     fetchSlides()
   }, [])
 
-  // Force pagination update after slides load
+  // Simplified pagination update - only once after slides load
   useEffect(() => {
-    if (slides.length > 0 && swiperRef.current) {
-      // Small delay to ensure Swiper is fully initialized
-      setTimeout(() => {
-        if (swiperRef.current?.swiper) {
-          swiperRef.current.swiper.pagination.render()
-          swiperRef.current.swiper.pagination.update()
+    if (slides.length > 0 && swiperRef.current?.swiper) {
+      // Use requestAnimationFrame to batch DOM updates
+      requestAnimationFrame(() => {
+        const swiper = swiperRef.current?.swiper
+        if (swiper?.pagination) {
+          swiper.pagination.render()
+          swiper.pagination.update()
         }
-      }, 100)
+      })
     }
   }, [slides])
 
@@ -101,11 +102,7 @@ const HeroSlider = () => {
           dynamicBullets: false,
         }}
         onSwiper={(swiper) => {
-          // Ensure pagination renders after initialization
-          if (swiper.pagination) {
-            swiper.pagination.render()
-            swiper.pagination.update()
-          }
+          // Pagination will be handled by useEffect
         }}
         navigation={false}
         loop={slides.length > 1}
@@ -118,6 +115,11 @@ const HeroSlider = () => {
         passiveListeners={true}
         resistance={false}
         resistanceRatio={0}
+        // Additional optimizations
+        observer={false}
+        observeParents={false}
+        observeSlideChildren={false}
+        updateOnWindowResize={false}
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={slide.id}>

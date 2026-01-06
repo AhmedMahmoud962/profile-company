@@ -86,16 +86,14 @@ const Header = () => {
         <div className="header-container">
           {/* Logo with Image */}
           <div className="header-brand">
-            <Link to="/" className="brand-link" onClick={handleLinkClick}>
-              <div className="brand-icon-wrapper">
-                <img
-                  src="/software.png"
-                  alt="Polygon Software Logo"
-                  className="brand-logo-image"
-                  loading="eager"
-                />
-              </div>
-            
+            <Link className="brand-link">
+              <img
+                src="/software.png"
+                alt="Polygon Software Logo"
+                width="140"
+                height="40"
+                decoding="async"
+              />
             </Link>
           </div>
 

@@ -43,6 +43,9 @@
   width: 100%;
   height: 100%;
   z-index: 2;
+  /* CSS Containment to reduce forced reflows */
+  contain: layout style paint;
+  will-change: transform;
 }
 
 /* Individual Slide */
@@ -53,6 +56,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Force GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Background Image - Optimized for <img> tag */
