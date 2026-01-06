@@ -6,10 +6,25 @@
 /* تحسين الخطوط */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
+/* Flexbox Layout للـ Root */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 /* إصلاح ألوان الـ Body */
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  color: #1f2937; /* لون أغمق للنص العادي */
+  color: #1f2937;
+  /* لون أغمق للنص العادي */
   background-color: #ffffff;
   line-height: 1.6;
 }
@@ -30,7 +45,7 @@ body {
   --text-muted: #6b7280;
   --accent-primary: #6b46c1;
   --accent-secondary: #7c3aed;
-  
+
   /* Dark Mode Colors */
   --text-primary-dark: #f9fafb;
   --text-secondary-dark: #d1d5db;
@@ -54,22 +69,54 @@ video {
 
 /* تحسين الانيميشن */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }
 
+/* Main Content Flex */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+
 /* استخدام المتغيرات */
-.text-primary { color: var(--text-primary); }
-.text-secondary { color: var(--text-secondary); }
-.text-muted { color: var(--text-muted); }
-.accent-primary { color: var(--accent-primary); }
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.accent-primary {
+  color: var(--accent-primary);
+}
 
 /* Dark Mode */
-[data-theme="dark"] .text-primary { color: var(--text-primary-dark); }
-[data-theme="dark"] .text-secondary { color: var(--text-secondary-dark); }
-[data-theme="dark"] .text-muted { color: var(--text-muted-dark); }
-[data-theme="dark"] .accent-primary { color: var(--accent-primary-dark); }
+[data-theme="dark"] .text-primary {
+  color: var(--text-primary-dark);
+}
 
+[data-theme="dark"] .text-secondary {
+  color: var(--text-secondary-dark);
+}
+
+[data-theme="dark"] .text-muted {
+  color: var(--text-muted-dark);
+}
+
+[data-theme="dark"] .accent-primary {
+  color: var(--accent-primary-dark);
+}

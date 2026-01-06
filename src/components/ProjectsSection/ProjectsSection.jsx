@@ -52,6 +52,19 @@ const ProjectsSection = () => {
     fetchProjects()
   }, [])
 
+  if (projects.length === 0) {
+    return (
+      <div className="projects-grid-section">
+        <div className="projects-grid-container">
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+            <p>Loading projects...</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className={`projects-section ${darkMode ? 'dark' : 'light'}`}>
       <div className="projects-container">

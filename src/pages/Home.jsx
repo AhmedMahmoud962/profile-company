@@ -18,6 +18,8 @@ const ProjectsSection = lazy(() =>
 const ClientsSection = lazy(() =>
   import('../components/SectionClients/SectionClients'),
 )
+import Header from '../components/Header/Header'
+import Footer from '../components/Footer/Footer'
 
 export default function Home() {
   return (
@@ -37,12 +39,14 @@ export default function Home() {
 
       <main>
         <Suspense fallback={<div style={{ minHeight: '50vh' }}></div>}>
+        <Header />
           <HeroSlider />
           <SectionAbout />
           <ServicesSection />
           <CounterSection />
           <ProjectsSection />
           <ClientsSection />
+          <Footer />
         </Suspense>
       </main>
     </>

@@ -53,6 +53,10 @@ const AboutSection = () => {
     return () => clearTimeout(timer)
   }, [])
 
+  // loading spinner
+  if (!aboutData) {
+    return <Spinner message="Loading about data..." />
+  }
   return (
     <div className="about-container">
       <div

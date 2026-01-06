@@ -16,14 +16,19 @@ const Footer = () => {
   const { darkMode } = useThemeContext();
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [settingsData, setSettingsData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Fetch settings
   useEffect(() => {
     getSetting()
-      .then((response) => setSettingsData(response.data))
+      .then((response) => {
+        setSettingsData(response.data);
+        setIsLoading(false);
+      })
       .catch((error) => {
         console.error('Error fetching settings:', error);
         setSettingsData({}); // fallback to empty object
+        setIsLoading(false);
       });
   }, []);
 
@@ -59,6 +64,11 @@ const Footer = () => {
         { icon: <InstagramIcon />, url: settingsData.instagram || '#' },
       ]
     : [];
+
+  // Don't render footer until data is loaded
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <>

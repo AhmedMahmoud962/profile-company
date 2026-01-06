@@ -9,6 +9,7 @@ import './AllProjectsGrid.css'
 const AllProjectsGrid = () => {
   const { darkMode } = useThemeContext()
   const [projects, setProjects] = useState([])
+  const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState('All')
   const [currentPage, setCurrentPage] = useState(1)
   const projectsPerPage = 3
@@ -39,9 +40,11 @@ const AllProjectsGrid = () => {
       try {
         const response = await getProjects()
         setProjects(response.data)
+        setLoading(false)
       } catch (error) {
         console.error('Error fetching projects:', error)
         setProjects([])
+        setLoading(false)
       }
     }
     fetchProjects()
@@ -126,6 +129,19 @@ const AllProjectsGrid = () => {
       }
     }
     return pages
+  }
+
+  if (loading) {
+    return (
+      <div className="projects-grid-section">
+        <div className="projects-grid-container">
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+            <p>Loading projects...</p>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (

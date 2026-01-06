@@ -17,7 +17,7 @@ export default function App() {
     <>
       <GlobalSpinner />
       <ScrollToTop />
-      <Header />
+      {/* <Header /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -29,7 +29,7 @@ export default function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/gdpr" element={<GDPR />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

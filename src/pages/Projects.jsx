@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react'
 import { Helmet } from 'react-helmet-async'
-
+import Header from '../components/Header/Header'
+import Footer from '../components/Footer/Footer'
 const HeroPage = lazy(() => import('../components/HeroSection/Heropage'))
 const AllProjectsSection = lazy(() => import('../components/AllProjectsSection/AllProjectsSection'))
 
@@ -22,6 +23,7 @@ export default function Portfolio() {
 
       {/* Hero Section */}
       <Suspense fallback={<div>Loading...</div>}>
+      <Header />
         <HeroPage
           title="OUR PROJECTS"
           breadcrumbs={['Projects']}
@@ -29,6 +31,7 @@ export default function Portfolio() {
           backgroundImage="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80"
         />
       <AllProjectsSection />
+      <Footer />
       </Suspense>
     </>
   )

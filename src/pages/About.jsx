@@ -7,7 +7,8 @@ const SectionAbout = lazy(() => import('../components/SectionAbout/SectionAbout'
 const SectionClients = lazy(() => import('../components/SectionClients/SectionClients'))
 const SectionTeam = lazy(() => import('../components/SectionTeam/SectionTeam'))
 const SectionPartners = lazy(() => import('../components/SectionPartners/SectionPartners'))
-
+import Header from '../components/Header/Header'
+import Footer from '../components/Footer/Footer'
 function About() {
   return (
     <>
@@ -24,6 +25,7 @@ function About() {
         <meta name="robots" content="index, follow" />
       </Helmet>
       <Suspense fallback={<div>Loading...</div>}>
+      <Header />
         <HeroPage
           title="About"
           breadcrumbs={['About']}
@@ -34,6 +36,7 @@ function About() {
         <SectionTeam />
         <SectionClients />
         <SectionPartners />
+        <Footer />
       </Suspense>
     </>
   )
