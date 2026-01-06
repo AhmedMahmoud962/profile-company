@@ -9,7 +9,6 @@ import './SectionServices.css'
 const ServicesSection = () => {
   const { darkMode } = useThemeContext()
   const [services, setServices] = useState([])
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -21,8 +20,6 @@ const ServicesSection = () => {
       } catch (error) {
         console.error('Failed to fetch services:', error)
         setServices([])
-      } finally {
-        setLoading(false)
       }
     }
     fetchServices()

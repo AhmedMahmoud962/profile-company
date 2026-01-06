@@ -15,7 +15,6 @@ import 'swiper/css/pagination'
 const ClientsSection = () => {
   const { darkMode } = useThemeContext()
   const [clients, setClients] = useState([])
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchClients = async () => {
@@ -23,11 +22,9 @@ const ClientsSection = () => {
         const response = await getClients()
 
         setClients(response.data)
-        setLoading(false)
       } catch (error) {
         console.error('Error fetching clients:', error)
         setClients([])
-        setLoading(false)
       }
     }
     fetchClients()

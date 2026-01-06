@@ -8,14 +8,12 @@ import 'swiper/css/navigation'
 import 'swiper/css/effect-fade'
 import { Link } from 'react-router-dom'
 import { getSlider } from '../API/sliderService'
-import Spinner from '../Spinner/Spinner'
 import { getImageUrl } from '../utils/constants'
 import './HeroSlider.css'
 // import "../../performance-optimization.css"
 
 const HeroSlider = () => {
   const [slides, setSlides] = useState([])
-  const [loading, setLoading] = useState(true)
   const swiperRef = useRef(null)
 
   useEffect(() => {
@@ -39,8 +37,6 @@ const HeroSlider = () => {
       } catch (err) {
         console.error('Failed to fetch slides:', err)
         setSlides([])
-      } finally {
-        setLoading(false)
       }
     }
     fetchSlides()
@@ -58,11 +54,6 @@ const HeroSlider = () => {
       }, 100)
     }
   }, [slides])
-
-  // Show spinner while loading
-  if (loading) {
-    return <Spinner message="Loading Slider..." />
-  }
 
   // Don't render if no slides
   if (slides.length === 0) {

@@ -5,7 +5,6 @@ import { getProjectDetailsById } from '../API/ProjectService'
 import { useThemeContext } from '../../context/ThemeContext'
 import './ProjectInfo.css'
 import { getImageUrl } from '../utils/constants'
-import Spinner from '../Spinner/Spinner'
 
 const ProjectInfo = () => {
   const { darkMode } = useThemeContext()
@@ -97,8 +96,7 @@ const ProjectInfo = () => {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [selectedImage, currentImageIndex])
 
-  // لو البيانات لسه محمّلتش
-  if (!projectData) return <Spinner message="Loading project details..." />
+  if (!projectData) return null
 
   return (
     <div
