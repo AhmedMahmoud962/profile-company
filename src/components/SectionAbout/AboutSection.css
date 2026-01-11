@@ -4,6 +4,7 @@
   padding: 30px 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 600px;
+  contain: layout style paint;
 }
 
 .about-container .about-grid {
@@ -59,25 +60,34 @@
 .image-container .first-image-placeholder {
   width: 200px;
   height: 200px;
+  min-height: 200px;
   border-radius: 16px;
   overflow: hidden;
   aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  contain: layout style paint;
 }
 
 .image-container .second-image-placeholder {
   width: 350px;
   height: 300px;
+  min-height: 300px;
   border-radius: 16px;
   overflow: hidden;
   aspect-ratio: 368 / 329;
+  flex-shrink: 0;
+  contain: layout style paint;
 }
 
 .image-container .third-image-placeholder {
   width: 200px;
   height: 200px;
+  min-height: 200px;
   border-radius: 16px;
   overflow: hidden;
   aspect-ratio: 211 / 210;
+  flex-shrink: 0;
+  contain: layout style paint;
 }
 
 .about-container .about-grid .image-container .about-image {

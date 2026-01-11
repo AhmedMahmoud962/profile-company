@@ -25,6 +25,14 @@ const AboutSection = () => {
       try {
         const response = await getAboutServices()
         setAboutData(response.data)
+
+        // Preload the main about image for better LCP
+        const link = document.createElement('link')
+        link.rel = 'preload'
+        link.as = 'image'
+        link.href = imageAbout1
+        link.fetchPriority = 'high'
+        document.head.appendChild(link)
       } catch (error) {
         console.error('Error fetching about data:', error)
         setAboutData({})

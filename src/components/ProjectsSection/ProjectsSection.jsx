@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { motion } from 'framer-motion'
-import { Pagination, Navigation } from 'swiper/modules'
+import { Pagination } from 'swiper/modules'
 import { useThemeContext } from '../../context/ThemeContext'
 import './ProjectsSection.css'
 import { Link } from 'react-router-dom'
@@ -11,14 +10,13 @@ import { getImageUrl } from '../utils/constants'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/pagination'
-import 'swiper/css/navigation'
 
 const ProjectsSection = () => {
   const { darkMode } = useThemeContext()
   const [projects, setProjects] = useState([])
 
-  // دالة للحصول على أيقونة الفئة
-  const getCategoryIcon = (categoryName) => {
+  // دالة للحصول على أيقونة الفئة - memoized
+  const getCategoryIcon = useCallback((categoryName) => {
     const category = categoryName?.toLowerCase() || ''
 
     if (category.includes('web') || category.includes('website')) return '🌐'
@@ -37,13 +35,13 @@ const ProjectsSection = () => {
     if (category.includes('cloud') || category.includes('server')) return '☁️'
     if (category.includes('iot') || category.includes('smart')) return '🔌'
     return '💼' // افتراضي
-  }
+  }, [])
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response = await getProjects()
-        setProjects(response.data)
+        setProjects(response.data || [])
       } catch (error) {
         console.error('Error fetching projects:', error)
         setProjects([])
@@ -52,29 +50,17 @@ const ProjectsSection = () => {
     fetchProjects()
   }, [])
 
-  if (projects.length === 0) {
-    return (
-      <div className="projects-grid-section">
-        <div className="projects-grid-container">
-          <div className="loading-spinner">
-            <div className="spinner"></div>
-            <p>Loading projects...</p>
-          </div>
-        </div>
-      </div>
-    )
+  // Memoize projects data
+  const memoizedProjects = useMemo(() => projects, [projects])
+
+  if (memoizedProjects.length === 0) {
+    return null
   }
 
   return (
     <div className={`projects-section ${darkMode ? 'dark' : 'light'}`}>
       <div className="projects-container">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
-          viewport={{ once: true }}
-          className="projects-header"
-        >
+        <div className="projects-header">
           <span className="projects-subtitle" role="heading" aria-level="2">
             Our Work
           </span>
@@ -82,7 +68,7 @@ const ProjectsSection = () => {
           <p className="projects-description">
             Explore our latest projects and see how we bring ideas to life
           </p>
-        </motion.div>
+        </div>
 
         <div className="projects-swiper-container">
           <Swiper
@@ -94,8 +80,8 @@ const ProjectsSection = () => {
               bulletClass: 'swiper-pagination-bullet',
               bulletActiveClass: 'swiper-pagination-bullet-active',
             }}
-            loop={true}
-            navigation={true}
+            loop={memoizedProjects.length > 3}
+            navigation={false}
             breakpoints={{
               640: {
                 slidesPerView: 1,
@@ -111,19 +97,18 @@ const ProjectsSection = () => {
               },
             }}
             className="projects-swiper"
+            watchSlidesProgress={false}
+            watchSlidesVisibility={false}
+            observer={false}
+            observeParents={false}
+            observeSlideChildren={false}
+            updateOnWindowResize={false}
+            resizeObserver={false}
+            preventInteractionOnTransition={true}
           >
-            {projects.map((project, index) => (
+            {memoizedProjects.map((project) => (
               <SwiperSlide key={project.id}>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.3,
-                    delay: index * 0.05,
-                  }}
-                  className="project-card"
-                >
+                <div className="project-card">
                   <div className="project-image-container">
                     <img
                       src={getImageUrl(project.image) || '/default-image.jpg'}
@@ -160,7 +145,7 @@ const ProjectsSection = () => {
                       <span className="category-icon">
                         {getCategoryIcon(project.category?.name)}
                       </span>
-                      {project.category.name}
+                      {project.category?.name || 'Uncategorized'}
                     </div>
                     <h3 className="project-title">
                       <span className="title-icon">📋</span>
@@ -179,25 +164,21 @@ const ProjectsSection = () => {
                       {project.summary}
                     </p> */}
                   </div>
-                </motion.div>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
 
         <div className="projects-view-all">
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
-            className="projects-btn"
-          >
+          <button className="projects-btn">
             <Link
               to="/projects"
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
               View All Projects
             </Link>
-          </motion.button>
+          </button>
         </div>
       </div>
     </div>

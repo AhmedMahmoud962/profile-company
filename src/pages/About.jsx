@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async'
 // Lazy load components
 const HeroPage = lazy(() => import('../components/HeroSection/Heropage'))
 const SectionAbout = lazy(() => import('../components/SectionAbout/SectionAbout'))
-const SectionClients = lazy(() => import('../components/SectionClients/SectionClients'))
+// const SectionClients = lazy(() => import('../components/SectionClients/SectionClients'))
 const SectionTeam = lazy(() => import('../components/SectionTeam/SectionTeam'))
 const SectionPartners = lazy(() => import('../components/SectionPartners/SectionPartners'))
 import Header from '../components/Header/Header'
@@ -32,10 +32,10 @@ function About() {
           description="Learn more about Polygon Software, our mission, and the team behind it."
           backgroundImage="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1920&q=80"
         />
-        <SectionAbout  />
-        <SectionTeam />
-        <SectionClients />
+        <SectionAbout />
         <SectionPartners />
+        <SectionTeam />
+        {/* <SectionClients /> */}
         <Footer />
       </Suspense>
     </>

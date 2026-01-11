@@ -59,6 +59,8 @@
 
 .projects-swiper {
   padding-bottom: 50px !important;
+  contain: layout style;
+  will-change: auto;
 }
 
 /* Project Card */
@@ -67,8 +69,10 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 100%;
+  contain: layout style paint;
+  will-change: transform;
 }
 
 .projects-section.dark .project-card {
@@ -83,13 +87,17 @@
 .project-image-container {
   position: relative;
   height: 220px;
+  min-height: 220px;
   overflow: hidden;
+  contain: layout style paint;
+  will-change: auto;
 }
 
 .project-image-container img {
   width: 100%;
   height: 100%;
   /* object-fit: cover; */
+  display: block;
   transition: transform 0.3s ease;
 }
 
@@ -258,13 +266,19 @@
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 4px 15px rgba(143, 109, 255, 0.3);
   min-height: 44px;
   min-width: 120px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  will-change: transform;
+}
+
+.projects-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(143, 109, 255, 0.4);
 }
 
 .projects-btn a {
@@ -272,10 +286,6 @@
   align-items: center;
   justify-content: center;
   padding: 0 8px;
-}
-
-.projects-btn:hover {
-  box-shadow: 0 6px 20px rgba(143, 109, 255, 0.4);
 }
 
 /* Swiper Pagination */
