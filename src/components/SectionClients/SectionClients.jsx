@@ -73,7 +73,7 @@ const ClientsSection = () => {
             observer={false}
             observeParents={false}
             observeSlideChildren={false}
-            updateOnWindowResize={true}
+            updateOnWindowResize={false}
           >
             {clients.map((client) => (
               <SwiperSlide key={client.id}>

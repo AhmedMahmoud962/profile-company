@@ -27,8 +27,9 @@ export default defineConfig({
       "react",
       "react-dom",
       "react-router-dom",
-      "framer-motion",
       "swiper",
     ],
+    // Exclude framer-motion from pre-bundling to allow dynamic imports
+    exclude: ["framer-motion"],
   },
 });
