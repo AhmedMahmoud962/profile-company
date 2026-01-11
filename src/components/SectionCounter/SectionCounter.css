@@ -1,6 +1,6 @@
 /* Light Mode */
 .counter-section.light {
-  padding: 64px 0;
+  padding: 40px 0;
   /* background: linear-gradient(135deg, rgba(143, 109, 255, 0.1), rgba(255, 107, 157, 0.1)); */
 }
 .counter-section .counter-section-title {
@@ -57,7 +57,7 @@
 
 .counter-item {
   text-align: center;
-  padding: 20px;
+  padding: 10px;
 }
 
 .counter-icon {
@@ -106,11 +106,11 @@
   
   .counter-section.light,
   .counter-section.dark {
-    padding: 48px 0;
+    padding: 10px 0;
   }
   
   .counter-container {
-    padding: 0 16px;
+    padding: 0 8px;
   }
   
   .counter-number {
@@ -126,16 +126,17 @@
 
 @media (max-width: 480px) {
   .counter-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 10px;
   }
-  
+  .counter-item {
+    padding: 5px;
+  }
   .counter-number {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
   
   .counter-title {
-    font-size: 1.1rem;
+    font-size: .9rem;
   }
   
   .counter-description {

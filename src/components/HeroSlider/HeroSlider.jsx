@@ -7,30 +7,24 @@ import 'swiper/css/navigation'
 import 'swiper/css/effect-fade'
 import { Link } from 'react-router-dom'
 import { getSlider } from '../API/sliderService'
+import Spinner from '../Spinner/Spinner'
 import { getImageUrl } from '../utils/constants'
 import './HeroSlider.css'
 
 const HeroSlider = () => {
   const [slides, setSlides] = useState([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
   const swiperRef = useRef(null)
 
   useEffect(() => {
     const fetchSlides = async () => {
       try {
-        setError(null)
         const response = await getSlider()
-
-        if (response.status === 200 && response.data) {
-          setSlides(response.data || [])
+        if (response.status === 200) {
+          setSlides(response.data)
 
           // Preload first slide image for better LCP
-          if (
-            response.data &&
-            response.data.length > 0 &&
-            response.data[0]?.image
-          ) {
+          if (response.data && response.data[0]) {
             const firstImageUrl = getImageUrl(response.data[0].image)
             const link = document.createElement('link')
             link.rel = 'preload'
@@ -42,17 +36,15 @@ const HeroSlider = () => {
         }
       } catch (err) {
         console.error('Failed to fetch slides:', err)
-        setError('Failed to load slider content')
         setSlides([])
       } finally {
         setLoading(false)
       }
     }
-
     fetchSlides()
   }, [])
 
-  // Update pagination after slides load
+  // Simplified pagination update - only once after slides load
   useEffect(() => {
     if (slides.length > 0 && swiperRef.current?.swiper) {
       requestAnimationFrame(() => {
@@ -65,26 +57,13 @@ const HeroSlider = () => {
     }
   }, [slides])
 
-  // Loading state
+  // Show spinner while loading
   if (loading) {
-    return (
-      <div className="hero-slider-container">
-        <div className="hero-bg-pattern"></div>
-        <div className="hero-slider-loading">
-          <div className="hero-loader">
-            <div className="hero-loader-ring"></div>
-            <div className="hero-loader-ring"></div>
-            <div className="hero-loader-ring"></div>
-            <div className="hero-loader-dot"></div>
-          </div>
-          <p className="hero-loader-text">Loading amazing content...</p>
-        </div>
-      </div>
-    )
+    return <Spinner message="Loading Slider..." />
   }
 
-  // Error state
-  if (error || slides.length === 0) {
+  // Don't render if no slides
+  if (slides.length === 0) {
     return null
   }
 
@@ -134,87 +113,89 @@ const HeroSlider = () => {
         observeSlideChildren={false}
         updateOnWindowResize={false}
       >
-        {slides.map((slide, index) => (
-          <SwiperSlide key={slide.id || index}>
-            <div className="hero-slide">
-              {/* Background Image */}
-              {slide.image && (
+        {slides.map((slide, index) => {
+          const imageUrl = getImageUrl(slide.image)
+          const isFirstSlide = index === 0
+
+          return (
+            <SwiperSlide key={slide.id}>
+              <div className="hero-slide">
+                {/* Background Image - optimized for LCP and performance */}
                 <img
-                  src={getImageUrl(slide.image)}
-                  alt={slide.name || 'Slide image'}
+                  src={imageUrl}
+                  alt={slide.name}
                   className="hero-bg-image"
-                  loading={index === 0 ? 'eager' : 'lazy'}
-                  fetchpriority={index === 0 ? 'high' : 'auto'}
+                  loading={isFirstSlide ? 'eager' : 'lazy'}
+                  fetchpriority={isFirstSlide ? 'high' : 'auto'}
                   decoding="async"
                   width="1920"
                   height="1080"
                   sizes="100vw"
-                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  style={{
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                  }}
                 />
-              )}
 
-              {/* Enhanced Overlay Layers */}
-              <div className="hero-overlay-primary"></div>
-              <div className="hero-overlay-gradient"></div>
-              <div className="hero-overlay-texture"></div>
+                {/* Enhanced Overlay Layers */}
+                <div className="hero-overlay-primary"></div>
+                <div className="hero-overlay-gradient"></div>
+                <div className="hero-overlay-texture"></div>
 
-              {/* Floating Elements */}
-              <div className="hero-floating-elements">
-                <div className="floating-shape shape-1"></div>
-                <div className="floating-shape shape-2"></div>
-                <div className="floating-shape shape-3"></div>
-                <div className="floating-shape shape-4"></div>
-                <div className="floating-line line-1"></div>
-                <div className="floating-line line-2"></div>
-              </div>
+                {/* Floating Elements */}
+                <div className="hero-floating-elements">
+                  <div className="floating-shape shape-1"></div>
+                  <div className="floating-shape shape-2"></div>
+                  <div className="floating-shape shape-3"></div>
+                  <div className="floating-shape shape-4"></div>
+                  <div className="floating-line line-1"></div>
+                  <div className="floating-line line-2"></div>
+                </div>
 
-              {/* Content */}
-              <div className="hero-content">
-                <div className="hero-content-inner">
-                  {/* Title */}
-                  {slide.name && (
+                {/* Content */}
+                <div className="hero-content">
+                  <div className="hero-content-inner">
+                    {/* Title - Optimized animation */}
                     <h1 className="hero-title">
                       <span className="title-main">{slide.name}</span>
                     </h1>
-                  )}
 
-                  {/* Description */}
-                  {slide.description && (
+                    {/* Description */}
                     <p className="hero-description">{slide.description}</p>
-                  )}
 
-                  {/* Features Grid */}
-                  <div className="hero-features">
-                    <div className="feature-item">
-                      <div className="feature-icon">⚡</div>
-                      <span>Lightning Fast</span>
+                    {/* Features Grid */}
+                    <div className="hero-features">
+                      <div className="feature-item">
+                        <div className="feature-icon">⚡</div>
+                        <span>Lightning Fast</span>
+                      </div>
+                      <div className="feature-item">
+                        <div className="feature-icon">🔒</div>
+                        <span>100% Secure</span>
+                      </div>
+                      <div className="feature-item">
+                        <div className="feature-icon">💎</div>
+                        <span>Premium Quality</span>
+                      </div>
                     </div>
-                    <div className="feature-item">
-                      <div className="feature-icon">🔒</div>
-                      <span>100% Secure</span>
-                    </div>
-                    <div className="feature-item">
-                      <div className="feature-icon">💎</div>
-                      <span>Premium Quality</span>
-                    </div>
-                  </div>
 
-                  {/* Action Links */}
-                  <div className="hero-actions">
-                    <Link to="/contact" className="hero-link primary">
-                      <span className="link-content">
-                        <span className="link-icon">🚀</span>
-                        <span className="link-text">Get Started</span>
-                        <span className="link-arrow">→</span>
-                      </span>
-                      <div className="link-ripple"></div>
-                    </Link>
+                    {/* Action Links */}
+                    <div className="hero-actions">
+                      <Link to="/contact" className="hero-link primary">
+                        <span className="link-content">
+                          <span className="link-icon">🚀</span>
+                          <span className="link-text">Get Started</span>
+                          <span className="link-arrow">→</span>
+                        </span>
+                        <div className="link-ripple"></div>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          )
+        })}
       </Swiper>
 
       {/* Enhanced Centered Pagination - Only show if more than 1 slide */}

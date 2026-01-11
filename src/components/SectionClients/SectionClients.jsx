@@ -38,7 +38,9 @@ const ClientsSection = () => {
     <div className={`clients-section ${darkMode ? 'dark' : 'light'}`}>
       <div className="clients-container">
         <div className="clients-header">
-          <h6 className="clients-subtitle">Our Clients</h6>
+          <span className="clients-subtitle" role="heading" aria-level="2">
+            Our Clients
+          </span>
           <h2 className="clients-title">Trusted Partners</h2>
         </div>
 

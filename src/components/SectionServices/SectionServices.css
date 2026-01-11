@@ -18,7 +18,7 @@
 
 /* Dark Mode */
 .services-section.dark {
-  padding: 64px 0;
+  padding: 40px 0;
   background-color: #121212;
 }
 
@@ -44,10 +44,11 @@
 
 .services-header {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 30px;
 }
 
 .services-subtitle {
+  display: block;
   color: #6b46c1; /* لون أغمق للتباين الأفضل */
   font-weight: 600;
   margin-bottom: 16px;
@@ -65,6 +66,9 @@
   margin: 0;
 }
 
+.counter-section-title {
+  margin-bottom: 30px;
+}
 
 
 .services-grid {
@@ -75,7 +79,7 @@
 
 .service-card {
   border-radius: 16px;
-  padding: 24px 30px;
+  padding: 24px 15px;
   text-align: center;
   /* box-shadow: 0 8px 32px rgba(0,0,0,0.1); */
   transition: all 0.3s ease;
@@ -138,7 +142,7 @@
   
   .services-section.light,
   .services-section.dark {
-    padding: 48px 0;
+    padding: 10px 0;
   }
   
   .services-container {
@@ -160,4 +164,7 @@
   .service-title {
     font-size: 1.2rem;
   }
+.services-header {
+  margin-bottom: 10px;
+}
 }

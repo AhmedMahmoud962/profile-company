@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import { useThemeContext } from '../../context/ThemeContext'
 import './AboutSection.css'
 import { Link } from 'react-router-dom'
 import { getAboutServices } from '../API/AboutServices'
@@ -8,10 +10,15 @@ import imageAbout2 from '../../assets/images/about2.webp'
 import imageAbout3 from '../../assets/images/about3.webp'
 
 const AboutSection = () => {
+  const { darkMode } = useThemeContext()
+  const location = useLocation()
   const [isMobile, setIsMobile] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
   const [aboutData, setAboutData] = useState({})
+
+  // Check if we're on the About page
+  const isAboutPage = location.pathname === '/about'
 
   useEffect(() => {
     const fetchAboutData = async () => {
@@ -58,7 +65,7 @@ const AboutSection = () => {
     return <Spinner message="Loading about data..." />
   }
   return (
-    <div className="about-container">
+    <div className={`about-container ${darkMode ? 'dark' : 'light'}`}>
       <div
         className={`about-grid ${isMobile ? 'mobile' : ''} ${
           isVisible ? 'animate' : ''
@@ -103,6 +110,7 @@ const AboutSection = () => {
                 sizes="(max-width: 768px) 200px, 368px"
                 onLoad={() => setImageLoaded(true)}
                 style={{ opacity: imageLoaded ? 1 : 0 }}
+                loading="eager"
                 fetchpriority="high"
                 decoding="async"
               />
@@ -146,13 +154,15 @@ const AboutSection = () => {
         </div>
 
         <div className="content-container" style={{ '--delay': '0.2s' }}>
-          <h6 className="section-label">About Us</h6>
+          <span className="section-label" role="heading" aria-level="2">
+            About Us
+          </span>
           <h2 className={`main-title ${isMobile ? 'mobile' : ''}`}>
             {aboutData.title}
           </h2>
           {/* <p className="description">{aboutData.description}</p> */}
           <div
-            className="projectinfo-description-text"
+            className={`about-description-text ${darkMode ? 'dark' : 'light'}`}
             dangerouslySetInnerHTML={{
               __html: aboutData.description,
             }}
@@ -174,9 +184,11 @@ const AboutSection = () => {
               Present your services with flexible, convenient and multipurpose
             </li>
           </ul>
-          <Link to="/about" className="learn-more">
-            Get the Offer
-          </Link>
+          {!isAboutPage && (
+            <Link to="/about" className="learn-more">
+              Get the Offer
+            </Link>
+          )}
         </div>
       </div>
     </div>

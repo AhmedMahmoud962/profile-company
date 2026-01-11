@@ -38,7 +38,9 @@ const ServicesSection = () => {
     <div className={`services-section ${darkMode ? 'dark' : 'light'}`}>
       <div className="services-container">
         <div className="services-header">
-          <h6 className="services-subtitle">Our Services</h6>
+          <span className="services-subtitle" role="heading" aria-level="2">
+            Our Services
+          </span>
           <h2 className="services-title">How can we help?</h2>
           <p>
             We help premium brands achieve their future through innovation and

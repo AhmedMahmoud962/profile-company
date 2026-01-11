@@ -75,7 +75,9 @@ const ProjectsSection = () => {
           viewport={{ once: true }}
           className="projects-header"
         >
-          <h6 className="projects-subtitle">Our Work</h6>
+          <span className="projects-subtitle" role="heading" aria-level="2">
+            Our Work
+          </span>
           <h2 className="projects-title">Featured Projects</h2>
           <p className="projects-description">
             Explore our latest projects and see how we bring ideas to life
@@ -127,8 +129,10 @@ const ProjectsSection = () => {
                       src={getImageUrl(project.image) || '/default-image.jpg'}
                       alt={project.name}
                       loading="lazy"
-                      width="100%"
-                      height="auto"
+                      decoding="async"
+                      width="400"
+                      height="240"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
 
                     <div className="project-overlay">
@@ -163,8 +167,10 @@ const ProjectsSection = () => {
                       {project.name}
                     </h3>
                     <div className="project-description">
-                      <span>📝</span>
-                      {project.summary || 'No description available'}
+                      <span className="description-icon">📝</span>
+                      <span>
+                        {project.summary || 'No description available'}
+                      </span>
                     </div>
                     {/* {console.log('Project Summary:', project)} */}
                     {/* <p className="project-description">

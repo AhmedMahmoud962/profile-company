@@ -32,7 +32,7 @@
 }
 
 .clients-section.dark .client-name {
-  color: #8F6DFF;
+  color: #B299FF;
 }
 
 .clients-section.dark .client-description {
@@ -40,7 +40,7 @@
 }
 
 .clients-section.dark .clients-subtitle {
-  color: #B299FF;
+  color: #C4B5FD;
 }
 
 /* خلفية للـ avatar في الـ dark mode */
@@ -62,6 +62,7 @@
 }
 
 .clients-subtitle {
+  display: block;
   color: #6b46c1;
   font-weight: 600;
   margin-bottom: 16px;

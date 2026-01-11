@@ -93,7 +93,7 @@ const Footer = () => {
             <div className="footer-info-grid">
               {/* Quick Links */}
               <div className="footer-info-column">
-                <h4 className="footer-info-title">Quick Links</h4>
+                <h3 className="footer-info-title">Quick Links</h3>
                 <ul className="footer-info-links">
                   {quickLinks.map((link, index) => (
                     <li key={index}>
@@ -107,7 +107,7 @@ const Footer = () => {
 
               {/* Contact */}
               <div className="footer-info-column">
-                <h4 className="footer-info-title">Say Hello</h4>
+                <h3 className="footer-info-title">Say Hello</h3>
                 <a
                   href={`mailto:${settingsData?.email || 'info@polygonsoftware.site'}`}
                   className="footer-email"
