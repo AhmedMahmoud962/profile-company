@@ -38,12 +38,121 @@
   z-index: 1;
 }
 
+/* Loading State */
+.hero-slider-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  background: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 50%, #0f172a 100%);
+}
+
+.hero-loader {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 30px;
+}
+
+.hero-loader-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 3px solid transparent;
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: heroSpin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+.hero-loader-ring:nth-child(1) {
+  border-top-color: var(--primary-color);
+  animation-duration: 1.5s;
+}
+
+.hero-loader-ring:nth-child(2) {
+  width: 75%;
+  height: 75%;
+  top: 12.5%;
+  left: 12.5%;
+  border-top-color: #ff6b9d;
+  animation-duration: 1.2s;
+  animation-direction: reverse;
+}
+
+.hero-loader-ring:nth-child(3) {
+  width: 50%;
+  height: 50%;
+  top: 25%;
+  left: 25%;
+  border-top-color: #ffb347;
+  animation-duration: 1s;
+}
+
+@keyframes heroSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.hero-loader-dot {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, var(--primary-color), #ff6b9d);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: heroPulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 25px rgba(143, 109, 255, 0.8);
+}
+
+@keyframes heroPulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 0.7;
+  }
+}
+
+.hero-loader-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: center;
+  letter-spacing: 0.5px;
+  animation: heroFadeIn 0.8s ease-out;
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Swiper */
 .hero-swiper {
   width: 100%;
   height: 100%;
   z-index: 2;
-  /* CSS Containment to reduce forced reflows */
   contain: layout style paint;
   will-change: transform;
 }
@@ -56,7 +165,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Force GPU acceleration */
   transform: translateZ(0);
   backface-visibility: hidden;
 }
@@ -73,10 +181,8 @@
   transform: scale(1.05);
   transition: transform 12s ease-out;
   z-index: 1;
-  /* Performance optimizations */
   will-change: transform;
   content-visibility: auto;
-  /* Reduce image quality for better performance */
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
 }
@@ -141,6 +247,7 @@
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
   border-radius: 50%;
   animation: float 15s ease-in-out infinite;
+  -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
 }
 
@@ -217,40 +324,6 @@
   width: 100%;
 }
 
-/* Enhanced Badge */
-.hero-badge {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border-glass);
-  color: var(--text-primary);
-  padding: 12px 24px;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
-  overflow: hidden;
-}
-
-.badge-icon {
-  font-size: 1.2rem;
-  animation: sparkle 2s ease-in-out infinite;
-}
-
-.badge-shine {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  animation: shine 3s ease-in-out infinite;
-}
-
 /* Enhanced Title - with CSS animation */
 .hero-title {
   font-size: clamp(2.8rem, 8vw, 4rem);
@@ -304,6 +377,7 @@
   font-size: 1.3rem;
   font-weight: 600;
   background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   padding: 12px 20px;
   border-radius: 25px;
@@ -347,6 +421,7 @@
   letter-spacing: 0.5px;
   transition: all 0.4s ease;
   overflow: hidden;
+  -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   border: 2px solid transparent;
   min-width: 200px;
@@ -358,7 +433,6 @@
   color: white;
   box-shadow: 0 12px 35px rgba(59, 130, 246, 0.4);
 }
-
 
 .hero-link.secondary {
   background: var(--glass-bg);
@@ -414,45 +488,6 @@
   left: 100%;
 }
 
-/* Trust Indicators */
-.hero-trust {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-  padding: 25px 30px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border-glass);
-  border-radius: 25px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-}
-
-.trust-item {
-  text-align: center;
-}
-
-.trust-number {
-  font-size: 1.9rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  margin-bottom: 4px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.trust-label {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.trust-divider {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, transparent, var(--border-glass), transparent);
-}
-
 /* Enhanced Centered Pagination */
 .hero-pagination-wrapper {
   position: absolute;
@@ -465,6 +500,7 @@
   align-items: center;
   padding: 18px 30px;
   background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(25px);
   backdrop-filter: blur(25px);
   border: 1px solid var(--border-glass);
   border-radius: 50px;
@@ -492,6 +528,7 @@
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
   background: rgba(255, 255, 255, 0.3) !important;
   border: 2px solid transparent !important;
+  -webkit-backdrop-filter: blur(5px) !important;
   backdrop-filter: blur(5px) !important;
   opacity: 1 !important;
   visibility: visible !important;
@@ -574,13 +611,11 @@
 
 /* Animations */
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0px) rotate(0deg);
     opacity: 0.6;
   }
-
   50% {
     transform: translateY(-30px) rotate(10deg);
     opacity: 1;
@@ -588,61 +623,32 @@
 }
 
 @keyframes floatLine {
-
   0%,
   100% {
     transform: translateX(-15px);
     opacity: 0.3;
   }
-
   50% {
     transform: translateX(15px);
     opacity: 0.8;
   }
 }
 
-@keyframes sparkle {
-
-  0%,
-  100% {
-    transform: scale(1) rotate(0deg);
-  }
-
-  50% {
-    transform: scale(1.1) rotate(10deg);
-  }
-}
-
-@keyframes shine {
-  0% {
-    left: -100%;
-  }
-
-  50%,
-  100% {
-    left: 100%;
-  }
-}
-
 @keyframes gradientShift {
-
   0%,
   100% {
     background-position: 0% 50%;
   }
-
   50% {
     background-position: 100% 50%;
   }
 }
 
 @keyframes scrollPulse {
-
   0%,
   100% {
     opacity: 0.3;
   }
-
   50% {
     opacity: 1;
   }
@@ -654,7 +660,6 @@
     opacity: 0;
     transform: translateY(30px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -663,7 +668,6 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-
   .hero-slide,
   .hero-slider-container {
     height: 90vh;
@@ -684,7 +688,6 @@
 }
 
 @media (max-width: 768px) {
-
   .hero-slide,
   .hero-slider-container {
     height: 85vh;
@@ -722,22 +725,6 @@
     max-width: 220px;
   }
 
-  .hero-trust {
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-  }
-
-  .trust-divider {
-    width: 60px;
-    height: 1px;
-  }
-
-  .floating-shape,
-  .floating-line {
-    display: none;
-  }
-
   .hero-pagination-wrapper {
     bottom: 20px;
     padding: 12px 20px;
@@ -751,10 +738,18 @@
     width: 14px !important;
     height: 14px !important;
   }
+
+  .hero-loader {
+    width: 80px;
+    height: 80px;
+  }
+
+  .hero-loader-text {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
-
   .hero-slide,
   .hero-slider-container {
     height: 85vh;
@@ -788,16 +783,6 @@
     min-width: 140px;
   }
 
-  .hero-badge {
-    font-size: 0.8rem;
-    padding: 10px 18px;
-  }
-
-  .hero-trust {
-    padding: 16px;
-  }
-
-  /* Description */
   .hero-description {
     line-height: 1.4;
     margin-bottom: 1rem;
@@ -807,10 +792,20 @@
   .title-main {
     font-size: 2rem;
   }
+
+  .hero-loader {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 20px;
+  }
+
+  .hero-loader-text {
+    font-size: 0.9rem;
+  }
 }
 
 .hero-title {
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 /* Performance Optimizations */

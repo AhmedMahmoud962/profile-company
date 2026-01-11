@@ -1,32 +1,36 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules'
-// Removed framer-motion for better performance - using CSS animations instead
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import 'swiper/css/effect-fade'
 import { Link } from 'react-router-dom'
 import { getSlider } from '../API/sliderService'
-import Spinner from '../Spinner/Spinner'
 import { getImageUrl } from '../utils/constants'
 import './HeroSlider.css'
-// import "../../performance-optimization.css"
 
 const HeroSlider = () => {
   const [slides, setSlides] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const swiperRef = useRef(null)
 
   useEffect(() => {
     const fetchSlides = async () => {
       try {
+        setError(null)
         const response = await getSlider()
-        if (response.status === 200) {
-          setSlides(response.data)
+
+        if (response.status === 200 && response.data) {
+          setSlides(response.data || [])
 
           // Preload first slide image for better LCP
-          if (response.data && response.data[0]) {
+          if (
+            response.data &&
+            response.data.length > 0 &&
+            response.data[0]?.image
+          ) {
             const firstImageUrl = getImageUrl(response.data[0].image)
             const link = document.createElement('link')
             link.rel = 'preload'
@@ -38,18 +42,19 @@ const HeroSlider = () => {
         }
       } catch (err) {
         console.error('Failed to fetch slides:', err)
+        setError('Failed to load slider content')
         setSlides([])
       } finally {
         setLoading(false)
       }
     }
+
     fetchSlides()
   }, [])
 
-  // Simplified pagination update - only once after slides load
+  // Update pagination after slides load
   useEffect(() => {
     if (slides.length > 0 && swiperRef.current?.swiper) {
-      // Use requestAnimationFrame to batch DOM updates
       requestAnimationFrame(() => {
         const swiper = swiperRef.current?.swiper
         if (swiper?.pagination) {
@@ -60,13 +65,26 @@ const HeroSlider = () => {
     }
   }, [slides])
 
-  // Show spinner while loading
+  // Loading state
   if (loading) {
-    return <Spinner message="Loading Slider..." />
+    return (
+      <div className="hero-slider-container">
+        <div className="hero-bg-pattern"></div>
+        <div className="hero-slider-loading">
+          <div className="hero-loader">
+            <div className="hero-loader-ring"></div>
+            <div className="hero-loader-ring"></div>
+            <div className="hero-loader-ring"></div>
+            <div className="hero-loader-dot"></div>
+          </div>
+          <p className="hero-loader-text">Loading amazing content...</p>
+        </div>
+      </div>
+    )
   }
 
-  // Don't render if no slides
-  if (slides.length === 0) {
+  // Error state
+  if (error || slides.length === 0) {
     return null
   }
 
@@ -101,13 +119,9 @@ const HeroSlider = () => {
           },
           dynamicBullets: false,
         }}
-        onSwiper={(swiper) => {
-          // Pagination will be handled by useEffect
-        }}
         navigation={false}
         loop={slides.length > 1}
         className="hero-swiper"
-        // Performance optimizations to reduce forced reflows
         watchSlidesProgress={false}
         watchSlidesVisibility={false}
         preventInteractionOnTransition={true}
@@ -115,28 +129,29 @@ const HeroSlider = () => {
         passiveListeners={true}
         resistance={false}
         resistanceRatio={0}
-        // Additional optimizations
         observer={false}
         observeParents={false}
         observeSlideChildren={false}
         updateOnWindowResize={false}
       >
         {slides.map((slide, index) => (
-          <SwiperSlide key={slide.id}>
+          <SwiperSlide key={slide.id || index}>
             <div className="hero-slide">
-              {/* Background Image - optimized for LCP */}
-              <img
-                src={getImageUrl(slide.image)}
-                alt={slide.name}
-                className="hero-bg-image"
-                loading={index === 0 ? 'eager' : 'lazy'}
-                fetchpriority={index === 0 ? 'high' : 'auto'}
-                decoding="async"
-                width="1920"
-                height="1080"
-                sizes="100vw"
-                style={{ objectFit: 'cover', objectPosition: 'center' }}
-              />
+              {/* Background Image */}
+              {slide.image && (
+                <img
+                  src={getImageUrl(slide.image)}
+                  alt={slide.name || 'Slide image'}
+                  className="hero-bg-image"
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  fetchpriority={index === 0 ? 'high' : 'auto'}
+                  decoding="async"
+                  width="1920"
+                  height="1080"
+                  sizes="100vw"
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                />
+              )}
 
               {/* Enhanced Overlay Layers */}
               <div className="hero-overlay-primary"></div>
@@ -156,13 +171,17 @@ const HeroSlider = () => {
               {/* Content */}
               <div className="hero-content">
                 <div className="hero-content-inner">
-                  {/* Title - Optimized animation */}
-                  <h1 className="hero-title">
-                    <span className="title-main">{slide.name}</span>
-                  </h1>
+                  {/* Title */}
+                  {slide.name && (
+                    <h1 className="hero-title">
+                      <span className="title-main">{slide.name}</span>
+                    </h1>
+                  )}
 
                   {/* Description */}
-                  <p className="hero-description">{slide.description}</p>
+                  {slide.description && (
+                    <p className="hero-description">{slide.description}</p>
+                  )}
 
                   {/* Features Grid */}
                   <div className="hero-features">

@@ -300,7 +300,6 @@ const ProjectInfo = () => {
                   loading="lazy"
                   width="100%"
                   height="auto"
-
                 />
               </div>
 

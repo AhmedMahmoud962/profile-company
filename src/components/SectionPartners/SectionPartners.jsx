@@ -1,5 +1,4 @@
 import React from 'react'
-import { motion } from 'framer-motion'
 import { useThemeContext } from '../../context/ThemeContext'
 import './SectionPartners.css'
 import BeWell from '../../assets/images/partners/bewell.jpg'
@@ -38,74 +37,42 @@ const SectionPartners = () => {
     },
   ]
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.3,
-      },
-    },
-  }
-
   return (
     <section className={`partners-section ${darkMode ? 'dark' : 'light'}`}>
       <div className="partners-container">
         {/* Header */}
-        <motion.div
-          className="partners-header"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
-          viewport={{ once: true }}
-        >
+        <div className="partners-header">
           <h2 className="partners-subtitle">Our Partners</h2>
           <h3 className="partners-title">Trusted by Leading Companies</h3>
           <p className="partners-description">
             We're proud to work with industry leaders who trust us to deliver
             exceptional results and innovative solutions.
           </p>
-        </motion.div>
+        </div>
 
         {/* Partners Grid */}
-        <motion.div
-          className="partners-grid"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
+        <div className="partners-grid">
           {partners.map((partner) => (
-            <motion.div
-              key={partner.id}
-              className="partner-logo-wrapper"
-              variants={itemVariants}
-            >
-              <a href={partner.link} target="_blank" rel="noopener noreferrer">
-              <img
-                src={partner.logo}
-                alt={partner.name}
-                className="partner-logo"
-                loading="lazy"
-                width="100%"
-                height="auto"
-              />
+            <div key={partner.id} className="partner-logo-wrapper">
+              <a
+                href={partner.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="partner-link"
+              >
+                <img
+                  src={partner.logo}
+                  alt={partner.name}
+                  className="partner-logo"
+                  loading="lazy"
+                  decoding="async"
+                  width="200"
+                  height="100"
+                />
               </a>
-              
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )
