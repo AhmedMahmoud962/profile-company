@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination } from 'swiper/modules'
+import { motion } from 'framer-motion'
+import { Pagination, Navigation } from 'swiper/modules'
 import { useThemeContext } from '../../context/ThemeContext'
 import './ProjectsSection.css'
 import { Link } from 'react-router-dom'
@@ -10,13 +11,14 @@ import { getImageUrl } from '../utils/constants'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/pagination'
+import 'swiper/css/navigation'
 
 const ProjectsSection = () => {
   const { darkMode } = useThemeContext()
   const [projects, setProjects] = useState([])
 
-  // دالة للحصول على أيقونة الفئة - memoized
-  const getCategoryIcon = useCallback((categoryName) => {
+  // دالة للحصول على أيقونة الفئة
+  const getCategoryIcon = (categoryName) => {
     const category = categoryName?.toLowerCase() || ''
 
     if (category.includes('web') || category.includes('website')) return '🌐'
@@ -35,13 +37,13 @@ const ProjectsSection = () => {
     if (category.includes('cloud') || category.includes('server')) return '☁️'
     if (category.includes('iot') || category.includes('smart')) return '🔌'
     return '💼' // افتراضي
-  }, [])
+  }
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response = await getProjects()
-        setProjects(response.data || [])
+        setProjects(response.data)
       } catch (error) {
         console.error('Error fetching projects:', error)
         setProjects([])
@@ -50,17 +52,29 @@ const ProjectsSection = () => {
     fetchProjects()
   }, [])
 
-  // Memoize projects data
-  const memoizedProjects = useMemo(() => projects, [projects])
-
-  if (memoizedProjects.length === 0) {
-    return null
+  if (projects.length === 0) {
+    return (
+      <div className="projects-grid-section">
+        <div className="projects-grid-container">
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+            <p>Loading projects...</p>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
     <div className={`projects-section ${darkMode ? 'dark' : 'light'}`}>
       <div className="projects-container">
-        <div className="projects-header">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          viewport={{ once: true }}
+          className="projects-header"
+        >
           <span className="projects-subtitle" role="heading" aria-level="2">
             Our Work
           </span>
@@ -68,7 +82,7 @@ const ProjectsSection = () => {
           <p className="projects-description">
             Explore our latest projects and see how we bring ideas to life
           </p>
-        </div>
+        </motion.div>
 
         <div className="projects-swiper-container">
           <Swiper
@@ -80,7 +94,7 @@ const ProjectsSection = () => {
               bulletClass: 'swiper-pagination-bullet',
               bulletActiveClass: 'swiper-pagination-bullet-active',
             }}
-            loop={memoizedProjects.length > 3}
+            loop={projects.length > 3}
             navigation={false}
             breakpoints={{
               640: {
@@ -106,9 +120,18 @@ const ProjectsSection = () => {
             resizeObserver={false}
             preventInteractionOnTransition={true}
           >
-            {memoizedProjects.map((project) => (
+            {projects.map((project, index) => (
               <SwiperSlide key={project.id}>
-                <div className="project-card">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.3,
+                    delay: index * 0.05,
+                  }}
+                  className="project-card"
+                >
                   <div className="project-image-container">
                     <img
                       src={getImageUrl(project.image) || '/default-image.jpg'}
@@ -145,7 +168,7 @@ const ProjectsSection = () => {
                       <span className="category-icon">
                         {getCategoryIcon(project.category?.name)}
                       </span>
-                      {project.category?.name || 'Uncategorized'}
+                      {project.category.name}
                     </div>
                     <h3 className="project-title">
                       <span className="title-icon">📋</span>
@@ -164,21 +187,25 @@ const ProjectsSection = () => {
                       {project.summary}
                     </p> */}
                   </div>
-                </div>
+                </motion.div>
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
 
         <div className="projects-view-all">
-          <button className="projects-btn">
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.2 }}
+            className="projects-btn"
+          >
             <Link
               to="/projects"
               style={{ textDecoration: 'none', color: 'inherit' }}
             >
               View All Projects
             </Link>
-          </button>
+          </motion.button>
         </div>
       </div>
     </div>
