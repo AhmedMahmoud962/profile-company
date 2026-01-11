@@ -9,9 +9,18 @@ export default defineConfig({
       output: {
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
-            // React ecosystem
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+            // React ecosystem (including react-is, prop-types, hoist-non-react-statics)
+            if (id.includes('react') || 
+                id.includes('react-dom') || 
+                id.includes('react-router') ||
+                id.includes('react-is') ||
+                id.includes('prop-types') ||
+                id.includes('hoist-non-react-statics')) {
               return 'react-vendor';
+            }
+            // MUI + Emotion together to avoid circular dependencies
+            if (id.includes('@mui') || id.includes('@emotion')) {
+              return 'mui-vendor';
             }
             // Framer Motion
             if (id.includes('framer-motion')) {
@@ -20,18 +29,6 @@ export default defineConfig({
             // Swiper
             if (id.includes('swiper')) {
               return 'swiper';
-            }
-            // MUI Material (without icons to avoid EMFILE)
-            if (id.includes('@mui/material') && !id.includes('@mui/icons-material')) {
-              return 'mui-material';
-            }
-            // MUI Icons - separate to avoid EMFILE issues
-            if (id.includes('@mui/icons-material')) {
-              return 'mui-icons';
-            }
-            // Emotion
-            if (id.includes('@emotion')) {
-              return 'emotion';
             }
             // Other vendors
             return 'vendor';
