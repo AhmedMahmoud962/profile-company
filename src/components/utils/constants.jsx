@@ -15,6 +15,33 @@ export const getImageUrl = (imagePath) => {
   return `${API_BASE_URL}/${imagePath}`;
 };
 
+// Generate responsive srcset for images
+export const generateSrcSet = (imagePath, widths = [640, 960, 1280, 1600]) => {
+  if (!imagePath) return '';
+  
+  const baseUrl = getImageUrl(imagePath);
+  
+  // If it's an external URL or already processed, return empty (manual handling needed)
+  if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+    return '';
+  }
+  
+  return widths
+    .map((width) => `${baseUrl}?w=${width} ${width}w`)
+    .join(', ');
+};
+
+// Get appropriate sizes attribute for different image types
+export const getImageSizes = (type = 'hero') => {
+  const sizes = {
+    hero: '(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1600px',
+    project: '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
+    about: '(max-width: 768px) 200px, 368px',
+    thumbnail: '(max-width: 640px) 150px, 200px',
+  };
+  return sizes[type] || sizes.project;
+};
+
 // API Endpoints
 export const API_ENDPOINTS = {
   SLIDER: '/sliders',

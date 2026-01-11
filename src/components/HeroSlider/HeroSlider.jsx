@@ -8,7 +8,7 @@ import 'swiper/css/effect-fade'
 import { Link } from 'react-router-dom'
 import { getSlider } from '../API/sliderService'
 import Spinner from '../Spinner/Spinner'
-import { getImageUrl } from '../utils/constants'
+import { getImageUrl, generateSrcSet, getImageSizes } from '../utils/constants'
 import './HeroSlider.css'
 
 const HeroSlider = () => {
@@ -123,14 +123,18 @@ const HeroSlider = () => {
                 {/* Background Image - optimized for LCP and performance */}
                 <img
                   src={imageUrl}
+                  srcSet={
+                    generateSrcSet(slide.image, [640, 960, 1280, 1600]) ||
+                    undefined
+                  }
                   alt={slide.name}
                   className="hero-bg-image"
                   loading={isFirstSlide ? 'eager' : 'lazy'}
-                  fetchpriority={isFirstSlide ? 'high' : 'auto'}
+                  fetchpriority={isFirstSlide ? 'high' : 'low'}
                   decoding="async"
-                  width="1920"
-                  height="1080"
-                  sizes="100vw"
+                  width="1600"
+                  height="900"
+                  sizes={getImageSizes('hero')}
                   style={{
                     objectFit: 'cover',
                     objectPosition: 'center',

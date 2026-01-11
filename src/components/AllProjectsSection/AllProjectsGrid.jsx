@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { getProjects } from '../API/ProjectService'
-import { getImageUrl } from '../utils/constants'
+import { getImageUrl, generateSrcSet, getImageSizes } from '../utils/constants'
 import { useThemeContext } from '../../context/ThemeContext'
 import './AllProjectsGrid.css'
 

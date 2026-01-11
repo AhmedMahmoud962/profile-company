@@ -8,6 +8,7 @@ import { getAboutServices } from '../API/AboutServices'
 import imageAbout1 from '../../assets/images/about1.webp'
 import imageAbout2 from '../../assets/images/about2.webp'
 import imageAbout3 from '../../assets/images/about3.webp'
+import { getImageSizes } from '../utils/constants'
 
 const AboutSection = () => {
   const { darkMode } = useThemeContext()
@@ -88,11 +89,12 @@ const AboutSection = () => {
               className="about-image"
               width="300"
               height="300"
-              sizes="(max-width: 768px) 200px, 300px"
+              sizes={getImageSizes('about')}
               onLoad={() => setImageLoaded(true)}
               style={{ opacity: imageLoaded ? 1 : 0 }}
               loading="lazy"
               decoding="async"
+              fetchpriority="low"
             />
             {/* <img
               src={getImageUrl(aboutData.image)}
@@ -115,7 +117,7 @@ const AboutSection = () => {
                 className="about-image"
                 width="368"
                 height="329"
-                sizes="(max-width: 768px) 200px, 368px"
+                sizes={getImageSizes('about')}
                 onLoad={() => setImageLoaded(true)}
                 style={{ opacity: imageLoaded ? 1 : 0 }}
                 loading="eager"

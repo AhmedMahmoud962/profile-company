@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { getProjectDetailsById } from '../API/ProjectService'
 import { useThemeContext } from '../../context/ThemeContext'
 import './ProjectInfo.css'
-import { getImageUrl } from '../utils/constants'
+import { getImageUrl, getImageSizes } from '../utils/constants'
 import Spinner from '../Spinner/Spinner'
 
 const ProjectInfo = () => {
@@ -120,9 +120,12 @@ const ProjectInfo = () => {
                 src={projectData.mainImage}
                 alt={projectData.name}
                 className="projectinfo-main-img"
-                loading="lazy"
-                width="100%"
-                height="auto"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+                width="800"
+                height="450"
+                sizes={getImageSizes('hero')}
               />
               {/* <div className="projectinfo-image-overlay">
                   <div className="projectinfo-image-gradient"></div>
@@ -335,7 +338,7 @@ export default ProjectInfo
 // import { useThemeContext } from '../../context/ThemeContext'
 // import { useParams } from 'react-router-dom'
 // import { getProjectDetailsById } from '../API/ProjectService'
-// import { getImageUrl } from '../utils/constants'
+// import { getImageUrl, getImageSizes } from '../utils/constants'
 // import Spinner from '../Spinner/Spinner'
 // import './ProjectInfo.css'
 

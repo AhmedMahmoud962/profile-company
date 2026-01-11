@@ -6,7 +6,7 @@ import { useThemeContext } from '../../context/ThemeContext'
 import './ProjectsSection.css'
 import { Link } from 'react-router-dom'
 import { getProjects } from '../API/ProjectService'
-import { getImageUrl } from '../utils/constants'
+import { getImageUrl, generateSrcSet, getImageSizes } from '../utils/constants'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -135,12 +135,18 @@ const ProjectsSection = () => {
                   <div className="project-image-container">
                     <img
                       src={getImageUrl(project.image) || '/default-image.jpg'}
+                      srcSet={
+                        project.image
+                          ? generateSrcSet(project.image, [400, 600, 800])
+                          : undefined
+                      }
                       alt={project.name}
                       loading="lazy"
                       decoding="async"
+                      fetchpriority="low"
                       width="400"
                       height="240"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      sizes={getImageSizes('project')}
                     />
 
                     <div className="project-overlay">
