@@ -3,9 +3,6 @@
   box-sizing: border-box;
 }
 
-/* تحسين الخطوط */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
 /* Flexbox Layout للـ Root */
 html,
 body {
