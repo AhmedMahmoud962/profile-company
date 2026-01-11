@@ -7,36 +7,14 @@ export default defineConfig({
     // Code splitting for better performance
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          if (id.includes('node_modules')) {
-            // React ecosystem (including react-is, prop-types, hoist-non-react-statics)
-            if (id.includes('react') || 
-                id.includes('react-dom') || 
-                id.includes('react-router') ||
-                id.includes('react-is') ||
-                id.includes('prop-types') ||
-                id.includes('hoist-non-react-statics')) {
-              return 'react-vendor';
-            }
-            // MUI + Emotion together to avoid circular dependencies
-            if (id.includes('@mui') || id.includes('@emotion')) {
-              return 'mui-vendor';
-            }
-            // Framer Motion
-            if (id.includes('framer-motion')) {
-              return 'framer-motion';
-            }
-            // Swiper
-            if (id.includes('swiper')) {
-              return 'swiper';
-            }
-            // Other vendors
-            return 'vendor';
-          }
+        manualChunks: {
+          // Split vendor code
+          "react-vendor": ["react", "react-dom", "react-router-dom"],
+          "framer-motion": ["framer-motion"],
+          swiper: ["swiper"],
+          "mui-vendor": ["@mui/material", "@mui/icons-material"],
         },
       },
-      // CRITICAL: Limit file operations to prevent EMFILE error
-      maxParallelFileOps: 10,
     },
     minify: "esbuild",
     esbuild: {
@@ -45,20 +23,8 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
   },
   optimizeDeps: {
-    include: [
-      "react",
-      "react-dom",
-      "react-router-dom",
-      "react-is",
-      "prop-types",
-      "hoist-non-react-statics",
-      "swiper",
-    ],
-    // Exclude problematic libraries from pre-bundling
-    exclude: ["framer-motion", "@mui/icons-material"],
-    force: true, // Force re-bundle to fix dependency issues
-  },
-  resolve: {
-    dedupe: ["react", "react-dom", "react-is", "prop-types", "hoist-non-react-statics"], // Ensure single instance
+    include: ["react", "react-dom", "react-router-dom", "swiper"],
+    // Exclude framer-motion from pre-bundling to allow dynamic imports
+    exclude: ["framer-motion"],
   },
 });
