@@ -86,7 +86,7 @@ const Header = () => {
         <div className="header-container">
           {/* Logo with Image */}
           <div className="header-brand">
-            <Link className="brand-link">
+            <Link to="/" className="brand-link">
               <img
                 src="/software.png"
                 alt="Polygon Software Logo"
