@@ -183,7 +183,7 @@ const ProjectsSection = () => {
                     <div className="project-description">
                       <span className="description-icon">📝</span>
                       <span>
-                        {project.summary || 'No description available'}
+                      {project.summary || 'No description available'}
                       </span>
                     </div>
                     {/* {console.log('Project Summary:', project)} */}

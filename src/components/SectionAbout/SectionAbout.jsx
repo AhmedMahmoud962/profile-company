@@ -4,75 +4,41 @@ import { useThemeContext } from '../../context/ThemeContext'
 import './AboutSection.css'
 import { Link } from 'react-router-dom'
 import { getAboutServices } from '../API/AboutServices'
-// Removed unused import
 import imageAbout1 from '../../assets/images/about1.webp'
 import imageAbout2 from '../../assets/images/about2.webp'
 import imageAbout3 from '../../assets/images/about3.webp'
-import { getImageSizes } from '../utils/constants'
-
 const AboutSection = () => {
   const { darkMode } = useThemeContext()
   const location = useLocation()
   const [isMobile, setIsMobile] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
-  const [imageLoaded, setImageLoaded] = useState(false)
-  const [aboutData, setAboutData] = useState({})
+  const [aboutData, setAboutData] = useState({
+    title: 'Loading...',
+    description: '',
+  })
 
-  // Check if we're on the About page
   const isAboutPage = location.pathname === '/about'
 
+  // Fetch about data
   useEffect(() => {
-    const fetchAboutData = async () => {
-      try {
-        const response = await getAboutServices()
-        setAboutData(response.data)
-
-        // Preload the main about image for better LCP
-        const link = document.createElement('link')
-        link.rel = 'preload'
-        link.as = 'image'
-        link.href = imageAbout1
-        link.fetchPriority = 'high'
-        document.head.appendChild(link)
-      } catch (error) {
-        console.error('Error fetching about data:', error)
-        setAboutData({})
-      }
-    }
-    fetchAboutData()
+    getAboutServices()
+      .then((res) => setAboutData(res.data))
+      .catch((err) => console.error('Error fetching about data:', err))
   }, [])
 
+  // Handle mobile view
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768)
     checkMobile()
-
-    const controller = new AbortController()
-
-    window.addEventListener('resize', checkMobile, {
-      passive: true,
-      signal: controller.signal,
-    })
-
-    return () => {
-      controller.abort()
-    }
+    window.addEventListener('resize', checkMobile, { passive: true })
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
+  // Animation
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true)
-    }, 100)
-
+    const timer = setTimeout(() => setIsVisible(true), 100)
     return () => clearTimeout(timer)
   }, [])
-
-  // loading spinner
-  if (!aboutData) {
-    return <Spinner message="Loading about data..." />
-  }
   return (
     <div className={`about-container ${darkMode ? 'dark' : 'light'}`}>
       <div
@@ -81,84 +47,39 @@ const AboutSection = () => {
         }`}
       >
         <div className="image-container" style={{ '--delay': '0s' }}>
-          {/* Image placeholder */}
           <div className="image-placeholder first-image-placeholder">
             <img
               src={imageAbout2}
               alt="About Polygon Software"
               className="about-image"
-              width="300"
-              height="300"
-              sizes={getImageSizes('about')}
-              onLoad={() => setImageLoaded(true)}
-              style={{ opacity: imageLoaded ? 1 : 0 }}
+            
               loading="lazy"
               decoding="async"
-              fetchpriority="low"
             />
-            {/* <img
-              src={getImageUrl(aboutData.image)}
-              alt="About Polygon Software"
-              className="about-image"
-              width="300"
-              height="300"
-              onLoad={() => setImageLoaded(true)}
-              style={{ opacity: imageLoaded ? 1 : 0 }}
-              loading="lazy"
-            /> */}
-            {!imageLoaded && <div className="image-skeleton"></div>}
           </div>
-          {/* second image */}
+
           <div className="right-image-column">
             <div className="second-image-placeholder">
               <img
                 src={imageAbout1}
                 alt="About Polygon Software"
                 className="about-image"
-                width="368"
-                height="329"
-                sizes={getImageSizes('about')}
-                onLoad={() => setImageLoaded(true)}
-                style={{ opacity: imageLoaded ? 1 : 0 }}
+              
                 loading="eager"
                 fetchpriority="high"
                 decoding="async"
               />
-              {/* <img
-              src={getImageUrl(aboutData.image)}
-              alt="About Polygon Software"
-              className="about-image"
-              width="200"
-              height="200"
-              onLoad={() => setImageLoaded(true)}
-              style={{ opacity: imageLoaded ? 1 : 0 }}
-              loading="lazy"
-            /> */}
             </div>
-            {/* third image */}
+
             <div className="third-image-placeholder">
               <img
                 src={imageAbout3}
                 alt="About Polygon Software"
                 className="about-image"
-                width="211"
-                height="210"
-                sizes="(max-width: 768px) 150px, 211px"
-                onLoad={() => setImageLoaded(true)}
-                style={{ opacity: imageLoaded ? 1 : 0 }}
+
                 loading="lazy"
                 decoding="async"
               />
-              {/* <img
-              src={getImageUrl(aboutData.image)}
-              alt="About Polygon Software"
-              className="about-image"
-              width="150"
-              height="150"
-              onLoad={() => setImageLoaded(true)}
-              style={{ opacity: imageLoaded ? 1 : 0 }}
-              loading="lazy"
-            /> */}
             </div>
           </div>
         </div>
@@ -170,16 +91,10 @@ const AboutSection = () => {
           <h2 className={`main-title ${isMobile ? 'mobile' : ''}`}>
             {aboutData.title}
           </h2>
-          {/* <p className="description">{aboutData.description}</p> */}
           <div
             className={`about-description-text ${darkMode ? 'dark' : 'light'}`}
-            dangerouslySetInnerHTML={{
-              __html: aboutData.description,
-            }}
+            dangerouslySetInnerHTML={{ __html: aboutData.description }}
           />
-          {/* <p className="description">{aboutData.mission}</p> */}
-          {/* <p className="description">{aboutData.vision}</p> */}
-          {/* <p className="description">{aboutData.values}</p> */}
           <ul className="list-items">
             <li className="list-item">
               <span className="check-icon">✓</span>

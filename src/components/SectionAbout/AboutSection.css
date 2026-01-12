@@ -82,7 +82,7 @@
 .image-container .third-image-placeholder {
   width: 200px;
   height: 200px;
-  min-height: 200px;
+  /* min-height: 200px; */
   border-radius: 16px;
   overflow: hidden;
   aspect-ratio: 211 / 210;
@@ -91,7 +91,6 @@
 }
 
 .about-container .about-grid .image-container .about-image {
-  opacity: 0;
   transition: opacity 0.5s ease;
 }
 
